@@ -1,29 +1,49 @@
-<h2>Sign up</h2>
-
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
-
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+<div class="container mt-5 shadow mb-5 bg-white rounded text-secondary">
+  <div class="row justify-content-center">
+    <div class="col-xs-12 col-8 mt-5 text-dark">
+      <h3>新規アカウントを登録する</h3>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label :password %>
-    <% if @minimum_password_length %>
-    <em>(<%= @minimum_password_length %> characters minimum)</em>
-    <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-  </div>
+  <%= form_with(model: @user, url: user_registration_path, local: true ) do |f| %>
+    <div class="row justify-content-center">
+      <div class="col-8">
+        <%= render "devise/shared/error_messages", resource: resource %>
+      </div>
+    </div>
+    
+    <div class="row justify-content-center">
+      <div class="col-xs-12 col-8 mt-3">
+        <span class="badge bg-warning text-dark me-2 mb-1">必須</span><%= f.label :name %>
+        <%= f.text_field :name, class:"form-control", autofocus: true %>
+      </div>
+    </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
+    <div class="row justify-content-center">
+      <div class="col-xs-12 col-8 mt-3">
+        <span class="badge bg-warning text-dark me-2 mb-1">必須</span><%= f.label :email %>
+        <%= f.email_field :email, class:"form-control" %>
+      </div>
+    </div>
 
-  <div class="actions">
-    <%= f.submit "Sign up" %>
-  </div>
-<% end %>
+    <div class="row justify-content-center">
+      <div class="col-xs-12 col-8 mt-3">
+        <span class="badge bg-warning text-dark me-2 mb-1">必須</span><%= f.label :password %>
+        <%= f.password_field :password , class:"form-control" %>
+      </div>
+    </div>
 
-<%= render "devise/shared/links" %>
+    <div class="row justify-content-center">
+      <div class="col-xs-12 col-8 mt-3">
+        <span class="badge bg-warning text-dark me-2 mb-1">必須</span><%= f.label :password_confirmation %>
+        <%= f.password_field :password_confirmation, class:"form-control"  %>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-xs-12 col-8 mt-3 mb-5">
+        <%= f.submit "アカウントを作成する", class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>
