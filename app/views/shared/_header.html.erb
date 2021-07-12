@@ -1,0 +1,36 @@
+<nav class="navbar navbar-expand-lg sticky-top navbar-light bg-warning">
+  <div class="container-fluid">
+    <%= link_to "Baby Go", root_url, class:"navbar-brand" %>
+    <button class="navbar-toggler mb-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">現在地から探す</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">人気ランキング</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">スポットを投稿する</a>
+        </li>
+      </ul>
+      <% if user_signed_in? %>
+        <button type="button" class="btn btn-warning border-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+          アカウント
+        </button>
+        <ul class="dropdown-menu dropdown-menu-end">
+          <li><%= link_to "マイページ", "", class:"dropdown-item" %></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class:"dropdown-item" %></li>
+        </ul>
+      <% else %>
+        <div class="">
+          <%= link_to "ログイン", new_user_session_path, class:"btn light" %>
+          <%= link_to "新規登録", new_user_registration_path, class:"btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</nav>
