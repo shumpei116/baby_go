@@ -1,6 +1,6 @@
 <div class="container mt-5 shadow mb-5 bg-white rounded text-secondary">
   <div class="row justify-content-center">
-    <div class="col-xs-12 col-8 mt-5 text-dark">
+    <div class="col-8 mt-5 text-dark">
       <h3>アカウントを編集する</h3>
     </div>
   </div>
@@ -13,42 +13,42 @@
     </div>
     
     <div class="row justify-content-center">
-      <div class="col-xs-12 col-8 mt-3　form-floating">
+      <div class="col-8 mt-3　form-floating">
         <%= f.label :name %>
         <%= f.text_field :name, class:"form-control", autofocus: true %>
       </div>
     </div>
 
     <div class="row justify-content-center">
-      <div class="col-xs-12 col-8 mt-3">
+      <div class="col-8 mt-3">
         <%= f.label :introduction %>
         <%= f.text_area :introduction, class:"form-control " %>
       </div>
     </div>
 
     <div class="row justify-content-center">
-      <div class="col-xs-12 col-8 mt-3">
+      <div class="col-8 mt-3">
         <%= f.label :email %>
         <%= f.email_field :email, class:"form-control" %>
       </div>
     </div>
 
     <div class="row justify-content-center">
-      <div class="col-xs-12 col-8 mt-3">
+      <div class="col-8 mt-3">
         <%= f.label :password %>
         <%= f.password_field :password , class:"form-control" %>
       </div>
     </div>
 
     <div class="row justify-content-center">
-      <div class="col-xs-12 col-8 mt-3">
+      <div class="col-8 mt-3">
         <%= f.label :password_confirmation %>
         <%= f.password_field :password_confirmation, class:"form-control"  %>
       </div>
     </div>
 
     <div class="row justify-content-center">
-      <div class="col-xs-12 col-8 mt-3 mb-5">
+      <div class="col-8 mt-3 mb-5">
         <%= f.submit "アカウントを変更する", class: "btn btn-primary" %>
       </div>
     </div>

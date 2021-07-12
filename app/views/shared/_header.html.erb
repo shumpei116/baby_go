@@ -21,15 +21,15 @@
           アカウント
         </button>
         <ul class="dropdown-menu dropdown-menu-end">
-          <li><%= link_to "マイページ", "", class:"dropdown-item" %></li>
+          <li><%= link_to "マイページ", user_path(current_user), class:"dropdown-item" %></li>
           <li><hr class="dropdown-divider"></li>
           <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete, class:"dropdown-item" %></li>
         </ul>
       <% else %>
-        <div class="">
-          <%= link_to "ログイン", new_user_session_path, class:"btn light" %>
-          <%= link_to "新規登録", new_user_registration_path, class:"btn btn-primary" %>
-        </div>
+          <ul class="navbar-nav">
+            <li><%= link_to "ログイン", new_user_session_path, class:"nav-link" %></li>
+            <li><%= link_to "新規登録", new_user_registration_path, class:"btn btn-primary" %></li>
+          </ul>
       <% end %>
     </div>
   </div>

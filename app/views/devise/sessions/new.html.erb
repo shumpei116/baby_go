@@ -1,6 +1,6 @@
 <div class="container mt-5 shadow mb-5 bg-white rounded text-secondary">
   <div class="row justify-content-center">
-    <div class="col-xs-12 col-8 mt-5 text-dark">
+    <div class="col-8 mt-5 text-dark">
       <h3>ログイン</h3>
     </div>
   </div>
@@ -13,28 +13,28 @@
     </div>
 
     <div class="row justify-content-center">
-      <div class="col-xs-12 col-8 mt-3">
+      <div class="col-8 mt-3">
         <%= f.label :email %>
         <%= f.email_field :email, class:"form-control", autofocus: true %>
       </div>
     </div>
 
     <div class="row justify-content-center">
-      <div class="col-xs-12 col-8 mt-3">
+      <div class="col-8 mt-3">
         <%= f.label :password %>
         <%= f.password_field :password , class:"form-control" %>
       </div>
     </div>
 
     <div class="row justify-content-center">
-      <div class="col-xs-12 col-8 mt-3">
+      <div class="col-8 mt-3">
         <%= f.check_box :remember_me %>
         <%= f.label "次回から自動的にログイン" %>
       </div>
     </div>
 
     <div class="row justify-content-center">
-      <div class="col-xs-12 col-8 mt-3 mb-5">
+      <div class="col-8 mt-3 mb-5">
         <%= f.submit "  Log in  ", class: "btn btn-primary" %>
       </div>
     </div>
