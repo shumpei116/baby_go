@@ -4,7 +4,7 @@
     <div class="col-md-4 col-12 bg-primary">
       <p>
         <strong>Avatar:</strong>
-        <%= image_tag(@user.avatar_url, width: 300) if @user.avatar? %>
+        <%= image_tag(@user.avatar.medium_thumb.url, alt:"ユーザー画像") %>
       </p>
     </div>
     <div class="col-md-8 col-12 bg-info">
