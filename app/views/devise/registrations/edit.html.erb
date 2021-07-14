@@ -14,7 +14,7 @@
     
     <div class="row justify-content-center">
       <div class="col-8 mt-3">
-        <%= image_tag(@user.avatar.thumb.url, alt:"ユーザー画像") if @user.avatar? %>
+        <%= image_tag(@user.avatar.thumb.url, alt:"ユーザー画像") %>
       </div>
     </div>
 
@@ -22,8 +22,10 @@
       <div class="col-8 mt-3">
         <%= f.file_field :avatar, class:"form-control" %>
         <%= f.hidden_field :avatar_cache %>
-        <%= f.check_box :remove_avatar %>
-        Remove avatar
+        <% unless @user.avatar.blank? %>
+          <%= f.check_box :remove_avatar %>
+          画像を削除する
+        <% end %>
       </div>
     </div>
 
