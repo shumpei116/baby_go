@@ -1,20 +1,22 @@
-<div class="container mt-5">
-  <h2>マイページ</h2>
-  <div class="row mt-3">
-    <div class="col-md-4 col-12 bg-primary">
-      <%= image_tag(@user.avatar.medium_thumb.url, class:"m-3", alt:"ユーザー画像") %>
-    </div>
-    <div class="col-md-8 col-12 bg-info">
-      <div class="mt-5 my-3">
-        <p>名前    :　<%= current_user.name %></p>
-        <p>自己紹介 :　<%= current_user.introduction %></p>
-        <p>更新日  :  <%= current_user.updated_at %></p>
+<div class="container my-5">
+  <div class="card border-warning mb-3">
+    <div class="row g-0">
+      <div class="col-md-4">
+        <%= image_tag(@user.avatar.medium_thumb.url, class:"m-3 img-fluid", alt:"ユーザー画像") %>
+      </div>
+      <div class="col-md-8">
+        <div class="card-body d-grid gap-2">
+          <h5 class="card-title">名前：<%= current_user.name %></h5>
+          <p class="card-text">自己紹介：<%= current_user.introduction %></p>
+          <p class="card-text"><small>アカウント更新：<%= current_user.updated_at %></small></p>
+          <%= link_to "編集", edit_user_registration_path, class:"btn btn-warning" %>
+        </div>
       </div>
     </div>
   </div>
 </div>
 
-<div class="container mt-5">
+<div class="container">
   <ul class="nav nav-tabs" id="myTab" role="tablist">
     <li class="nav-item" role="presentation">
       <%= link_to "投稿したスポット一覧（後から編集）", "#", class:"nav-link active", 'id': :"home-tab", 'data-bs-toggle': :"tab", 'role': :"tab",  'aria-controls': :"#", 'aria-selected': :"true" %>
