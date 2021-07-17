@@ -9,7 +9,8 @@ RSpec.describe User, type: :model do
   describe "名前のテスト" do
     it "名前がないときは無効であること" do
       user = build(:user, name: nil) 
-      expect(user).to be_invalid
+      user.valid?
+      expect(user.errors[:name]).to include("が入力されていません")
     end
 
     context "20文字以下の時" do
@@ -22,7 +23,8 @@ RSpec.describe User, type: :model do
     context "21文字以上の時" do
       it "無効であること" do
         user = build(:user, name: "a" * 21) 
-        expect(user).to be_invalid
+        user.valid?
+        expect(user.errors[:name]).to include("は20文字以下に設定して下さい")
       end
     end
   end
@@ -30,13 +32,15 @@ RSpec.describe User, type: :model do
   describe "メールアドレスのテスト" do
     it "メールアドレスがない時は無効であること" do
       user = build(:user, email: nil) 
-      expect(user).to be_invalid
+      user.valid?
+      expect(user.errors[:email]).to include("が入力されていません")
     end
   
     it "重複したメールアドレスは無効であること" do
       create(:user, email: "shumpei@example.com")
       user = build(:user, email: "shumpei@example.com") 
-      expect(user).to be_invalid
+      user.valid?
+      expect(user.errors[:email]).to include("は既に使用されています")
     end
   
     it "保存時に小文字に変換されること" do
@@ -54,7 +58,8 @@ RSpec.describe User, type: :model do
     context "256文字以上の時" do
       it "無効であること" do
         user = build(:user, email: "a" * 244 + "@example.com") 
-        expect(user).to be_invalid
+        user.valid?
+        expect(user.errors[:email]).to include("は255文字以下に設定して下さい")
       end
     end
 
@@ -75,7 +80,8 @@ RSpec.describe User, type: :model do
           foo@bar_baz.com foo@bar+baz.com foo@bar..com]
         invalid_addresses.each do |invalid_address|
         user = build(:user, email: invalid_address)
-        expect(user).to be_invalid
+        user.valid?
+        expect(user.errors[:email]).to include("は有効でありません")
         end
       end
     end
@@ -84,39 +90,43 @@ RSpec.describe User, type: :model do
   describe "パスワードのテスト" do
     it "パスワードがないときは無効であること" do
       user = build(:user, password: nil) 
-      expect(user).to be_invalid
+      user.valid?
+      expect(user.errors[:password]).to include("が入力されていません")
     end
 
     it "パスワードとパスワードコンファメーションが一致しないときは無効であること" do
-      user = build(:user, password: "password", password_confirmation: "111111") 
-      expect(user).to be_invalid
+      user = build(:user, password: "password", password_confirmation: "111111")
+      user.valid?
+      expect(user.errors[:password_confirmation]).to include("が間違っています")
     end
 
     context "6文字以上の時" do
       it "有効であること" do
-        user = build(:user, password: "a" * 6, password_confirmation: "a" * 6) 
+        user = build(:user, password: "a" * 6, password_confirmation: "a" * 6)
         expect(user).to be_valid
       end
     end
 
     context "6文字以下の時" do
       it "無効であること" do
-        user = build(:user, password: "a" * 5, password_confirmation: "a" * 5) 
-        expect(user).to be_invalid
+        user = build(:user, password: "a" * 5, password_confirmation: "a" * 5)
+        user.valid?
+        expect(user.errors[:password]).to include("は6文字以上に設定して下さい")
       end
     end
 
     context "128文字以下の時" do
       it "有効であること" do
-        user = build(:user, password: "a" * 128, password_confirmation: "a" * 128) 
+        user = build(:user, password: "a" * 128, password_confirmation: "a" * 128)
         expect(user).to be_valid
       end
     end
 
     context "129文字以上の時" do
       it "無効であること" do
-        user = build(:user, password: "a" * 129, password_confirmation: "a" * 129) 
-        expect(user).to be_invalid
+        user = build(:user, password: "a" * 129, password_confirmation: "a" * 129)
+        user.valid?
+        expect(user.errors[:password]).to include("は128文字以下に設定して下さい")
       end
     end
   end

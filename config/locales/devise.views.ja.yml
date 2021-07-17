@@ -5,27 +5,27 @@ ja:
         user:
           attributes:
             name:
-              taken: "は既に使用されています。"
-              blank: "が入力されていません。"
-              too_short: "は%{count}文字以上に設定して下さい。"
-              too_long: "は%{count}文字以下に設定して下さい。"
-              invalid: "は有効でありません。"
+              taken: "は既に使用されています"
+              blank: "が入力されていません"
+              too_short: "は%{count}文字以上に設定して下さい"
+              too_long: "は%{count}文字以下に設定して下さい"
+              invalid: "は有効でありません"
             email:
-              taken: "は既に使用されています。"
-              blank: "が入力されていません。"
-              too_short: "は%{count}文字以上に設定して下さい。"
-              too_long: "は%{count}文字以下に設定して下さい。"
-              invalid: "は有効でありません。"
+              taken: "は既に使用されています"
+              blank: "が入力されていません"
+              too_short: "は%{count}文字以上に設定して下さい"
+              too_long: "は%{count}文字以下に設定して下さい"
+              invalid: "は有効でありません"
             password:
-              taken: "は既に使用されています。"
-              blank: "が入力されていません。"
-              too_short: "は%{count}文字以上に設定して下さい。"
-              too_long: "は%{count}文字以下に設定して下さい。"
-              invalid: "は有効でありません。"
-              confirmation: "が内容とあっていません。"
+              taken: "は既に使用されています"
+              blank: "が入力されていません"
+              too_short: "は%{count}文字以上に設定して下さい"
+              too_long: "は%{count}文字以下に設定して下さい"
+              invalid: "は有効でありません"
+              confirmation: "が内容とあっていません"
             password_confirmation:
-              invalid: "は有効でありません。"
-              confirmation: "が間違っています。"
+              invalid: "は有効でありません"
+              confirmation: "が間違っています"
     attributes:
       user:
         name: "名前"
@@ -50,14 +50,14 @@ ja:
       reset_password_instructions:
         action: "パスワード変更"
         greeting: "こんにちは、%{recipient}さん!"
-        instruction: "誰かがパスワードの再設定を希望しました。次のリンクでパスワードの再設定が出来ます。"
-        instruction_2: "あなたが希望したのではないのなら、このメールは無視してください。"
-        instruction_3: "上のリンクにアクセスして新しいパスワードを設定するまで、パスワードは変更されません。"
+        instruction: "誰かがパスワードの再設定を希望しました。次のリンクでパスワードの再設定が出来ます"
+        instruction_2: "あなたが希望したのではないのなら、このメールは無視してください"
+        instruction_3: "上のリンクにアクセスして新しいパスワードを設定するまで、パスワードは変更されません"
       unlock_instructions:
         action: "アカウントのロック解除"
         greeting: "こんにちは、%{recipient}さん!"
-        instruction: "アカウントのロックを解除するには下のリンクをクリックしてください。"
-        message: "ログイン失敗が繰り返されたため、アカウントはロックされています。"
+        instruction: "アカウントのロックを解除するには下のリンクをクリックしてください"
+        message: "ログイン失敗が繰り返されたため、アカウントはロックされています"
     passwords:
       edit:
         change_my_password: "パスワードを変更する"
