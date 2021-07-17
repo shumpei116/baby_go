@@ -40,6 +40,7 @@ group :development, :test do
   gem 'pry-rails'
   gem 'rspec-rails'
   gem 'spring-commands-rspec'
+  gem 'factory_bot_rails'
 end
 
 group :development do
