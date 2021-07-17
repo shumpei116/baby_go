@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html class="h-100">
 <html>
   <head>
     <title>BabyGo</title>
@@ -11,9 +11,10 @@
     <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="d-flex flex-column h-100">
     <%= render "shared/header" %>
     <%= render "shared/flash_messages"%>
     <%= yield %>
+    <%= render "shared/footer" %>
   </body>
 </html>
