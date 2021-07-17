@@ -18,7 +18,7 @@
       </ul>
       <% if user_signed_in? %>
         <button type="button" class="btn btn-warning border-dark dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-          アカウント
+          <%= current_user.name %>
         </button>
         <ul class="dropdown-menu dropdown-menu-end">
           <li><%= link_to "マイページ", user_path(current_user), class:"dropdown-item" %></li>
