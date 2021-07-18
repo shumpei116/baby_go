@@ -4,7 +4,7 @@ FactoryBot.define do
     email { "test@example.com" }
     password { "password" }
 
-    trait :invalid do
+    trait :invalid_signup do
       email { "" }
     end
   end

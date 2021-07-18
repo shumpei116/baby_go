@@ -47,18 +47,18 @@ RSpec.describe "Registrations", type: :request do
 
     context "パラメーターが正しくないとき" do
       it '200レスポンスが返ってくること' do
-        post user_registration_path, params: { user: attributes_for(:user, :invalid) }
+        post user_registration_path, params: { user: attributes_for(:user, :invalid_signup) }
         expect(response).to have_http_status(200)
       end
 
       it 'ユーザーが登録されないこと' do
         expect {
-          post user_registration_path, params: { user: attributes_for(:user, :invalid) }
+          post user_registration_path, params: { user: attributes_for(:user, :invalid_signup) }
         }.to_not change(User, :count)
       end
 
       it 'エラーが表示されること' do
-        post user_registration_path, params: { user: attributes_for(:user, :invalid) }
+        post user_registration_path, params: { user: attributes_for(:user, :invalid_signup) }
         expect(response.body).to include 'メールアドレス が入力されていません'
       end
     end
@@ -124,18 +124,18 @@ RSpec.describe "Registrations", type: :request do
 
     context 'パラメーターが正しくないとき' do
       it '200レスポンスが返ってくること' do
-        patch user_registration_path, params: { user: attributes_for(:user, :invalid) }
+        patch user_registration_path, params: { user: attributes_for(:user, :invalid_signup) }
         expect(response).to have_http_status(200)
       end
 
       it 'ユーザー名が変更されないこと' do
         expect {
-          patch user_registration_path, params: { user: attributes_for(:user, :invalid) }
+          patch user_registration_path, params: { user: attributes_for(:user, :invalid_signup) }
         }.to_not change(User.find(user.id), :name)
       end
 
       it 'エラーが表示されること' do
-        patch user_registration_path, params: { user: attributes_for(:user, :invalid) }
+        patch user_registration_path, params: { user: attributes_for(:user, :invalid_signup) }
         expect(response.body).to include 'メールアドレス が入力されていません'
       end
     end
