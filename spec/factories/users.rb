@@ -1,11 +1,11 @@
 FactoryBot.define do
   factory :user do
-    name { "test" }
-    email { "test@example.com" }
-    password { "password" }
+    name { 'test' }
+    email { 'test@example.com' }
+    password { 'password' }
 
     trait :invalid_signup do
-      email { "" }
+      email { '' }
     end
   end
 end

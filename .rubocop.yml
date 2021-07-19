@@ -5,6 +5,7 @@ inherit_from: .rubocop_todo.yml
 require:
   - rubocop-rails
 
+# 全てのcops
 AllCops:
   # 新しい規約を適用する
   NewCops: enable
@@ -18,6 +19,20 @@ AllCops:
     - 'db/**/*'
     - 'config/**/*'
     - 'app/uploaders/avatar_uploader.rb'
+    - 'spec/rails_helper.rb'
+    - 'spec/spec_helper.rb'
+
+#　特定のcops
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+
+Style/BlockDelimiters:
+  Exclude:
+    - 'spec/**/*'
+
+Rails/LexicallyScopedActionFilter:
+  Exclude:
     - 'app/controllers/users/registrations_controller.rb'
 
 # 日本語でのコメントを許可
