@@ -318,7 +318,7 @@ PLATFORMS
 
 DEPENDENCIES
   bootsnap (>= 1.4.4)
-  capybara (>= 3.26)
+  capybara
   carrierwave
   devise
   devise-i18n
@@ -338,7 +338,6 @@ DEPENDENCIES
   rubocop
   rubocop-rails
   sass-rails (>= 6)
-  selenium-webdriver
   spring
   spring-commands-rspec
   turbolinks (~> 5)
