@@ -9,7 +9,7 @@ FactoryBot.define do
     end
 
     trait :with_avatar do
-      avatar { File.open(Rails.root.join('spec/factories/test_image.jpg')) }
+      avatar { File.open(Rails.root.join('spec/factories/avatar/valid_image.jpg')) }
     end
   end
 end
