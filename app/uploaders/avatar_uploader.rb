@@ -34,8 +34,4 @@ class AvatarUploader < CarrierWave::Uploader::Base
   def extension_allowlist
     %w(jpg jpeg gif png)
   end
-
-  def content_type_whitelist
-    /image\//
-  end
 end
