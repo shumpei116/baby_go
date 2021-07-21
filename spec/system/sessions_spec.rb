@@ -43,8 +43,4 @@ RSpec.describe 'Sessions', type: :system do
       expect(page).to have_selector '.alert-notice', text: 'ログアウトしました'
     end
   end
-
-  describe 'フレンドリフォワーディングのテスト' do
-    it 'ログイン前にリクエストしたページにリダイレクトされること(後で作成する)'
-  end
 end
