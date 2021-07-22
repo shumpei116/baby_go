@@ -8,5 +8,5 @@ class Store < ApplicationRecord
   validates :prefecture_code, presence: true
   validates :city, presence: true, uniqueness: true
   VALID_URL_REGEX = /https?:\/{2}[\w\/:%#\$&\?\(\)~\.=\+\-]+/.freeze
-  validates :url, format: { with: VALID_URL_REGEX }
+  validates :url, format: { with: VALID_URL_REGEX }, allow_nil: true
 end
