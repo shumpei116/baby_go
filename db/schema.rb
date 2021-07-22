@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_21_234805) do
+ActiveRecord::Schema.define(version: 2021_07_22_091636) do
 
   create_table "stores", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2021_07_21_234805) do
     t.string "image"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["city"], name: "index_stores_on_city", unique: true
     t.index ["user_id"], name: "index_stores_on_user_id"
   end
 
