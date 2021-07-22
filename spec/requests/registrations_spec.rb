@@ -59,7 +59,7 @@ RSpec.describe 'Registrations', type: :request do
 
       it 'エラーが表示されること' do
         post user_registration_path, params: { user: attributes_for(:user, :invalid_signup) }
-        expect(response.body).to include 'メールアドレス が入力されていません'
+        expect(response.body).to include 'メールアドレスが入力されていません'
       end
     end
   end
@@ -136,7 +136,7 @@ RSpec.describe 'Registrations', type: :request do
 
       it 'エラーが表示されること' do
         patch user_registration_path, params: { user: attributes_for(:user, :invalid_signup) }
-        expect(response.body).to include 'メールアドレス が入力されていません'
+        expect(response.body).to include 'メールアドレスが入力されていません'
       end
     end
   end
