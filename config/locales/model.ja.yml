@@ -39,6 +39,12 @@ ja:
             password_confirmation:
               invalid: "は有効でありません"
               confirmation: "が間違っています"
+        store:
+          taken: "は既に使用されています"
+          blank: "が入力されていません"
+          too_short: "は%{count}文字以上に設定して下さい"
+          too_long: "は%{count}文字以下に設定して下さい"
+          invalid: "は有効でありません"
     attributes:
       user:
         name: "名前"
@@ -49,5 +55,14 @@ ja:
         password_confirmation: "確認用パスワード"
         remember_me: "ログインを記憶"
         avatar: "ユーザー画像"
+      store:
+        name: "施設の名前"
+        introduction: "施設の紹介"
+        postcode: "郵便番号"
+        prefecture_code: "都道府県"
+        city: "市区町村番地"
+        url: "施設サイト"
+        image: "施設の画像"
     models:
       user: "ユーザー"
+      store: "施設の名前"
