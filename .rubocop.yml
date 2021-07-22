@@ -35,6 +35,10 @@ Rails/LexicallyScopedActionFilter:
   Exclude:
     - 'app/controllers/users/registrations_controller.rb'
 
+Style/EmptyMethod:
+  Exclude:
+    - 'app/controllers/**/*'
+
 # 日本語でのコメントを許可
 AsciiComments:
   Enabled: false
