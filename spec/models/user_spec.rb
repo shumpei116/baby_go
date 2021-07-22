@@ -130,4 +130,21 @@ RSpec.describe User, type: :model do
       end
     end
   end
+
+    describe "storeモデルアソシエーションのテスト" do
+      it "ユーザーに関連したstoreが作成できること" do
+        user = create(:user)
+        store = user.stores.create!(name: "東松屋", introduction: "広くていい場所です", postcode: "1000000", prefecture_code: "8", city: "土浦市123-234")
+        user.reload
+        expect(user.stores.count).to eq 1
+      end
+
+      it "ユーザーが削除されたら関連したstoreも削除されること" do
+        user = create(:user)
+        store = user.stores.create!(name: "東松屋", introduction: "広くていい場所です", postcode: "1000000", prefecture_code: "8", city: "土浦市123-234")
+        user.destroy
+        expect(user.stores.count).to eq 0
+      end
+    end
+    
 end
