@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Store, type: :model do
-  it "パラメータが全て正しいとき有効であること" do
+  it 'パラメータが全て正しいとき有効であること' do
     store = build(:store)
     expect(store).to be_valid
   end
@@ -38,14 +38,14 @@ RSpec.describe Store, type: :model do
 
     context '140文字以下の時' do
       it '有効であること' do
-        store = build(:store, introduction: "#{'a' * 140}")
+        store = build(:store, introduction: ('a' * 140).to_s)
         expect(store).to be_valid
       end
     end
 
     context '141文字以上の時' do
       it '無効であること' do
-        store = build(:store, introduction: "#{'a' * 141}")
+        store = build(:store, introduction: ('a' * 141).to_s)
         store.valid?
         expect(store.errors[:introduction]).to include('は140文字以下に設定して下さい')
       end
@@ -96,9 +96,9 @@ RSpec.describe Store, type: :model do
       expect(store.errors[:city]).to include('が入力されていません')
     end
 
-    it "重複した市区町村番地は無効であること" do
-      create(:store, city: "ひたちなか市新光町35")
-      store = build(:store, city: "ひたちなか市新光町35")
+    it '重複した市区町村番地は無効であること' do
+      create(:store, city: 'ひたちなか市新光町35')
+      store = build(:store, city: 'ひたちなか市新光町35')
       store.valid?
       expect(store.errors[:city]).to include('は既に使用されています')
     end
@@ -117,7 +117,8 @@ RSpec.describe Store, type: :model do
 
     context '正しくないフォーマットのとき' do
       it '無効であること' do
-        invalid_urls = %w[http:://hogehoge.examplecom htt://hogehoge.example.com htps://WorlD.examPle.com/hoge/foobar hogehoge.example.com]
+        invalid_urls = %w[http:://hogehoge.examplecom htt://hogehoge.example.com htps://WorlD.examPle.com/hoge/foobar
+                          hogehoge.example.com]
         invalid_urls.each do |invalid_url|
           store = build(:store, url: invalid_url)
           store.valid?
