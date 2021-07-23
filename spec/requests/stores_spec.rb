@@ -2,6 +2,38 @@ require 'rails_helper'
 
 RSpec.describe 'Stores', type: :request do
   let(:user) { create(:user, name: 'chiaki', email: 'chiaki@example.com') }
+  let(:store) { create(:store, name: 'あかちゃん本舗', introduction: '綺麗な授乳室でした',
+                              postcode: '1111111', prefecture_code: '北海道', city: "函館市1-1-1") }
+  describe 'GET #show' do
+    before do
+      get store_path(store)
+    end
+
+    it '200レスポンスが返ってくること' do
+      expect(response).to have_http_status(200)
+    end
+
+    it '施設名が含まれること' do
+      expect(response.body).to include 'あかちゃん本舗'
+    end
+
+    it '施設紹介が含まれること' do
+      expect(response.body).to include '綺麗な授乳室でした'
+    end
+
+    it '郵便番号が含まれること' do
+      expect(response.body).to include '1111111'
+    end
+
+    it '都道府県名が含まれること' do
+      expect(response.body).to include '北海道'
+    end
+
+    it '市区町村名が含まれること' do
+      expect(response.body).to include '函館市1-1-1'
+    end
+  end
+
   describe 'GET #new' do
     context 'ユーザーがログイン済みのとき' do
       before do
