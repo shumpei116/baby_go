@@ -11,11 +11,17 @@ class StoresController < ApplicationController
   end
 
   def new
-    @store = @user.stores.build
+    @store = current_user.stores.build
   end
 
   def create
-    @store = @user.stores.build(store_params)
+    @store = current_user.stores.build(store_params)
+    if @store.save
+      flash[:success] = "施設を登録したよ！ありがとう！"
+      redirect_to store_path(@store)
+    else
+      render 'new'
+    end
   end
 
   def edit
@@ -39,11 +45,11 @@ class StoresController < ApplicationController
   private
 
   def store_params
-    params.require(:store).premit(:name, :introduction, :postcode, :prefecture_code, :city, :url)
+    params.require(:store).permit(:name, :introduction, :postcode, :prefecture_code, :city, :url)
   end
 
   def find_store
-    @store = Store.find(pramas: [:id])
+    @store = Store.find(params[:id])
   end
 
   def correct_user
