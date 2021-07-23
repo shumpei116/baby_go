@@ -1,14 +1,14 @@
 require 'rails_helper'
 
-RSpec.describe "Stores", type: :system do
+RSpec.describe 'Stores', type: :system do
   describe '施設新規登録のテスト' do
     let(:user) { create(:user, name: 'shumpei', email: 'shumpei@example.com') }
-    context "ログインしているとき" do
+    context 'ログインしているとき' do
       before do
         sign_in(user)
         visit new_store_path
       end
-  
+
       context 'フォームの入力値が正しいとき' do
         it '施設の登録に成功すること' do
           expect {
@@ -23,7 +23,7 @@ RSpec.describe "Stores", type: :system do
           }.to change(Store, :count).by(1)
         end
       end
-  
+
       context 'フォームの入力値が正しくないとき' do
         it '施設の登録に失敗すること' do
           expect {
@@ -40,8 +40,8 @@ RSpec.describe "Stores", type: :system do
       end
     end
 
-    context "ログインしていないとき" do
-      it "ログインページにリダイレクトされること" do
+    context 'ログインしていないとき' do
+      it 'ログインページにリダイレクトされること' do
         visit new_store_path
         expect(current_path).to eq new_user_session_path
         expect(page).to have_selector '.alert-alert', text: 'ログインもしくはアカウント登録してください'

@@ -44,8 +44,8 @@ RSpec.describe 'Sessions', type: :system do
     end
   end
 
-  describe "フレンドリフォワーディングのテスト" do
-    it "ログイン後にリクエストしたページにリダイレクトされること" do
+  describe 'フレンドリフォワーディングのテスト' do
+    it 'ログイン後にリクエストしたページにリダイレクトされること' do
       visit root_path
       click_link '施設を投稿する'
       expect(current_path).to eq new_user_session_path

@@ -17,7 +17,7 @@ class StoresController < ApplicationController
   def create
     @store = current_user.stores.build(store_params)
     if @store.save
-      flash[:success] = "施設を登録したよ！ありがとう！"
+      flash[:success] = '施設を登録したよ！ありがとう！'
       redirect_to store_path(@store)
     else
       render 'new'
