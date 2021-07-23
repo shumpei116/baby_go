@@ -1,2 +1,38 @@
-<h1>Stores#show</h1>
-<p>Find me in app/views/stores/show.html.erb</p>
+<div class="container">
+  <div class="row mt-5">
+    <div class="col-12">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-6">
+          <%= image_tag(@store.user.avatar.url, class:"m-3 img-fluid mx-auto img-thumbnail", alt:"施設画像") %>
+          <figcaption class="figure-caption">投稿者：<%= @store.user.name %></figcaption>
+        </div>
+        <div class="col-12 col-md-6 mt-5">
+          <table class="table table-borderless">
+            <tbody>
+              <tr>
+                <th scope="row">施設名:</th>
+                <td><%= @store.name %></td>
+              </tr>
+              <tr>
+                <th scope="row">施設紹介:</th>
+                <td><%= @store.introduction %></td>
+              </tr>
+              <tr>
+                <th scope="row">施設URL:</th>
+                <td><%= @store.url %></td>
+              </tr>
+              <tr>
+                <th scope="row">住所:</th>
+                <td colspan="2">〒<%= @store.postcode %></td>
+              </tr>
+              <tr>
+                <th scope="row"></th>
+                <td colspan="2"> <%= @store.prefecture_code%> <%= @store.city %></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
