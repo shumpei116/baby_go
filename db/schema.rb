@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_07_22_091636) do
+ActiveRecord::Schema.define(version: 2021_07_23_071100) do
 
   create_table "stores", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.string "name", null: false
     t.text "introduction", null: false
     t.integer "postcode", null: false
-    t.integer "prefecture_code", null: false
+    t.string "prefecture_code", null: false
     t.string "city", null: false
     t.string "url"
     t.string "image"
