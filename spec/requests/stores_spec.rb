@@ -2,8 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'Stores', type: :request do
   let(:user) { create(:user, name: 'chiaki', email: 'chiaki@example.com') }
-  let(:store) { create(:store, name: 'あかちゃん本舗', introduction: '綺麗な授乳室でした',
-                              postcode: '1111111', prefecture_code: '北海道', city: "函館市1-1-1") }
+  let(:store) {
+    create(:store, name: 'あかちゃん本舗', introduction: '綺麗な授乳室でした',
+                   postcode: '1111111', prefecture_code: '北海道', city: '函館市1-1-1')
+  }
   describe 'GET #show' do
     before do
       get store_path(store)

@@ -49,26 +49,28 @@ RSpec.describe 'Stores', type: :system do
     end
   end
 
-  describe "詳細ページのテスト" do
+  describe '詳細ページのテスト' do
     let(:user) { create(:user, name: 'shumpei', email: 'shumpei@example.com') }
-    let(:store) { create(:store, name: 'あかちゃん本舗', introduction: '綺麗な授乳室でした',postcode: '1111111',
-                          prefecture_code: '北海道', city: "函館市1-1-1", url: 'https://stores.akachan.jp/224', user: user) }
+    let(:store) {
+      create(:store, name: 'あかちゃん本舗', introduction: '綺麗な授乳室でした', postcode: '1111111',
+                     prefecture_code: '北海道', city: '函館市1-1-1', url: 'https://stores.akachan.jp/224', user: user)
+    }
 
     before do
       visit store_path(store)
     end
 
-    it "施設情報が表示されていること" do
-      expect(page).to have_content "あかちゃん本舗"
-      expect(page).to have_content "綺麗な授乳室でした"
-      expect(page).to have_link "https://stores.akachan.jp/224"
-      expect(page).to have_content "1111111"
-      expect(page).to have_content "北海道"
-      expect(page).to have_content "函館市1-1-1"
-      expect(page).to have_selector("img[alt=施設画像]")
+    it '施設情報が表示されていること' do
+      expect(page).to have_content 'あかちゃん本舗'
+      expect(page).to have_content '綺麗な授乳室でした'
+      expect(page).to have_link 'https://stores.akachan.jp/224'
+      expect(page).to have_content '1111111'
+      expect(page).to have_content '北海道'
+      expect(page).to have_content '函館市1-1-1'
+      expect(page).to have_selector('img[alt=施設画像]')
     end
 
-    it "投稿者名が表示されていること" do
+    it '投稿者名が表示されていること' do
       expect(page).to have_selector '.figure-caption', text: 'shumpei'
     end
   end
