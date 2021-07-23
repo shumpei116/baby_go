@@ -7,5 +7,9 @@ FactoryBot.define do
     prefecture_code { '8' }
     city { 'ひたちなか市新光町35' }
     url { 'https://stores.akachan.jp/224' }
+
+    trait :invalid do
+      name { '' }
+    end
   end
 end

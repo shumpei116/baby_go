@@ -97,4 +97,4 @@ ja:
         image: "施設の画像"
     models:
       user: "ユーザー"
-      store: "施設の名前"
+      store: "施設"
