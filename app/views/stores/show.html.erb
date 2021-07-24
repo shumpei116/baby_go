@@ -3,8 +3,11 @@
     <div class="col-12">
       <div class="row justify-content-center">
         <div class="col-12 col-md-6">
+          <h2><%= @store.name %></h2>
           <%= image_tag(@store.user.avatar.url, class:"m-3 img-fluid mx-auto img-thumbnail", alt:"施設画像") %>
-          <figcaption class="figure-caption">投稿者：<%= @store.user.name %></figcaption>
+          <%= link_to user_path(@store.user), class:"text-decoration-none text-reset" do %>
+              <figcaption class="figure-caption">情報提供者：<%= @store.user.name %></figcaption>
+            <% end %>
         </div>
         <div class="col-12 col-md-6 mt-5">
           <table class="table table-borderless">
