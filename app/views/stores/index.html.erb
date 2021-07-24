@@ -1,2 +1,26 @@
-<h1>Stores#index</h1>
-<p>Find me in app/views/stores/index.html.erb</p>
+<div class="container">
+  <div class="row">
+    <div class="col-12 mt-5">
+      <h3>みんなが投稿してくれた施設の一覧</h3>
+    </div>
+  </div>
+  <div class="row my-5">
+    <% @stores.each_with_index do |store, index| %>
+      <div class="col-12 col-md-6 col-xl-4">
+        <div class="card  store-<%= index + 1 %> m-2">
+          <%= link_to store_path(store) do %>
+            <%= image_tag(store.user.avatar.url,class:"card-img-top img-thumbnail", alt: "施設画像-#{index + 1}") %>
+          <% end %>
+          <div class="card-body">
+            <h5 class="card-title"><%= store.name %></h5>
+            <p class="card-text text-truncate">施設紹介：<%= store.introduction %></p>
+            <p class="card-text">住所：<%= store.prefecture_code %></p>
+            <%= link_to user_path(store.user), class:"text-decoration-none text-reset" do %>
+              <p class="card-text"><small>情報提供者：<%= store.user.name %></small></p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>

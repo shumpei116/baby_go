@@ -74,7 +74,57 @@ RSpec.describe 'Stores', type: :system do
 
     it '投稿者名をクリックするとユーザー詳細画面が表示されること' do
       click_link 'shumpei'
-      expect(current_path).to eq user_path(user)  
+      expect(current_path).to eq user_path(user)
+    end
+  end
+
+  describe '一覧ページのテスト' do
+    let(:user1)   { create(:user, name: 'shumpei') }
+    let(:user2)   { create(:user, name: 'ちはるちゃんママ') }
+    let!(:store1) {
+      create(:store, name: 'あかちゃん本舗', introduction: '綺麗な授乳室でした', postcode: '1111111', prefecture_code: '北海道',
+                     city: '函館市1-1-1', user: user1)
+    }
+    let!(:store2) {
+      create(:store, name: 'ベビーレストラン', introduction: '個室の和室があって赤ちゃんと一緒でもゆっくりできました', postcode: '1234567',
+                     prefecture_code: '沖縄県', city: '那覇市1-1-1', user: user2)
+    }
+
+    before do
+      visit stores_path
+    end
+    describe '表示のテスト' do
+      it '施設情報が表示されていること' do
+        within '.store-1' do
+          expect(page).to have_selector('img[alt=施設画像-1]')
+          expect(page).to have_selector '.card-title', text: 'あかちゃん本舗'
+          expect(page).to have_content '綺麗な授乳室でした'
+          expect(page).to have_content '北海道'
+          expect(page).to have_link 'shumpei'
+        end
+
+        within '.store-2' do
+          expect(page).to have_selector('img[alt=施設画像-2]')
+          expect(page).to have_selector '.card-title', text: 'ベビーレストラン'
+          expect(page).to have_content '個室の和室があって赤ちゃんと一緒でもゆっくりできました'
+          expect(page).to have_content '沖縄県'
+          expect(page).to have_link 'ちはるちゃんママ'
+        end
+      end
+    end
+
+    describe 'リンクのテスト' do
+      it '施設詳細画面にページ遷移すること' do
+        click_link '施設画像-1'
+        expect(current_path).to eq store_path(store1)
+        expect(page).to have_selector 'h2', text: 'あかちゃん本舗'
+      end
+
+      it 'ユーザーの詳細画面に遷移すること' do
+        click_link 'ちはるちゃんママ'
+        expect(current_path).to eq user_path(user2)
+        expect(page).to have_selector '.card-title', text: 'ちはるちゃんママ'
+      end
     end
   end
 end
