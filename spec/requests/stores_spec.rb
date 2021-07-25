@@ -276,4 +276,61 @@ RSpec.describe 'Stores', type: :request do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    context 'ユーザーがログイン済みのとき' do
+      context 'current_userと@store.userが等しいとき' do
+        before do
+          sign_in(user)
+        end
+
+        it '302レスポンスが返ってくること' do
+          delete store_path(store)
+          expect(response).to have_http_status(302)
+        end
+
+        it '施設が削除されること' do
+          expect {
+            delete store_path(store)
+          }.to change(Store, :count).by(-1)
+        end
+
+        it 'ユーザー詳細ページにリダイレクトすること' do
+          delete store_path(store)
+          expect(response).to redirect_to(user_path(user))
+        end
+      end
+
+      context 'current_userと@store.userが等しくないとき' do
+        let(:other_user) { create(:user) }
+
+        before do
+          sign_in(other_user)
+          delete store_path(store)
+        end
+
+        it '302レスポンスが返ってくること' do
+          expect(response).to have_http_status(302)
+        end
+
+        it 'トップページにリダイレクトされること' do
+          expect(response).to redirect_to(root_path)
+        end
+      end
+    end
+
+    context 'ユーザーがログインしていないとき' do
+      before do
+        delete store_path(store)
+      end
+
+      it '302レスポンスが返ってくること' do
+        expect(response).to have_http_status(302)
+      end
+
+      it 'ログインページにリダイレクトされること' do
+        expect(response).to redirect_to(new_user_session_path)
+      end
+    end
+  end
 end
