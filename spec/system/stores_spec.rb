@@ -95,6 +95,7 @@ RSpec.describe 'Stores', type: :system do
     end
     describe '表示のテスト' do
       it '施設情報が表示されていること' do
+        expect(page).to have_selector('.store-card', count: Store.count)
         within '.store-1' do
           expect(page).to have_selector('img[alt=施設画像-1]')
           expect(page).to have_selector '.card-title', text: 'あかちゃん本舗'
