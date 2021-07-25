@@ -26,7 +26,7 @@ RSpec.describe 'Registrations', type: :request do
     end
   end
 
-  describe 'GET #create' do
+  describe 'POST #create' do
     context 'パラメーターが正しいとき' do
       it '302レスポンスが返ってくること' do
         post user_registration_path, params: { user: attributes_for(:user) }
@@ -99,7 +99,7 @@ RSpec.describe 'Registrations', type: :request do
     end
   end
 
-  describe 'GET #update' do
+  describe 'PATCH #update' do
     before do
       sign_in(user)
     end
@@ -141,7 +141,7 @@ RSpec.describe 'Registrations', type: :request do
     end
   end
 
-  describe 'GET #destroy' do
+  describe 'DELETE #destroy' do
     before do
       sign_in(user)
     end
