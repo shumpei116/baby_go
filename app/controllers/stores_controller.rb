@@ -53,6 +53,7 @@ class StoresController < ApplicationController
   end
 
   def correct_user
-    redirect_to(root_url) unless @user == current_user
+    redirect_to(root_url) unless @store.user == current_user
+    flash[:alert] = '無効な操作です'
   end
 end
