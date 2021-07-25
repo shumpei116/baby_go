@@ -16,20 +16,46 @@
       </div>
     </div>
   </div>
-</div>
+  <div class="mt-5">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+      <li class="nav-item" role="presentation">
+        <%= link_to "投稿した施設一覧", "#store_index", class:"nav-link active", 'id': :"store_index_tab", 'data-bs-toggle': :"tab", 'role': :"tab",  'aria-controls': :"store_index", 'aria-selected': :"true" %>
+      </li>
+      <li class="nav-item" role="presentation">
+        <%= link_to "いいねしたスポット（後から追加）", "#profile", class:"nav-link", 'id': :"profile-tab", 'data-bs-toggle': :"tab", 'role': :"tab",  'aria-controls': :"profile", 'aria-selected': :"false" %>
+      </li>
+    </ul>
 
-<div class="container">
-  <ul class="nav nav-tabs" id="myTab" role="tablist">
-    <li class="nav-item" role="presentation">
-      <%= link_to "投稿したスポット一覧（後から編集）", "#", class:"nav-link active", 'id': :"home-tab", 'data-bs-toggle': :"tab", 'role': :"tab",  'aria-controls': :"#", 'aria-selected': :"true" %>
-    </li>
-    <li class="nav-item" role="presentation">
-      <%= link_to "いいねしたスポット（後から編集）", "＄", class:"nav-link", 'id': :"profile-tab", 'data-bs-toggle': :"tab", 'role': :"tab",  'aria-controls': :"＄", 'aria-selected': :"false" %>
-    </li>
-  </ul>
-  <div class="tab-content" id="myTabContent">
-    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">...</div>
-    <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">...</div>
-    <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">...</div>
+    <div class="tab-content" id="myTabContent">
+      <div class="tab-pane fade show active" id="store_index" role="tabpanel" aria-labelledby="store_index_tab">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 mt-5">
+              <h4><%= @user.name %>さんが紹介してくれた施設の一覧</h4>
+            </div>
+          </div>
+          <div class="row my-5">
+            <% @stores.each_with_index do |store, index| %>
+              <div class="store-card col-12 col-md-4 col-xl-3">
+                <div class="card  store-<%= index + 1 %> m-2">
+                  <%= link_to store_path(store) do %>
+                    <%= image_tag(store.user.avatar.url,class:"card-img-top img-thumbnail", alt: "施設画像-#{index + 1}") %>
+                  <% end %>
+                  <div class="card-body">
+                    <h5 class="card-title"><%= store.name %></h5>
+                    <p class="card-text text-truncate">施設紹介：<%= store.introduction %></p>
+                    <p class="card-text">住所：<%= store.prefecture_code %></p>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+        <h1>機能を実装したら追加するよ！</h1>
+      </div>
+    </div>
   </div>
 </div>
