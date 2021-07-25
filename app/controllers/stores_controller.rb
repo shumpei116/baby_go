@@ -4,7 +4,7 @@ class StoresController < ApplicationController
   before_action :correct_user, only: %i[edit update destroy]
 
   def index
-    @stores = Store.all
+    @stores = Store.all.includes(:user)
   end
 
   def show
