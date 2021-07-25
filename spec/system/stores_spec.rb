@@ -182,7 +182,10 @@ RSpec.describe 'Stores', type: :system do
       end
 
       context 'current_userと@store.userが等しくないとき' do
+        let(:other_user) { create(:user) }
+
         it '編集ボタンが表示されないこと' do
+          sign_in(other_user)
           visit store_path(store)
           expect(current_path).to eq store_path(store)
           expect(page).to_not have_link '編集'
@@ -195,6 +198,49 @@ RSpec.describe 'Stores', type: :system do
         visit store_path(store)
         expect(current_path).to eq store_path(store)
         expect(page).to_not have_link '編集'
+      end
+    end
+  end
+
+  describe '施設削除のテスト' do
+    let(:user) { create(:user, name: 'shumpei', email: 'shumpei@example.com') }
+    let(:store) {
+      create(:store, name: 'あかちゃん本舗', introduction: '綺麗な授乳室でした', postcode: '1111111',
+                     prefecture_code: '北海道', city: '函館市1-1-1', url: 'https://stores.akachan.jp/224', user: user)
+    }
+
+    context 'ログインしているとき' do
+      context 'current_userと@store.userが等しいとき' do
+        it '施設を削除できること', js: true do
+          sign_in(user)
+          visit store_path(store)
+          expect {
+            page.accept_confirm do
+              click_link '施設情報を削除する'
+            end
+            expect(page).to have_selector '.alert-success', text: '施設を削除しました'
+            expect(current_path).to eq user_path(user)
+          }.to change(Store, :count).by(-1)
+        end
+      end
+
+      context 'current_userと@store.userが等しくないとき' do
+        let(:other_user) { create(:user) }
+
+        it '施設削除ボタンが表示されないこと' do
+          sign_in(other_user)
+          visit store_path(store)
+          expect(current_path).to eq store_path(store)
+          expect(page).to_not have_link '施設情報を削除する'
+        end
+      end
+    end
+
+    context 'ログインしていないとき' do
+      it '施設削除ボタンが表示されないこと' do
+        visit store_path(store)
+        expect(current_path).to eq store_path(store)
+        expect(page).to_not have_link '施設情報を削除する'
       end
     end
   end
