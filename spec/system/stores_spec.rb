@@ -128,4 +128,74 @@ RSpec.describe 'Stores', type: :system do
       end
     end
   end
+
+  describe '施設編集のテスト' do
+    let(:user) { create(:user, name: 'shumpei', email: 'shumpei@example.com') }
+    let(:store) {
+      create(:store, name: 'あかちゃん本舗', introduction: '綺麗な授乳室でした', postcode: '1111111',
+                     prefecture_code: '北海道', city: '函館市1-1-1', url: 'https://stores.akachan.jp/224', user: user)
+    }
+
+    context 'ログインしているとき' do
+      context 'current_userと@store.userが等しいとき' do
+        before do
+          sign_in(user)
+          visit store_path(store)
+          expect(page).to have_selector 'h2', text: 'あかちゃん本舗'
+          expect(page).to have_selector 'td', text: '綺麗な授乳室でした'
+          expect(page).to have_selector 'td', text: '1111111'
+          expect(page).to have_selector 'td', text: '北海道'
+          expect(page).to have_selector 'td', text: '函館市1-1-1'
+          expect(page).to have_selector 'td', text: 'https://stores.akachan.jp/224'
+          click_link '編集'
+        end
+
+        context 'フォームの入力値が正しいとき' do
+          it '編集に成功すること' do
+            fill_in '施設の名前',	with: '東松屋'
+            fill_in '施設の紹介',	with: '素敵なおむつ交換スペースでした'
+            fill_in '郵便番号',	with: '2222222'
+            select '沖縄県', from: '都道府県'
+            fill_in '市区町村番地',	with: '那覇市2-2-2'
+            fill_in '施設参考URL',	with: 'http://localhost:3000/'
+            click_button '更新する'
+            expect(current_path).to eq store_path(store)
+            expect(page).to have_content '施設の情報を更新しました'
+            expect(page).to have_selector 'h2', text: '東松屋'
+            expect(page).to have_selector 'td', text: '素敵なおむつ交換スペースでした'
+            expect(page).to have_selector 'td', text: '2222222'
+            expect(page).to have_selector 'td', text: '沖縄県'
+            expect(page).to have_selector 'td', text: '那覇市2-2-2'
+            expect(page).to have_selector 'td', text: 'http://localhost:3000/'
+          end
+        end
+
+        context 'フォームの入力値が正しくないとき' do
+          it '編集に失敗すること' do
+            fill_in '施設の名前',	with: ''
+            click_button '更新する'
+            expect(page).to have_selector '#error_explanation', text: 'エラーが発生したため 施設 は保存されませんでした'
+            visit store_path(store)
+            expect(page).to have_selector 'h2', text: 'あかちゃん本舗'
+          end
+        end
+      end
+
+      context 'current_userと@store.userが等しくないとき' do
+        it '編集ボタンが表示されないこと' do
+          visit store_path(store)
+          expect(current_path).to eq store_path(store)
+          expect(page).to_not have_link '編集'
+        end
+      end
+    end
+
+    context 'ログインしていないとき' do
+      it '編集ボタンが表示されないこと' do
+        visit store_path(store)
+        expect(current_path).to eq store_path(store)
+        expect(page).to_not have_link '編集'
+      end
+    end
+  end
 end
