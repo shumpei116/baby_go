@@ -45,7 +45,7 @@ class StoresController < ApplicationController
   private
 
   def store_params
-    params.require(:store).permit(:name, :introduction, :postcode, :prefecture_code, :city, :url, :image)
+    params.require(:store).permit(:name, :introduction, :postcode, :prefecture_code, :city, :url, :image, :image_cache, :remove_image)
   end
 
   def find_store
