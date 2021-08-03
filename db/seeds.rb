@@ -3,7 +3,8 @@ User.create!(name:   "俊平",
             email:  "shumpei@example.com",
             introduction: "こんにちは！",
             password:              "111111",
-            password_confirmation: "111111"
+            password_confirmation: "111111",
+            avatar: open("#{Rails.root}/db/fixtures/avatar.jpg")
           )
 
 #複数ののユーザーをまとめて生成する
