@@ -18,6 +18,7 @@ RSpec.describe 'Stores', type: :system do
             select '茨城県', from: '都道府県'
             fill_in '市区町村番地',	with: 'テスト市テスト町1-1-1'
             fill_in 'URL',	with: 'https://github.com/shumpei116'
+            attach_file 'store[image]', Rails.root.join('spec/factories/image/valid_image.jpg')
             click_button '施設を登録する'
             expect(page).to have_selector '.alert-success', text: '施設を登録したよ！ありがとう！'
           }.to change(Store, :count).by(1)
@@ -147,6 +148,7 @@ RSpec.describe 'Stores', type: :system do
           expect(page).to have_selector 'td', text: '北海道'
           expect(page).to have_selector 'td', text: '函館市1-1-1'
           expect(page).to have_selector 'td', text: 'https://stores.akachan.jp/224'
+          expect(page).to have_selector("img[src$='thumb_default_store.jpg']")
           click_link '編集'
         end
 
@@ -158,6 +160,7 @@ RSpec.describe 'Stores', type: :system do
             select '沖縄県', from: '都道府県'
             fill_in '市区町村番地',	with: '那覇市2-2-2'
             fill_in '施設参考URL',	with: 'http://localhost:3000/'
+            attach_file 'store[image]', Rails.root.join('spec/factories/image/valid_image.jpg')
             click_button '更新する'
             expect(current_path).to eq store_path(store)
             expect(page).to have_content '施設の情報を更新しました'
@@ -167,6 +170,7 @@ RSpec.describe 'Stores', type: :system do
             expect(page).to have_selector 'td', text: '沖縄県'
             expect(page).to have_selector 'td', text: '那覇市2-2-2'
             expect(page).to have_selector 'td', text: 'http://localhost:3000/'
+            expect(page).to have_selector("img[src$='thumb_valid_image.jpg']")
           end
         end
 
