@@ -4,7 +4,10 @@
       <h3>みんなが投稿してくれた施設の一覧</h3>
     </div>
   </div>
-  <div class="row my-5">
+  <div class="row mt-5">
+    <div class="mb-3">
+      <%= render "shared/paginate", pages: @stores %>
+    </div>
     <% @stores.each_with_index do |store, index| %>
       <div class="store-card col-12 col-md-6 col-xl-4">
         <div class="card  store-<%= index + 1 %> m-2">
@@ -22,5 +25,8 @@
         </div>
       </div>
     <% end %>
+  </div>
+  <div class="my-3">
+    <%= render "shared/paginate", pages: @stores %>
   </div>
 </div>
