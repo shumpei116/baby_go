@@ -26,7 +26,7 @@ RSpec.describe 'Registrations', type: :request do
     end
   end
 
-  describe 'GET #create' do
+  describe 'POST #create' do
     context 'パラメーターが正しいとき' do
       it '302レスポンスが返ってくること' do
         post user_registration_path, params: { user: attributes_for(:user) }
@@ -59,7 +59,7 @@ RSpec.describe 'Registrations', type: :request do
 
       it 'エラーが表示されること' do
         post user_registration_path, params: { user: attributes_for(:user, :invalid_signup) }
-        expect(response.body).to include 'メールアドレス が入力されていません'
+        expect(response.body).to include 'メールアドレスが入力されていません'
       end
     end
   end
@@ -99,7 +99,7 @@ RSpec.describe 'Registrations', type: :request do
     end
   end
 
-  describe 'GET #update' do
+  describe 'PATCH #update' do
     before do
       sign_in(user)
     end
@@ -136,12 +136,12 @@ RSpec.describe 'Registrations', type: :request do
 
       it 'エラーが表示されること' do
         patch user_registration_path, params: { user: attributes_for(:user, :invalid_signup) }
-        expect(response.body).to include 'メールアドレス が入力されていません'
+        expect(response.body).to include 'メールアドレスが入力されていません'
       end
     end
   end
 
-  describe 'GET #destroy' do
+  describe 'DELETE #destroy' do
     before do
       sign_in(user)
     end

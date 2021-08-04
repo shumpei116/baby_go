@@ -32,6 +32,8 @@ gem 'devise'
 gem 'devise-i18n'
 gem 'devise-i18n-views'
 gem 'fog-aws'
+gem 'jp_prefecture'
+gem 'rails-i18n'
 gem 'spring'
 
 group :development, :test do

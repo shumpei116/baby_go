@@ -48,7 +48,7 @@ RSpec.describe 'UserAvatars', type: :system do
           attach_file 'user[avatar]', Rails.root.join('spec/factories/avatar/6MB_image.jpg')
           click_button 'アカウントを変更する'
           expect(page).to have_selector '#error_explanation', text: 'エラーが発生したため ユーザー は保存されませんでした'
-          expect(page).to have_selector '#error_explanation', text: 'ユーザー画像 を5 MB以下のサイズにしてください'
+          expect(page).to have_selector '#error_explanation', text: 'ユーザー画像を5MB以下のサイズにしてください'
         end
       end
     end

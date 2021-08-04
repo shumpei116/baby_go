@@ -43,4 +43,17 @@ RSpec.describe 'Sessions', type: :system do
       expect(page).to have_selector '.alert-notice', text: 'ログアウトしました'
     end
   end
+
+  describe 'フレンドリフォワーディングのテスト' do
+    it 'ログイン後にリクエストしたページにリダイレクトされること' do
+      visit root_path
+      click_link '施設を投稿する'
+      expect(current_path).to eq new_user_session_path
+      expect(page).to have_selector '.alert-alert', text: 'ログインもしくはアカウント登録してください'
+      fill_in 'メールアドレス',	with: 'shumpei@example.com'
+      fill_in 'パスワード',	with: 'password'
+      click_button 'Log in'
+      expect(current_path).to eq new_store_path
+    end
+  end
 end

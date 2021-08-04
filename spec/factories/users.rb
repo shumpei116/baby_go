@@ -1,7 +1,7 @@
 FactoryBot.define do
   factory :user do
     name { 'test' }
-    email { 'test@example.com' }
+    sequence(:email) { |n| "test-#{n}@example.com" }
     password { 'password' }
 
     trait :invalid_signup do

@@ -8,7 +8,7 @@ RSpec.describe 'Sessions', type: :request do
     end
   end
 
-  describe 'GET create' do
+  describe 'POST create' do
     let!(:user) { create(:user, name: 'shumpei', email: 'shumpei@example.com', password: 'password') }
 
     context 'パラメーターが正しいとき' do
@@ -40,7 +40,7 @@ RSpec.describe 'Sessions', type: :request do
     end
   end
 
-  describe 'GET destroy' do
+  describe 'DELETE destroy' do
     let!(:user) { create(:user, name: 'shumpei', email: 'shumpei@example.com', password: 'password') }
 
     before do

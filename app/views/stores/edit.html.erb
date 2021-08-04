@@ -1,0 +1,82 @@
+<div class="container mt-5 shadow mb-5 bg-white rounded text-secondary">
+  <div class="row justify-content-center">
+    <div class="col-8 mt-5 mb-4 text-dark">
+      <h3>施設情報を編集する</h3>
+    </div>
+  </div>
+
+  <%= form_with(model: @store, local: true ) do |f| %>
+    <div class="row justify-content-center">
+      <div class="col-8">
+        <%= render "devise/shared/error_messages", resource: @store %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-4 offset-2 mt-3">
+        <%= image_tag(@store.image.thumb.url, class:"img-fluid img-thumbnail", alt:"ユーザー画像") %>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-8 mt-3">
+        <%= f.label :image %>
+        <%= f.file_field :image, class:"form-control" %>
+        <%= f.hidden_field :image_cache %>
+        <% unless @store.image.blank? %>
+          <%= f.check_box :remove_image %>
+          画像を削除する
+        <% end %>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-8 mt-3">
+        <span class="badge bg-warning text-dark me-2 mb-1">必須</span><%= f.label :name %>
+        <%= f.text_field :name, class:"form-control", autofocus: true %>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-8 mt-3">
+        <span class="badge bg-warning text-dark me-2 mb-1">必須</span><%= f.label :introduction %>
+        <%= f.text_area :introduction, class:"form-control", placeholder: "施設のいいところを教えてね"  %>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-8 mt-3">
+        <span class="badge bg-warning text-dark me-2 mb-1">必須</span><%= f.label :postcode %>
+        <%= f.text_field :postcode, id: "store_postcode", class:"form-control", placeholder: "ハイフンを入れずに入力してね　例「1111111」" %>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-8 mt-3 py-3">
+        <span class="badge bg-warning text-dark me-2 mb-1">必須</span><%= f.label :prefecture_code %>
+        <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :name, :name, selected: @store.prefecture_code, id: "store_prefecture_code", class:"form-control" %>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-8 mt-3">
+        <span class="badge bg-warning text-dark me-2 mb-1">必須</span><%= f.label :city %>
+        <%= f.text_field :city, id: "store_city", class:"form-control" %>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-8 mt-3">
+        <%= f.label :url %>
+        <%= f.text_field :url , class:"form-control", placeholder: "施設のURLを入力してみんなに教えてあげよう！" %>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-8 mt-3 mb-5">
+        <%= f.submit "更新する", class: "btn btn-primary" %>
+      </div>
+    </div>
+  <% end %>
+</div>
+

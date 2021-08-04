@@ -18,7 +18,7 @@ AllCops:
     - 'lib/**'
     - 'db/**/*'
     - 'config/**/*'
-    - 'app/uploaders/avatar_uploader.rb'
+    - 'app/uploaders/*'
     - 'spec/rails_helper.rb'
     - 'spec/spec_helper.rb'
 
@@ -34,6 +34,10 @@ Style/BlockDelimiters:
 Rails/LexicallyScopedActionFilter:
   Exclude:
     - 'app/controllers/users/registrations_controller.rb'
+
+Style/EmptyMethod:
+  Exclude:
+    - 'app/controllers/**/*'
 
 # 日本語でのコメントを許可
 AsciiComments:
