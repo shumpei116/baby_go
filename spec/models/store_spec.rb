@@ -127,4 +127,36 @@ RSpec.describe Store, type: :model do
       end
     end
   end
+
+  describe '施設画像のテスト' do
+    context '正しいフォーマットのとき' do
+      it '有効であること' do
+          store = build(:store, image: File.open(Rails.root.join('spec/factories/image/valid_image.jpg')))
+          expect(store).to be_valid
+      end
+    end
+
+    context '正しくないフォーマットのとき' do
+      it '無効であること' do
+        store = build(:store, image: File.open(Rails.root.join('spec/factories/image/invalid_image.txt')))
+        store.valid?
+        expect(store.errors[:image]).to include('"txt"ファイルのアップロードは許可されていません。アップロードできるファイルタイプ: jpg, jpeg, gif, png')
+      end
+    end
+
+    context '5.0MB以下の画像がアップロードされたとき' do
+      it '有効であること' do
+        store = build(:store, image: File.open(Rails.root.join('spec/factories/image/5MB_image.jpg')))
+        expect(store).to be_valid 
+      end
+    end
+
+    context '5.0MBより大きな画像がアップロードされたとき' do
+      it '無効であること' do
+        store = build(:store, image: File.open(Rails.root.join('spec/factories/image/6MB_image.jpg')))
+        store.valid?
+        expect(store.errors[:image]).to include('を5MB以下のサイズにしてください')
+      end
+    end
+  end
 end

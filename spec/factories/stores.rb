@@ -11,5 +11,9 @@ FactoryBot.define do
     trait :invalid do
       name { '' }
     end
+
+    trait :with_image do
+      image { File.open(Rails.root.join('spec/factories/image/valid_image.jpg')) }
+    end
   end
 end
