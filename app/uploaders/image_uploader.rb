@@ -14,17 +14,17 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   def default_url(*args)
-    "/images/fallback/" + [version_name, "default_store.jpg"].compact.join('_')
+    '/images/fallback/' + [version_name, 'default_store.jpg'].compact.join('_')
   end
 
   process resize_to_fit: [800, 800]
 
   version :thumb do
-    process resize_to_fill: [630, 420, "Center"]
+    process resize_to_fill: [630, 420, 'Center']
   end
 
   version :medium_thumb do
-    process resize_to_fill: [250, 167, "Center"]
+    process resize_to_fill: [250, 167, 'Center']
   end
 
   def size_range

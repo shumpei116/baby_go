@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "StoreImages", type: :system do
+RSpec.describe 'StoreImages', type: :system do
   describe '施設画像のテスト' do
     let(:user) { create(:user) }
     let(:store) { create(:store, user: user) }

@@ -18,7 +18,7 @@ AllCops:
     - 'lib/**'
     - 'db/**/*'
     - 'config/**/*'
-    - 'app/uploaders/avatar_uploader.rb'
+    - 'app/uploaders/*'
     - 'spec/rails_helper.rb'
     - 'spec/spec_helper.rb'
 
