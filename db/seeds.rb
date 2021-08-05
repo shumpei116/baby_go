@@ -46,10 +46,8 @@ end
                   )
 end
 
-
 # 複数の施設データをまとめて生成する
 users = User.all
-
 users.each_with_index do |user, index|
   name = "テスト本舗- #{index}"
   introduction = "広いおむつ交換スペースが#{index}部屋ありました！"
