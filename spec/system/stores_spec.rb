@@ -132,8 +132,8 @@ RSpec.describe 'Stores', type: :system do
     describe 'ページネーションのテスト' do
       context '施設情報が9個登録されているとき' do
         let!(:stores) {
-          create_list(:store, 9, name: 'あかちゃん本舗', introduction: '綺麗な授乳室でした', postcode: '1111111', prefecture_code: '北海道',
-                         user: user1)
+          create_list(:store, 9, name: 'あかちゃん本舗', introduction: '綺麗な授乳室でした', postcode: '1111111',
+                                 prefecture_code: '北海道', user: user1)
         }
 
         before do
@@ -151,8 +151,8 @@ RSpec.describe 'Stores', type: :system do
 
       context '施設情報が10個登録されているとき' do
         let!(:stores) {
-          create_list(:store, 10, name: 'あかちゃん本舗', introduction: '綺麗な授乳室でした', postcode: '1111111', prefecture_code: '北海道',
-                         user: user1)
+          create_list(:store, 10, name: 'あかちゃん本舗', introduction: '綺麗な授乳室でした', postcode: '1111111',
+                                  prefecture_code: '北海道', user: user1)
         }
 
         before do
