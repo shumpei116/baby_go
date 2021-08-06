@@ -82,50 +82,90 @@ RSpec.describe 'Stores', type: :system do
   describe '一覧ページのテスト' do
     let(:user1)   { create(:user, name: 'shumpei') }
     let(:user2)   { create(:user, name: 'ちはるちゃんママ') }
-    let!(:store1) {
-      create(:store, name: 'あかちゃん本舗', introduction: '綺麗な授乳室でした', postcode: '1111111', prefecture_code: '北海道',
-                     city: '函館市1-1-1', user: user1)
-    }
-    let!(:store2) {
-      create(:store, name: 'ベビーレストラン', introduction: '個室の和室があって赤ちゃんと一緒でもゆっくりできました', postcode: '1234567',
-                     prefecture_code: '沖縄県', city: '那覇市1-1-1', user: user2)
-    }
 
-    before do
-      visit stores_path
-    end
-    describe '表示のテスト' do
-      it '施設情報が表示されていること' do
-        expect(page).to have_selector('.store-card', count: Store.count)
-        within '.store-1' do
-          expect(page).to have_selector('img[alt=施設画像-1]')
+    describe '表示とリンクのテスト' do
+      let!(:store1) {
+        create(:store, name: 'あかちゃん本舗', introduction: '綺麗な授乳室でした', postcode: '1111111', prefecture_code: '北海道',
+                       city: '函館市1-1-1', user: user1)
+      }
+      let!(:store2) {
+        create(:store, name: 'ベビーレストラン', introduction: '個室の和室があって赤ちゃんと一緒でもゆっくりできました', postcode: '1234567',
+                       prefecture_code: '沖縄県', city: '那覇市1-1-1', user: user2)
+      }
+
+      before do
+        visit stores_path
+      end
+
+      it '全ての施設情報が表示されていること' do
+        within '.store-2' do
+          expect(page).to have_selector('img[alt=施設画像-2]')
           expect(page).to have_selector '.card-title', text: 'あかちゃん本舗'
           expect(page).to have_content '綺麗な授乳室でした'
           expect(page).to have_content '北海道'
           expect(page).to have_link 'shumpei'
         end
 
-        within '.store-2' do
-          expect(page).to have_selector('img[alt=施設画像-2]')
+        within '.store-1' do
+          expect(page).to have_selector('img[alt=施設画像-1]')
           expect(page).to have_selector '.card-title', text: 'ベビーレストラン'
           expect(page).to have_content '個室の和室があって赤ちゃんと一緒でもゆっくりできました'
           expect(page).to have_content '沖縄県'
           expect(page).to have_link 'ちはるちゃんママ'
         end
+        expect(page).to have_selector('.store-card', count: 2)
       end
-    end
 
-    describe 'リンクのテスト' do
-      it '施設詳細画面にページ遷移すること' do
+      it '施設画像をクリックすると施設詳細画面にページ遷移すること' do
         click_link '施設画像-1'
-        expect(current_path).to eq store_path(store1)
-        expect(page).to have_selector 'h2', text: 'あかちゃん本舗'
+        expect(current_path).to eq store_path(store2)
+        expect(page).to have_selector 'h2', text: 'ベビーレストラン'
       end
 
-      it 'ユーザーの詳細画面に遷移すること' do
+      it 'ユーザー名をクリックするとユーザーの詳細画面に遷移すること' do
         click_link 'ちはるちゃんママ'
         expect(current_path).to eq user_path(user2)
         expect(page).to have_selector '.card-title', text: 'ちはるちゃんママ'
+      end
+    end
+
+    describe 'ページネーションのテスト' do
+      context '施設情報が9個登録されているとき' do
+        let!(:stores) {
+          create_list(:store, 9, name: 'あかちゃん本舗', introduction: '綺麗な授乳室でした', postcode: '1111111',
+                                 prefecture_code: '北海道', user: user1)
+        }
+
+        before do
+          visit stores_path
+        end
+
+        it '.store-cardが9個表示されていること' do
+          expect(page).to have_selector('.store-card', count: 9)
+        end
+
+        it 'ページネーションリンクが表示されていないこと' do
+          expect(page).to_not have_css '.pagination'
+        end
+      end
+
+      context '施設情報が10個登録されているとき' do
+        let!(:stores) {
+          create_list(:store, 10, name: 'あかちゃん本舗', introduction: '綺麗な授乳室でした', postcode: '1111111',
+                                  prefecture_code: '北海道', user: user1)
+        }
+
+        before do
+          visit stores_path
+        end
+
+        it '.store-cardが9個表示されていること' do
+          expect(page).to have_selector('.store-card', count: 9)
+        end
+
+        it 'ページネーションリンクが2つ表示されること' do
+          expect(page).to have_css '.pagination', count: 2
+        end
       end
     end
   end

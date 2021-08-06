@@ -7,7 +7,7 @@ User.create!(name:   "俊平",
             avatar: open("#{Rails.root}/db/fixtures/avatar.jpg")
           )
 
-#複数ののユーザーをまとめて生成する
+#複数のユーザーをまとめて生成する
 5.times do |n|
   name = "test-#{n+1}"
   email = "example-#{n+1}@example.com"
@@ -34,9 +34,20 @@ user = User.first
                   )
 end
 
-# 複数の施設データを生成する
-users = User.all
+# ページネーション用に追加で施設データを生成する
+12.times do |n|
+  user.stores.create!(name:   "東松屋",
+                    introduction: "綺麗な授乳室が#{n+1}部屋あります",
+                    postcode:     "12332#{n+10}",
+                    prefecture_code: "北海道",
+                    city: "赤ちゃん町ベイビー#{n}",
+                    url: "https://test.example.com",
+                    image: open("#{Rails.root}/db/fixtures/test-3.jpg")
+                  )
+end
 
+# 複数の施設データをまとめて生成する
+users = User.all
 users.each_with_index do |user, index|
   name = "テスト本舗- #{index}"
   introduction = "広いおむつ交換スペースが#{index}部屋ありました！"

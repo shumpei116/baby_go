@@ -33,6 +33,7 @@ gem 'devise-i18n'
 gem 'devise-i18n-views'
 gem 'fog-aws'
 gem 'jp_prefecture'
+gem 'kaminari'
 gem 'rails-i18n'
 gem 'spring'
 
