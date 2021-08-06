@@ -5,6 +5,7 @@ class User < ApplicationRecord
   mount_uploader :avatar, AvatarUploader
 
   has_many :stores, dependent: :destroy
+  has_many :favorites, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 20 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze

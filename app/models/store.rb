@@ -1,6 +1,7 @@
 class Store < ApplicationRecord
   mount_uploader :image, ImageUploader
   belongs_to :user
+  has_many :favorites, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 20 }
   validates :introduction, presence: true, length: { maximum: 140 }
