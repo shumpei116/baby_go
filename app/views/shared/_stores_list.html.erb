@@ -2,6 +2,7 @@
   <div class="mb-3">
     <%= render "shared/paginate", pages: stores %>
   </div>
+
   <% stores.each_with_index do |store, index| %>
     <div class="store-card col-12 col-md-4 col-xl-3">
       <div class="card  store-<%= index + 1 %> m-2">
@@ -23,13 +24,14 @@
           <p class="card-text text-truncate">施設紹介：<%= store.introduction %></p>
           <p class="card-text">住所：<%= store.prefecture_code %></p>
           <%= link_to user_path(store.user), class:"text-decoration-none text-reset" do %>
-              <p class="card-text"><small>情報提供者：<%= store.user.name %></small></p>
-            <% end %>
+            <p class="card-text"><small>情報提供者：<%= store.user.name %></small></p>
+          <% end %>
         </div>
       </div>
     </div>
   <% end %>
 </div>
+
 <div class="mt-3">
   <%= render "shared/paginate", pages: stores %>
 </div>
