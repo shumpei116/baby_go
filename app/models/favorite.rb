@@ -5,5 +5,5 @@ class Favorite < ApplicationRecord
   validates :user_id, presence: true
   validates :store_id, presence: true
 
-  validates_uniqueness_of :store_id, scope: :user_id
+  validates :store_id, uniqueness: { scope: :user_id }
 end
