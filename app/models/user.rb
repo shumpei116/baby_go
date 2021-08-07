@@ -11,6 +11,10 @@ class User < ApplicationRecord
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
   validates :email, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }
 
+  def already_favorited?(store)
+    favorites.exists?(store_id: store.id)
+  end
+
   private
 
   def downcase_email
