@@ -64,3 +64,10 @@ users.each_with_index do |user, index|
                       image: open("#{Rails.root}/db/fixtures/test-1.jpg")
                     )
 end
+
+# いいねデータを生成
+users.each do |user, index|
+  stores.each do |store|
+    user.favorites.create!(store_id: store.id)
+  end
+end
