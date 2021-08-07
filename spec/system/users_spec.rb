@@ -75,15 +75,15 @@ RSpec.describe 'Users', type: :system do
 
         it 'ユーザーが投稿した施設が全て表示されていること' do
           expect(page).to have_selector('.store-card', count: user.stores.count)
-          within '.store-1' do
-            expect(page).to have_selector('img[alt=施設画像-1]')
+          within '.store-2' do
+            expect(page).to have_selector('img[alt=施設画像-2]')
             expect(page).to have_selector '.card-title', text: 'あかちゃん本舗'
             expect(page).to have_content '綺麗な授乳室でした'
             expect(page).to have_content '北海道'
           end
 
-          within '.store-2' do
-            expect(page).to have_selector('img[alt=施設画像-2]')
+          within '.store-1' do
+            expect(page).to have_selector('img[alt=施設画像-1]')
             expect(page).to have_selector '.card-title', text: 'ベビーレストラン'
             expect(page).to have_content '個室の和室があって赤ちゃんと一緒でもゆっくりできました'
             expect(page).to have_content '沖縄県'
@@ -98,8 +98,8 @@ RSpec.describe 'Users', type: :system do
 
         it '施設画像をクリックすると施設詳細画面に遷移すること' do
           click_link '施設画像-1'
-          expect(current_path).to eq store_path(store1)
-          expect(page).to have_selector 'h2', text: 'あかちゃん本舗'
+          expect(current_path).to eq store_path(store2)
+          expect(page).to have_selector 'h2', text: 'ベビーレストラン'
         end
       end
 
@@ -133,7 +133,7 @@ RSpec.describe 'Users', type: :system do
             visit user_path(user)
           end
 
-          it '.store-cardが9個表示されていること' do
+          it '.store-cardが8個表示されていること' do
             expect(page).to have_selector('.store-card', count: 8)
           end
 
