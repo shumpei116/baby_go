@@ -16,7 +16,16 @@
           <% end %>
           <div class="card-body">
             <h5 class="card-title"><%= store.name %></h5>
-            <p class="card-text"><%= render 'favorites/favorite', store: store %></p>
+            <% if user_signed_in? %>
+              <p class="card-text"><%= render 'favorites/favorite', store: store %></p>
+            <% else %>
+              <div class ="favorite-icon" id="store_favorite_<%= store.id %>">
+                <%= link_to store_favorite_path(store), class:"text-decoration-none", method: :post do %>
+                  <i class="far fa-heart"></i>
+                <% end %>
+                <span class="text-muted"><%= store.favorites.size %></span>
+              </div>
+            <% end %>
             <p class="card-text text-truncate">施設紹介：<%= store.introduction %></p>
             <p class="card-text">住所：<%= store.prefecture_code %></p>
             <%= link_to user_path(store.user), class:"text-decoration-none text-reset" do %>
