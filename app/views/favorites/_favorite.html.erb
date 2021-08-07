@@ -1,4 +1,4 @@
-<div class ="favorite-icon" id="store_favorite_<%= @store.id %>">
+<div class ="favorite-icon" id="store_favorite_<%= store.id %>">
   <% if current_user.already_favorited?(store) %>
     <%= link_to store_favorite_path(store), class:"text-decoration-none", method: :delete, remote: true do %>
       <i class="fas fa-heart"></i>
@@ -8,5 +8,5 @@
       <i class="far fa-heart"></i>
     <% end %>
   <% end %>
-  <span class="text-muted"><%= store.favorites.count %></span>
+  <span class="text-muted"><%= store.favorites.size %></span>
 </div>
