@@ -20,10 +20,15 @@
             <% end %>
           </div>
         </div>
-        <div class= "col-12 col-md-6 mt-5">
+        <div class= "col-12 col-md-6 mt-5 pt-1">
         <div class= "table-responsive">
           <table class="table table-borderless">
             <tbody>
+              <tr>
+                <th scope="row">
+                  <%= render 'favorites/favorite', store: @store %>
+                </th>
+              </tr>
               <tr>
                 <th scope="row">施設名:</th>
                 <td><%= @store.name %></td>
