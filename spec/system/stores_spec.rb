@@ -130,28 +130,9 @@ RSpec.describe 'Stores', type: :system do
     end
 
     describe 'ページネーションのテスト' do
-      context '施設情報が9個登録されているとき' do
+      context '施設情報が12個登録されているとき' do
         let!(:stores) {
-          create_list(:store, 9, name: 'あかちゃん本舗', introduction: '綺麗な授乳室でした', postcode: '1111111',
-                                 prefecture_code: '北海道', user: user1)
-        }
-
-        before do
-          visit stores_path
-        end
-
-        it '.store-cardが9個表示されていること' do
-          expect(page).to have_selector('.store-card', count: 9)
-        end
-
-        it 'ページネーションリンクが表示されていないこと' do
-          expect(page).to_not have_css '.pagination'
-        end
-      end
-
-      context '施設情報が10個登録されているとき' do
-        let!(:stores) {
-          create_list(:store, 10, name: 'あかちゃん本舗', introduction: '綺麗な授乳室でした', postcode: '1111111',
+          create_list(:store, 12, name: 'あかちゃん本舗', introduction: '綺麗な授乳室でした', postcode: '1111111',
                                   prefecture_code: '北海道', user: user1)
         }
 
@@ -159,8 +140,27 @@ RSpec.describe 'Stores', type: :system do
           visit stores_path
         end
 
-        it '.store-cardが9個表示されていること' do
-          expect(page).to have_selector('.store-card', count: 9)
+        it '.store-cardが12個表示されていること' do
+          expect(page).to have_selector('.store-card', count: 12)
+        end
+
+        it 'ページネーションリンクが表示されていないこと' do
+          expect(page).to_not have_css '.pagination'
+        end
+      end
+
+      context '施設情報が13個登録されているとき' do
+        let!(:stores) {
+          create_list(:store, 13, name: 'あかちゃん本舗', introduction: '綺麗な授乳室でした', postcode: '1111111',
+                                  prefecture_code: '北海道', user: user1)
+        }
+
+        before do
+          visit stores_path
+        end
+
+        it '.store-cardが12個表示されていること' do
+          expect(page).to have_selector('.store-card', count: 12)
         end
 
         it 'ページネーションリンクが2つ表示されること' do
