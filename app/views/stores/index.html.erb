@@ -16,6 +16,7 @@
           <% end %>
           <div class="card-body">
             <h5 class="card-title"><%= store.name %></h5>
+            <p class="card-text"><%= render 'favorites/favorite', store: store %></p>
             <p class="card-text text-truncate">施設紹介：<%= store.introduction %></p>
             <p class="card-text">住所：<%= store.prefecture_code %></p>
             <%= link_to user_path(store.user), class:"text-decoration-none text-reset" do %>

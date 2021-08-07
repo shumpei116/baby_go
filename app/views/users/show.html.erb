@@ -46,6 +46,7 @@
                   <% end %>
                   <div class="card-body">
                     <h5 class="card-title"><%= store.name %></h5>
+                    <%= render 'favorites/favorite', store: store %>
                     <p class="card-text text-truncate">施設紹介：<%= store.introduction %></p>
                     <p class="card-text">住所：<%= store.prefecture_code %></p>
                   </div>
