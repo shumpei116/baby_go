@@ -1,0 +1,2 @@
+$('#stores_list').html("<%= j(render 'shared/stores_list', stores: @stores) %>");
+$('#paginate').html("<%= j(render 'shared/paginate', pages: @stores, page_name: 'page') %>");

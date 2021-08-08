@@ -4,10 +4,12 @@
       <h3>みんなが投稿してくれた施設の一覧</h3>
     </div>
   </div>
-  <div class="mb-3">
+  <div id ="paginate" class="mb-3">
     <%= render 'shared/paginate', pages: @stores, page_name: 'page' %>
   </div>
-  <%= render 'shared/stores_list', stores: @stores %>
+  <div id="stores_list">
+    <%= render 'shared/stores_list', stores: @stores %>
+  </div>
   <div class="mt-3">
     <%= render 'shared/paginate', pages: @stores, page_name: 'page' %>
   </div>
