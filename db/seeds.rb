@@ -33,7 +33,7 @@ end
 
 # ページネーション用に追加で施設データを生成する
 16.times do |n|
-  user.stores.create!(name: '東松屋',
+  user1.stores.create!(name: '東松屋',
                       introduction: "綺麗な授乳室が#{n + 1}部屋あります",
                       postcode: "12332#{n + 10}",
                       prefecture_code: '北海道',
@@ -63,8 +63,8 @@ end
 # いいねデータを生成
 favorite_users = users[0..4]
 favorited_stores = Store.all[0..15]
-favorite_users.each do |_favorite_user|
+favorite_users.each do |favorite_user|
   favorited_stores.each do |store|
-    favoriteuser.favorites.create!(store_id: store.id)
+    favorite_user.favorites.create!(store_id: store.id)
   end
 end
