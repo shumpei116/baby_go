@@ -88,6 +88,9 @@ GEM
     childprocess (3.0.0)
     coderay (1.1.3)
     concurrent-ruby (1.1.9)
+    counter_culture (2.8.0)
+      activerecord (>= 4.2)
+      activesupport (>= 4.2)
     crass (1.0.6)
     devise (4.8.0)
       bcrypt (~> 3.0)
@@ -336,6 +339,7 @@ DEPENDENCIES
   bootsnap (>= 1.4.4)
   capybara
   carrierwave
+  counter_culture
   devise
   devise-i18n
   devise-i18n-views
