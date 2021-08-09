@@ -4,11 +4,13 @@ class FavoritesController < ApplicationController
 
   def create
     @favorite = current_user.favorites.create(store_id: @store.id)
+    @store.reload
   end
 
   def destroy
     @favorite = current_user.favorites.find_by(store_id: @store.id)
     @favorite.destroy
+    @store.reload
   end
 
   private
