@@ -148,4 +148,25 @@ RSpec.describe User, type: :model do
       expect(user.stores.count).to eq 0
     end
   end
+
+  describe 'already_favorited?メソッドのテスト' do
+    let(:store) { create(:store) }
+    let(:user) { create(:user) }
+
+    context 'いいねしてある施設のとき' do
+      before do
+        create(:favorite, user: user, store: store)
+      end
+
+      it 'trueを返すこと' do
+        expect(user.already_favorited?(store)).to be true
+      end
+    end
+
+    context 'いいねしていない施設のとき' do
+      it 'falseを返すこと' do
+        expect(user.already_favorited?(store)).to be false
+      end
+    end
+  end
 end
