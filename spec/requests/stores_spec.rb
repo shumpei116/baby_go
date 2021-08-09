@@ -117,7 +117,7 @@ RSpec.describe 'Stores', type: :request do
         expect(response).to have_http_status(200)
       end
 
-      it 'ユーザーが登録されないこと' do
+      it '施設が登録されないこと' do
         expect {
           post stores_path, params: { store: attributes_for(:store, :invalid) }
         }.to_not change(Store, :count)
