@@ -1,12 +1,12 @@
 <div class ="favorite-icon" id="store_favorite_<%= store.id %>">
   <% if current_user.already_favorited?(store) %>
-    <%= link_to store_favorite_path(store), class:"text-decoration-none", method: :delete, remote: true do %>
+    <%= link_to store_favorite_path(store), class:"favorited-#{store.id} text-decoration-none", method: :delete, remote: true do %>
       <i class="fas fa-heart"></i>
     <% end %>
   <% else %>
-    <%= link_to store_favorite_path(store), class:"text-decoration-none", method: :post, remote: true do %>
+    <%= link_to store_favorite_path(store), class:"favorite-#{store.id} text-decoration-none", method: :post, remote: true do %>
       <i class="far fa-heart"></i>
     <% end %>
   <% end %>
-  <span class="text-muted"><%= store.favorites_count %></span>
+  <span class="favorite-count text-muted"><%= store.favorites_count %></span>
 </div>
