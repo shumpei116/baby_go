@@ -78,6 +78,8 @@ RSpec.describe 'Users', type: :system do
           within '.store-2' do
             expect(page).to have_selector('img[alt=施設画像-2]')
             expect(page).to have_selector '.card-title', text: 'あかちゃん本舗'
+            expect(page).to have_css ".favorite-#{store1.id}"
+            expect(page).to have_selector '.favorite-count', text: '0'
             expect(page).to have_content '綺麗な授乳室でした'
             expect(page).to have_content '北海道'
             expect(page).to have_link 'shumpei'
@@ -86,6 +88,8 @@ RSpec.describe 'Users', type: :system do
           within '.store-1' do
             expect(page).to have_selector('img[alt=施設画像-1]')
             expect(page).to have_selector '.card-title', text: 'ベビーレストラン'
+            expect(page).to have_css ".favorite-#{store2.id}"
+            expect(page).to have_selector '.favorite-count', text: '0'
             expect(page).to have_content '個室の和室があって赤ちゃんと一緒でもゆっくりできました'
             expect(page).to have_content '沖縄県'
             expect(page).to have_link 'shumpei'
