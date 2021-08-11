@@ -14,7 +14,7 @@
               <%= link_to store_favorite_path(store), class:"favorite-#{store.id} text-decoration-none", method: :post do %>
                 <i class="far fa-heart"></i>
               <% end %>
-              <span class="favorite-count text-muted"><%= store.favorites.size %></span>
+              <span class="favorite-count text-muted"><%= store.favorites_count %></span>
             </div>
           <% end %>
           <p class="card-text text-truncate">施設紹介：<%= store.introduction %></p>
