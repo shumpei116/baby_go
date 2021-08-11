@@ -1,4 +1,6 @@
 $('#favorite_stores_list').html("<%= j(render 'shared/stores_list', stores: @favorite_stores) %>");
-$('#favorite_paginate').html("<%= j(render 'shared/paginate', pages: @favorite_stores, page_name: 'favorite_page') %>");
+$('#favorite_paginate1').html("<%= j(render 'shared/paginate', pages: @favorite_stores, page_name: 'favorite_page') %>");
+$('#favorite_paginate2').html("<%= j(render 'shared/paginate', pages: @favorite_stores, page_name: 'favorite_page') %>");
 $('#index_stores_list').html("<%= j(render 'shared/stores_list', stores: @stores) %>");
-$('#index_paginate').html("<%= j(render 'shared/paginate', pages: @stores, page_name: 'index_page') %>");
+$('#index_paginate1').html("<%= j(render 'shared/paginate', pages: @stores, page_name: 'index_page') %>");
+$('#index_paginate2').html("<%= j(render 'shared/paginate', pages: @stores, page_name: 'index_page') %>");

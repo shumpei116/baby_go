@@ -165,22 +165,16 @@ RSpec.describe 'Stores', type: :system do
           visit stores_path
         end
 
-        it '.store-cardが12個表示されていること' do
-          expect(page).to have_selector('.store-card', count: 12)
-        end
-
-        it 'ページネーションリンクが2つ表示されること' do
-          expect(page).to have_css '.pagination', count: 2
-        end
-
         it 'ページネーションが2つ表示され2ページ目をクリックすると次ページに遷移すること', js: true do
           expect(page).to have_css '.pagination', count: 2
-          expect(page).to have_css '.pagination-count', count: 2
+          expect(page).to have_selector '.pagination-count', text: "1-12\n/13件中"
+          expect(page).to have_css '.store-card', count: 12
           within '.paginate-1' do
             click_link '2'
           end
           expect(page).to have_css '.pagination', count: 2
-          expect(page).to have_css '.pagination-count', count: 2
+          expect(page).to have_selector '.pagination-count', text: "13-13\n/13件中"
+          expect(page).to have_css '.store-card', count: 1
         end
       end
     end

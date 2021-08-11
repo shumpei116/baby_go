@@ -35,13 +35,13 @@
               <h4><%=@user.name %>さんが紹介してくれた施設の一覧</h4>
             </div>
           </div>
-          <div id ="index_paginate" class="paginate-1 mb-3">
+          <div id ="index_paginate1" class="paginate-1 mb-3">
             <%= render 'shared/paginate', pages: @stores, page_name: 'index_page' %>
           </div>
           <div id="index_stores_list">
             <%= render 'shared/stores_list', stores: @stores %>
           </div>
-          <div id ="index_paginate" class="paginate-2 mt-3">
+          <div id ="index_paginate2" class="paginate-2 mt-3">
             <%= render "shared/paginate", pages: @stores, page_name: 'index_page' %>
           </div>
         </div>
@@ -54,13 +54,13 @@
               <h4><%= @user.name %>さんがいいねした施設の一覧</h4>
             </div>
           </div>
-          <div id ="favorite_paginate" class="paginate-1 mb-3">
+          <div id ="favorite_paginate1" class="paginate-1 mb-3">
             <%= render 'shared/paginate', pages: @favorite_stores, page_name: 'favorite_page' %>
           </div>
           <div id="favorite_stores_list">
             <%= render 'shared/stores_list', stores: @favorite_stores %>
           </div>
-          <div id ="favorite_paginate" class="paginate-2 mt-3">
+          <div id ="favorite_paginate2" class="paginate-2 mt-3">
             <%= render 'shared/paginate', pages: @favorite_stores, page_name: 'favorite_page' %>
           </div>
         </div>

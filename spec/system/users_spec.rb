@@ -207,18 +207,16 @@ RSpec.describe 'Users', type: :system do
           visit user_path(user)
         end
 
-        it '.store-cardが8個表示されていること' do
-          expect(page).to have_selector('.store-card', count: 8)
-        end
-
         it 'ページネーションが2つ表示され2ページ目をクリックすると次ページに遷移すること', js: true do
           expect(page).to have_css '.pagination', count: 2
-          expect(page).to have_css '.pagination-count', count: 2
+          expect(page).to have_selector '.pagination-count', text: "1-8\n/9件中"
+          expect(page).to have_css '.store-card', count: 8
           within '.paginate-1' do
             click_link '2'
           end
           expect(page).to have_css '.pagination', count: 2
-          expect(page).to have_css '.pagination-count', count: 2
+          expect(page).to have_selector '.pagination-count', text: "9-9\n/9件中"
+          expect(page).to have_css '.store-card', count: 1
         end
       end
     end
