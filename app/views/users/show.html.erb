@@ -16,13 +16,14 @@
       </div>
     </div>
   </div>
+
   <div class="mt-5">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
       <li class="nav-item" role="presentation">
         <%= link_to "投稿した施設一覧", "#store_index", class:"nav-link active", 'id': :"store_index_tab", 'data-bs-toggle': :"tab", 'role': :"tab",  'aria-controls': :"store_index", 'aria-selected': :"true" %>
       </li>
       <li class="nav-item" role="presentation">
-        <%= link_to "いいねしたスポット（後から追加）", "#profile", class:"nav-link", 'id': :"profile-tab", 'data-bs-toggle': :"tab", 'role': :"tab",  'aria-controls': :"profile", 'aria-selected': :"false" %>
+        <%= link_to "いいねした施設", "#store_favorite", class:"nav-link", 'id': :"store_favorite_tab", 'data-bs-toggle': :"tab", 'role': :"tab",  'aria-controls': :"store_favorite", 'aria-selected': :"false" %>
       </li>
     </ul>
 
@@ -31,36 +32,38 @@
         <div class="container">
           <div class="row">
             <div class="col-12 my-5">
-              <h4><%= @user.name %>さんが紹介してくれた施設の一覧</h4>
+              <h4><%=@user.name %>さんが紹介してくれた施設の一覧</h4>
             </div>
           </div>
-          <div class="row">
-            <div class="mb-3">
-              <%= render "shared/paginate", pages: @stores %>
-            </div>
-            <% @stores.each_with_index do |store, index| %>
-              <div class="store-card col-12 col-md-4 col-xl-3">
-                <div class="card  store-<%= index + 1 %> m-2">
-                  <%= link_to store_path(store) do %>
-                    <%= image_tag(store.image.url,class:"card-img-top img-thumbnail", alt: "施設画像-#{index + 1}") %>
-                  <% end %>
-                  <div class="card-body">
-                    <h5 class="card-title"><%= store.name %></h5>
-                    <p class="card-text text-truncate">施設紹介：<%= store.introduction %></p>
-                    <p class="card-text">住所：<%= store.prefecture_code %></p>
-                  </div>
-                </div>
-              </div>
-            <% end %>
+          <div id ="index_paginate1" class="paginate-1 mb-3">
+            <%= render 'shared/paginate', pages: @stores, page_name: 'index_page' %>
           </div>
-          <div class="mt-3">
-            <%= render "shared/paginate", pages: @stores %>
+          <div id="index_stores_list">
+            <%= render 'shared/stores_list', stores: @stores %>
+          </div>
+          <div id ="index_paginate2" class="paginate-2 mt-3">
+            <%= render "shared/paginate", pages: @stores, page_name: 'index_page' %>
           </div>
         </div>
       </div>
 
-      <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
-        <h1>機能を実装したら追加するよ！</h1>
+      <div class="tab-pane fade" id="store_favorite" role="tabpanel" aria-labelledby="store_favorite_tab">
+        <div class="container">
+          <div class="row">
+            <div class="col-12 my-5">
+              <h4><%= @user.name %>さんがいいねした施設の一覧</h4>
+            </div>
+          </div>
+          <div id ="favorite_paginate1" class="paginate-1 mb-3">
+            <%= render 'shared/paginate', pages: @favorite_stores, page_name: 'favorite_page' %>
+          </div>
+          <div id="favorite_stores_list">
+            <%= render 'shared/stores_list', stores: @favorite_stores %>
+          </div>
+          <div id ="favorite_paginate2" class="paginate-2 mt-3">
+            <%= render 'shared/paginate', pages: @favorite_stores, page_name: 'favorite_page' %>
+          </div>
+        </div>
       </div>
     </div>
   </div>

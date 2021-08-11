@@ -39,6 +39,10 @@ Style/EmptyMethod:
   Exclude:
     - 'app/controllers/**/*'
 
+Security/Open:
+  Exclude:
+    - 'db/seeds.rb'
+
 # 日本語でのコメントを許可
 AsciiComments:
   Enabled: false

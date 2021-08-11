@@ -1,32 +1,16 @@
 <div class="container">
   <div class="row">
-    <div class="col-12 mt-5">
+    <div class="col-12 my-5">
       <h3>みんなが投稿してくれた施設の一覧</h3>
     </div>
   </div>
-  <div class="row mt-5">
-    <div class="mb-3">
-      <%= render "shared/paginate", pages: @stores %>
-    </div>
-    <% @stores.each_with_index do |store, index| %>
-      <div class="store-card col-12 col-md-6 col-xl-4">
-        <div class="card  store-<%= index + 1 %> m-2">
-          <%= link_to store_path(store) do %>
-            <%= image_tag(store.image.url,class:"card-img-top img-thumbnail", alt: "施設画像-#{index + 1}") %>
-          <% end %>
-          <div class="card-body">
-            <h5 class="card-title"><%= store.name %></h5>
-            <p class="card-text text-truncate">施設紹介：<%= store.introduction %></p>
-            <p class="card-text">住所：<%= store.prefecture_code %></p>
-            <%= link_to user_path(store.user), class:"text-decoration-none text-reset" do %>
-              <p class="card-text"><small>情報提供者：<%= store.user.name %></small></p>
-            <% end %>
-          </div>
-        </div>
-      </div>
-    <% end %>
+  <div id ="paginate1" class="paginate-1 mb-3">
+    <%= render 'shared/paginate', pages: @stores, page_name: 'page' %>
   </div>
-  <div class="my-3">
-    <%= render "shared/paginate", pages: @stores %>
+  <div id="stores_list">
+    <%= render 'shared/stores_list', stores: @stores %>
+  </div>
+  <div id ="paginate2" class="paginate-2 mt-3">
+    <%= render 'shared/paginate', pages: @stores, page_name: 'page' %>
   </div>
 </div>

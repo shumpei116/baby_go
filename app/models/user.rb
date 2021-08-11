@@ -5,10 +5,16 @@ class User < ApplicationRecord
   mount_uploader :avatar, AvatarUploader
 
   has_many :stores, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :favorite_stores, through: :favorites, source: :store
 
   validates :name, presence: true, length: { maximum: 20 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
   validates :email, length: { maximum: 255 }, format: { with: VALID_EMAIL_REGEX }
+
+  def already_favorited?(store)
+    favorites.exists?(store_id: store.id)
+  end
 
   private
 

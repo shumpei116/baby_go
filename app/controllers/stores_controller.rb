@@ -4,7 +4,7 @@ class StoresController < ApplicationController
   before_action :correct_user, only: %i[edit update destroy]
 
   def index
-    @stores = Store.order(created_at: :desc).page(params[:page]).per(9).includes(:user)
+    @stores = Store.order(created_at: :desc).page(params[:page]).per(12).includes(:user)
   end
 
   def show
