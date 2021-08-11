@@ -172,6 +172,16 @@ RSpec.describe 'Stores', type: :system do
         it 'ページネーションリンクが2つ表示されること' do
           expect(page).to have_css '.pagination', count: 2
         end
+
+        it 'ページネーションが2つ表示され2ページ目をクリックすると次ページに遷移すること', js: true do
+          expect(page).to have_css '.pagination', count: 2
+          expect(page).to have_css '.pagination-count', count: 2
+          within '.paginate-1' do
+            click_link '2'
+          end
+          expect(page).to have_css '.pagination', count: 2
+          expect(page).to have_css '.pagination-count', count: 2
+        end
       end
     end
   end
