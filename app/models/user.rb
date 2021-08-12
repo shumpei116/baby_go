@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :stores, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :favorite_stores, through: :favorites, source: :store
+  has_many :reviews, dependent: :destroy
 
   validates :name, presence: true, length: { maximum: 20 }
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z\d\-]+)*\.[a-z]+\z/i.freeze
