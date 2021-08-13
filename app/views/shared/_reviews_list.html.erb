@@ -7,7 +7,7 @@
           <div id="store-rate<%= review.id %>"></div>
         </div>
         <div class="card-body">
-          <p class="card-text py-3"><%= review.comment %></p>
+          <p class="card-text"><%= simple_format(review.comment) %></p>
           <div class="d-flex justify-content-between">
             投稿日：<%= review.created_at %>
             <% if current_user == review.user %>
