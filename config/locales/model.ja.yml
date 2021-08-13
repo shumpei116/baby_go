@@ -19,21 +19,21 @@ ja:
           attributes:
             name:
               taken: "は既に使用されています"
-              blank: "が入力されていません"
+              blank: "を入力してね"
               too_short: "は%{count}文字以上に設定して下さい"
-              too_long: "は%{count}文字以下に設定して下さい"
+              too_long: "は%{count}文字以内で入力してね"
               invalid: "は有効でありません"
             email:
               taken: "は既に使用されています"
-              blank: "が入力されていません"
+              blank: "を入力してね"
               too_short: "は%{count}文字以上に設定して下さい"
-              too_long: "は%{count}文字以下に設定して下さい"
+              too_long: "は%{count}文字以内で入力してね"
               invalid: "は有効でありません"
             password:
               taken: "は既に使用されています"
-              blank: "が入力されていません"
+              blank: "を入力してね"
               too_short: "は%{count}文字以上に設定して下さい"
-              too_long: "は%{count}文字以下に設定して下さい"
+              too_long: "は%{count}文字以内で入力してね"
               invalid: "は有効でありません"
               confirmation: "が内容とあっていません"
             password_confirmation:
@@ -43,39 +43,49 @@ ja:
           attributes:
             name:
               taken: "は既に使用されています"
-              blank: "が入力されていません"
+              blank: "を入力してね"
               too_short: "は%{count}文字以上に設定して下さい"
-              too_long: "は%{count}文字以下に設定して下さい"
+              too_long: "は%{count}文字以内で入力してね"
               invalid: "は有効でありません"
             introduction:
               taken: "は既に使用されています"
-              blank: "が入力されていません"
+              blank: "を入力してね"
               too_short: "は%{count}文字以上に設定して下さい"
-              too_long: "は%{count}文字以下に設定して下さい"
+              too_long: "は%{count}文字以内で入力してね"
               invalid: "は有効でありません"
             postcode:
               taken: "は既に使用されています"
-              blank: "が入力されていません"
+              blank: "を入力してね"
               too_short: "は%{count}文字以上に設定して下さい"
-              too_long: "は%{count}文字以下に設定して下さい"
+              too_long: "は%{count}文字以内で入力してね"
               invalid: "は有効でありません"
             prefecture_code:
               taken: "は既に使用されています"
-              blank: "が入力されていません"
+              blank: "を入力してね"
               too_short: "は%{count}文字以上に設定して下さい"
-              too_long: "は%{count}文字以下に設定して下さい"
+              too_long: "は%{count}文字以内で入力してね"
               invalid: "は有効でありません"
             city:
               taken: "は既に使用されています"
-              blank: "が入力されていません"
+              blank: "を入力してね"
               too_short: "は%{count}文字以上に設定して下さい"
-              too_long: "は%{count}文字以下に設定して下さい"
+              too_long: "は%{count}文字以内で入力してね"
               invalid: "は有効でありません"
             url:
               taken: "は既に使用されています"
-              blank: "が入力されていません"
+              blank: "を入力してね"
               too_short: "は%{count}文字以上に設定して下さい"
-              too_long: "は%{count}文字以下に設定して下さい"
+              too_long: "は%{count}文字以内で入力してね"
+              invalid: "は有効でありません"
+        review:
+          attributes:
+            rating:
+              blank: "で点数をつけてね"
+              invalid: "は有効でありません"
+            comment:
+              taken: "は既に使用されています"
+              blank: "を入力してね"
+              too_long: "は%{count}文字以内で入力してね"
               invalid: "は有効でありません"
     attributes:
       user:
@@ -95,6 +105,10 @@ ja:
         city: "市区町村番地"
         url: "施設参考URL"
         image: "施設の画像"
+      review:
+        rating: "星"
+        comment: "口コミ"
     models:
       user: "ユーザー"
       store: "施設"
+      review: "レビュー"
