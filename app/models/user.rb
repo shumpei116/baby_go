@@ -17,6 +17,10 @@ class User < ApplicationRecord
     favorites.exists?(store_id: store.id)
   end
 
+  def already_reviewed?(store)
+    reviews.exists?(store_id: store.id)
+  end
+
   private
 
   def downcase_email
