@@ -9,7 +9,7 @@
         <div class="card-body">
           <p class="card-text"><%= simple_format(review.comment) %></p>
           <div class="d-flex justify-content-between">
-            投稿日：<%= review.created_at %>
+            投稿日：<%= l review.created_at, format: :date %>
             <% if current_user == review.user %>
               <%= link_to 'レビューを修正する', edit_store_review_path(review.store,review), class:"btn btn-outline-secondary btn-sm" %>
             <% end %>
