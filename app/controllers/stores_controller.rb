@@ -9,7 +9,7 @@ class StoresController < ApplicationController
 
   def show
     @review = current_user.reviews.build if current_user
-    @reviews = @store.reviews
+    @reviews = @store.reviews.includes(:user)
   end
 
   def new
