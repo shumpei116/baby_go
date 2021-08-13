@@ -8,6 +8,8 @@ class StoresController < ApplicationController
   end
 
   def show
+    @review = current_user.reviews.build
+    @reviews = @store.reviews
   end
 
   def new

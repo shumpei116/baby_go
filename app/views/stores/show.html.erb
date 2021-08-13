@@ -21,52 +21,69 @@
           </div>
         </div>
         <div class= "col-12 col-md-6 mt-5 pt-1">
-        <div class= "table-responsive">
-          <table class="table table-borderless">
-            <tbody>
-              <tr>
-                <th scope="row">
-                  <% if user_signed_in? %>
-                    <%= render 'favorites/favorite', store: @store %>
-                  <% else %>
-                    <div class ="favorite-icon" id="store_favorite_<%= @store.id %>">
-                      <%= link_to store_favorite_path(@store), class:"favorite-#{@store.id} text-decoration-none", method: :post do %>
-                        <i class="far fa-heart"></i>
-                      <% end %>
-                      <span class="favorite-count text-muted"><%= @store.favorites_count %></span>
-                    </div>
-                  <% end %>
-                </th>
-              </tr>
-              <tr>
-                <th scope="row">施設名:</th>
-                <td><%= @store.name %></td>
-              </tr>
-              <tr>
-                <th scope="row">施設紹介:</th>
-                <td><%= @store.introduction %></td>
-              </tr>
-              <tr>
-                <th scope="row">施設URL:</th>
-                <td><%= link_to @store.url, @store.url %></td>
-              </tr>
-              <tr>
-                <th scope="row">住所:</th>
-                <td colspan="2">〒<%= @store.postcode %></td>
-              </tr>
-              <tr>
-                <th scope="row"></th>
-                <td colspan="2"><%= @store.prefecture_code%> <%= @store.city %></td>
-              </tr>
-            </tbody>
-          </table>
+          <div class= "table-responsive">
+            <table class="table table-borderless">
+              <tbody>
+                <tr>
+                  <th scope="row">
+                    <% if user_signed_in? %>
+                      <%= render 'favorites/favorite', store: @store %>
+                    <% else %>
+                      <div class ="favorite-icon" id="store_favorite_<%= @store.id %>">
+                        <%= link_to store_favorite_path(@store), class:"favorite-#{@store.id} text-decoration-none", method: :post do %>
+                          <i class="far fa-heart"></i>
+                        <% end %>
+                        <span class="favorite-count text-muted"><%= @store.favorites_count %></span>
+                      </div>
+                    <% end %>
+                  </th>
+                </tr>
+                <tr>
+                  <th scope="row">施設名:</th>
+                  <td><%= @store.name %></td>
+                </tr>
+                <tr>
+                  <th scope="row">施設紹介:</th>
+                  <td><%= @store.introduction %></td>
+                </tr>
+                <tr>
+                  <th scope="row">施設URL:</th>
+                  <td><%= link_to @store.url, @store.url, target: :_blank %></td>
+                </tr>
+                <tr>
+                  <th scope="row">住所:</th>
+                  <td colspan="2">〒<%= @store.postcode %></td>
+                </tr>
+                <tr>
+                  <th scope="row"></th>
+                  <td colspan="2"><%= @store.prefecture_code%> <%= @store.city %></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div>
+            <% if @store.user == current_user%>
+              <div class="d-grid gap-2 col-12">
+                <%= link_to "編集", edit_store_path(@store), class:"btn btn-warning" %>
+              </div>
+            <% end %>
+          </div>
         </div>
-          <% if @store.user == current_user%>
-            <div class="d-grid gap-2 col-12">
-              <%= link_to "編集", edit_store_path(@store), class:"btn btn-warning" %>
-            </div>
-          <% end %>
+      </div>
+
+      <div class="mt-5">
+        <hr>
+        <div class="row justify-content-center">
+          <div class="col-8">
+            <h4>☆利用したパパママからのメッセージ☆</h4>
+          </div>
         </div>
+        <% unless current_user.already_reviewed?(@store) %>
+          <%= render 'shared/review_form', review: @review, store: @store %>
+        <% end %>
+      </div>
+      <div>
+        <%= render 'shared/reviews_list', reviews: @reviews %>
       </div>
     </div>
   </div>
