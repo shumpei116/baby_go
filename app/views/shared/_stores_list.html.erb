@@ -17,6 +17,7 @@
               <span class="favorite-count text-muted"><%= store.favorites_count %></span>
             </div>
           <% end %>
+          <p class="card-text"><%= render 'shared/reviews_average', store: store %></p>
           <p class="card-text text-truncate">施設紹介：<%= store.introduction %></p>
           <p class="card-text">住所：<%= store.prefecture_code %></p>
           <%= link_to user_path(store.user), class:"text-decoration-none text-reset" do %>
@@ -27,3 +28,15 @@
     </div>
   <% end %>
 </div>
+
+<script>
+  $('.review-average-rating').raty({
+    readOnly: true,
+    starOn: "<%= asset_path('star-on.png') %>",
+    starOff: "<%= asset_path('star-off.png') %>",
+    starHalf: "<%= asset_path('star-half.png') %>",
+    score: function() {
+      return $(this).attr('data-score')
+    }
+  });
+</script>
