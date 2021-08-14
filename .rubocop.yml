@@ -43,6 +43,9 @@ Security/Open:
   Exclude:
     - 'db/seeds.rb'
 
+Metrics/AbcSize:
+  Max: 20 
+
 # 日本語でのコメントを許可
 AsciiComments:
   Enabled: false
