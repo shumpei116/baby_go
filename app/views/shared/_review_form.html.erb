@@ -25,12 +25,13 @@
 <% end %>
 
 <script>
-    $('#rating').raty({
-      size      : 36,
-      starOn: "<%= asset_path('star-on.png') %>",
-      starOff: "<%= asset_path('star-off.png') %>",
-      starHalf: "<%= asset_path('star-half.png') %>",
-      scoreName: 'review[rating]',
-      half: true, 
-    });
+  $('#rating').empty();
+  $('#rating').raty({
+    size      : 36,
+    starOn: "<%= asset_path('star-on.png') %>",
+    starOff: "<%= asset_path('star-off.png') %>",
+    starHalf: "<%= asset_path('star-half.png') %>",
+    scoreName: 'review[rating]',
+    half: true, 
+  });
 </script>
