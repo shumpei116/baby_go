@@ -12,4 +12,9 @@ class Store < ApplicationRecord
   validates :city, presence: true, uniqueness: true
   VALID_URL_REGEX = %r{https?:/{2}[\w/:%#{Regexp.last_match(0)}?()~.=+\-]+}.freeze
   validates :url, format: { with: VALID_URL_REGEX }, allow_blank: true
+
+  def average_rating
+    ratings = reviews.map(&:rating)
+    ratings.size.zero? ? 0.0 : ratings.sum.fdiv(ratings.size).round(2)
+  end
 end
