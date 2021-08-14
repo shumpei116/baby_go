@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'ranks/index'
   root 'homes#top'
   devise_for :users, controllers: {
     registrations: 'users/registrations',
