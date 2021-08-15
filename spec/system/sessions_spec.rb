@@ -47,7 +47,7 @@ RSpec.describe 'Sessions', type: :system do
   describe 'フレンドリフォワーディングのテスト' do
     it 'ログイン後にリクエストしたページにリダイレクトされること' do
       visit root_path
-      click_link '施設を投稿する'
+      click_link '施設を投稿'
       expect(current_path).to eq new_user_session_path
       expect(page).to have_selector '.alert-alert', text: 'ログインもしくはアカウント登録してください'
       fill_in 'メールアドレス',	with: 'shumpei@example.com'
