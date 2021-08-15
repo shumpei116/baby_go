@@ -6,6 +6,14 @@ RSpec.describe Store, type: :model do
     expect(store).to be_valid
   end
 
+  describe 'ユーザーIDのテスト' do
+    it '名前がないときは無効であること' do
+      store = build(:store, user_id: nil)
+      store.valid?
+      expect(store.errors[:user_id]).to include('を入力してください')
+    end
+  end
+
   describe '施設名のテスト' do
     it '名前がないときは無効であること' do
       store = build(:store, name: nil)
