@@ -8,10 +8,13 @@
         </div>
         <div class="card-body">
           <p class="card-text"><%= simple_format(review.comment) %></p>
-          <div class="d-flex justify-content-between">
-            投稿日：<%= l review.created_at, format: :date %>
+          <div class="d-flex">
+            <div class="me-auto">
+              投稿日：<%= l review.created_at, format: :date %>
+            </div>
             <% if current_user == review.user %>
-              <%= link_to 'レビューを修正する', edit_store_review_path(review.store,review), class:"btn btn-outline-secondary btn-sm" %>
+              <%= link_to '修正する', edit_store_review_path(review.store,review), class:"btn btn-outline-warning btn-sm" %>
+              <%= link_to '削除する', store_review_path(review.store,review), method: :delete, data: { confirm: "本当に削除しますか？" }, class:"btn btn-outline-danger btn-sm ms-2" %>
             <% end %>
           </div>
         </div>
