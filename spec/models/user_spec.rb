@@ -107,7 +107,7 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context '6文字以下の時' do
+    context '5文字以下の時' do
       it '無効であること' do
         user = build(:user, password: 'a' * 5, password_confirmation: 'a' * 5)
         user.valid?
