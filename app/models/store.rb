@@ -19,7 +19,7 @@ class Store < ApplicationRecord
   end
 
   def self.average_score_rank
-    left_joins(:reviews).includes(:reviews).distinct.sort_by(&:average_rating)
+    left_joins(:reviews).includes(:reviews, :user).distinct.sort_by(&:average_rating)
                         .reverse
   end
 end

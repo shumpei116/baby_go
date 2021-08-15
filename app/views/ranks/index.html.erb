@@ -4,10 +4,10 @@
       <h2><i class="fas fa-crown"></i>レビューランキング</h2>
     </div>
   </div>
-  <div id="stores_list">
-    <%= render 'rank_list', stores: @rank_stores %>
+  <div id="ranks_list">
+    <%= render 'ranks_list', stores: @stores %>
   </div>
-  <div id ="paginate2" class="paginate-2 mt-3">
-    <%= render 'shared/paginate', pages: @rank_stores, page_name: 'rank_page' %>
+  <div id ="paginate" class="paginate-2 mt-3">
+    <%= render 'shared/paginate', pages: @stores, page_name: 'rank_page' %>
   </div>
 </div>
