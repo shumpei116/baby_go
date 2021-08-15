@@ -10,7 +10,7 @@ RSpec.describe User, type: :model do
     it '名前がないときは無効であること' do
       user = build(:user, name: nil)
       user.valid?
-      expect(user.errors[:name]).to include('が入力されていません')
+      expect(user.errors[:name]).to include('を入力してね')
     end
 
     context '20文字以下の時' do
@@ -24,7 +24,7 @@ RSpec.describe User, type: :model do
       it '無効であること' do
         user = build(:user, name: 'a' * 21)
         user.valid?
-        expect(user.errors[:name]).to include('は20文字以下に設定して下さい')
+        expect(user.errors[:name]).to include('は20文字以内で入力してね')
       end
     end
   end
@@ -33,7 +33,7 @@ RSpec.describe User, type: :model do
     it 'メールアドレスがない時は無効であること' do
       user = build(:user, email: nil)
       user.valid?
-      expect(user.errors[:email]).to include('が入力されていません')
+      expect(user.errors[:email]).to include('を入力してね')
     end
 
     it '重複したメールアドレスは無効であること' do
@@ -59,7 +59,7 @@ RSpec.describe User, type: :model do
       it '無効であること' do
         user = build(:user, email: "#{'a' * 244}@example.com")
         user.valid?
-        expect(user.errors[:email]).to include('は255文字以下に設定して下さい')
+        expect(user.errors[:email]).to include('は255文字以内で入力してね')
       end
     end
 
@@ -91,7 +91,7 @@ RSpec.describe User, type: :model do
     it 'パスワードがないときは無効であること' do
       user = build(:user, password: nil)
       user.valid?
-      expect(user.errors[:password]).to include('が入力されていません')
+      expect(user.errors[:password]).to include('を入力してね')
     end
 
     it 'パスワードとパスワードコンファメーションが一致しないときは無効であること' do
@@ -126,7 +126,7 @@ RSpec.describe User, type: :model do
       it '無効であること' do
         user = build(:user, password: 'a' * 129, password_confirmation: 'a' * 129)
         user.valid?
-        expect(user.errors[:password]).to include('は128文字以下に設定して下さい')
+        expect(user.errors[:password]).to include('は128文字以内で入力してね')
       end
     end
   end

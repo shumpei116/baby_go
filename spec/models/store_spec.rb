@@ -10,7 +10,7 @@ RSpec.describe Store, type: :model do
     it '名前がないときは無効であること' do
       store = build(:store, name: nil)
       store.valid?
-      expect(store.errors[:name]).to include('が入力されていません')
+      expect(store.errors[:name]).to include('を入力してね')
     end
 
     context '20文字以下の時' do
@@ -24,7 +24,7 @@ RSpec.describe Store, type: :model do
       it '無効であること' do
         store = build(:store, name: 'a' * 21)
         store.valid?
-        expect(store.errors[:name]).to include('は20文字以下に設定して下さい')
+        expect(store.errors[:name]).to include('は20文字以内で入力してね')
       end
     end
   end
@@ -33,7 +33,7 @@ RSpec.describe Store, type: :model do
     it '施設の紹介がない時は無効であること' do
       store = build(:store, introduction: nil)
       store.valid?
-      expect(store.errors[:introduction]).to include('が入力されていません')
+      expect(store.errors[:introduction]).to include('を入力してね')
     end
 
     context '140文字以下の時' do
@@ -47,7 +47,7 @@ RSpec.describe Store, type: :model do
       it '無効であること' do
         store = build(:store, introduction: ('a' * 141).to_s)
         store.valid?
-        expect(store.errors[:introduction]).to include('は140文字以下に設定して下さい')
+        expect(store.errors[:introduction]).to include('は140文字以内で入力してね')
       end
     end
   end
@@ -56,7 +56,7 @@ RSpec.describe Store, type: :model do
     it '郵便番号が未入力の時は無効であること' do
       store = build(:store, postcode: nil)
       store.valid?
-      expect(store.errors[:postcode]).to include('が入力されていません')
+      expect(store.errors[:postcode]).to include('を入力してね')
     end
 
     context '正しいフォーマットのとき' do
@@ -85,7 +85,7 @@ RSpec.describe Store, type: :model do
     it '都道府県番号が未入力の時は無効であること' do
       store = build(:store, prefecture_code: nil)
       store.valid?
-      expect(store.errors[:prefecture_code]).to include('が入力されていません')
+      expect(store.errors[:prefecture_code]).to include('を入力してね')
     end
   end
 
@@ -93,7 +93,7 @@ RSpec.describe Store, type: :model do
     it '地区町村番地が未入力の時は無効であること' do
       store = build(:store, city: nil)
       store.valid?
-      expect(store.errors[:city]).to include('が入力されていません')
+      expect(store.errors[:city]).to include('を入力してね')
     end
 
     it '重複した市区町村番地は無効であること' do
