@@ -17,4 +17,9 @@ class Store < ApplicationRecord
     ratings = reviews.map(&:rating)
     ratings.size.zero? ? 0.0 : ratings.sum.fdiv(ratings.size).round(2)
   end
+
+  def self.average_score_rank
+    left_joins(:reviews).includes(:reviews).distinct.sort_by(&:average_rating)
+                        .reverse
+  end
 end
