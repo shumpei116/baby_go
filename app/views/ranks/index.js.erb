@@ -1,0 +1,2 @@
+$('#ranks_list').html("<%= j(render 'ranks_list', stores: @stores) %>");
+$('#paginate').html("<%= j(render 'shared/paginate', pages: @stores, page_name: 'rank_page') %>");
