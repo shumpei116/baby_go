@@ -136,7 +136,6 @@ RSpec.describe User, type: :model do
       user = create(:user)
       user.stores.create!(name: '東松屋', introduction: '広くていい場所です', postcode: '1000000', prefecture_code: '8',
                           city: '土浦市123-234')
-      user.reload
       expect(user.stores.count).to eq 1
     end
 
@@ -145,7 +144,41 @@ RSpec.describe User, type: :model do
       user.stores.create!(name: '東松屋', introduction: '広くていい場所です', postcode: '1000000', prefecture_code: '8',
                           city: '土浦市123-234')
       user.destroy
-      expect(user.stores.count).to eq 0
+      expect(Store.count).to eq 0
+    end
+  end
+
+  describe 'favoriteモデルアソシエーションのテスト' do
+    it 'ユーザーに関連したfavoriteが作成できること' do
+      store = create(:store)
+      user = create(:user)
+      user.favorites.create!(store: store)
+      expect(user.favorites.count).to eq 1
+    end
+
+    it 'ユーザーが削除されたら関連したfavoriteも削除されること' do
+      store = create(:store)
+      user = create(:user)
+      user.favorites.create!(store: store)
+      user.destroy
+      expect(Favorite.count).to eq 0
+    end
+  end
+
+  describe 'reviewモデルアソシエーションのテスト' do
+    it 'ユーザーに関連したreviewが作成できること' do
+      store = create(:store)
+      user = create(:user)
+      user.reviews.create!(store: store, rating: 3, comment: '確かにいいところでした！')
+      expect(user.reviews.count).to eq 1
+    end
+
+    it 'ユーザーが削除されたら関連したreviewも削除されること' do
+      store = create(:store)
+      user = create(:user)
+      user.reviews.create!(store: store, rating: 3, comment: '確かにいいところでした！')
+      user.destroy
+      expect(Review.count).to eq 0
     end
   end
 
