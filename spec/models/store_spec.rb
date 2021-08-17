@@ -168,6 +168,23 @@ RSpec.describe Store, type: :model do
     end
   end
 
+  describe 'reviewモデルアソシエーションのテスト' do
+    it '施設に関連したreviewが作成できること' do
+      store = create(:store)
+      user = create(:user)
+      store.reviews.create!(user: user, rating: 3, comment: '確かにいいところでした！')
+      expect(store.reviews.count).to eq 1
+    end
+
+    it '施設が削除されたら関連したreviewも削除されること' do
+      store = create(:store)
+      user = create(:user)
+      store.reviews.create!(user: user, rating: 3, comment: '確かにいいところでした！')
+      store.destroy
+      expect(Review.count).to eq 0
+    end
+  end
+
   describe 'average_ratingメソッドのテスト' do
     let(:store) { create(:store) }
 
