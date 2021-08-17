@@ -168,6 +168,23 @@ RSpec.describe Store, type: :model do
     end
   end
 
+  describe 'favoriteモデルアソシエーションのテスト' do
+    it '施設に関連したfavoriteが作成できること' do
+      store = create(:store)
+      user = create(:user)
+      store.favorites.create!(user: user)
+      expect(store.favorites.count).to eq 1
+    end
+
+    it '施設が削除されたら関連したfavoriteも削除されること' do
+      store = create(:store)
+      user = create(:user)
+      store.favorites.create!(user: user)
+      store.destroy
+      expect(Favorite.count).to eq 0
+    end
+  end
+
   describe 'reviewモデルアソシエーションのテスト' do
     it '施設に関連したreviewが作成できること' do
       store = create(:store)
