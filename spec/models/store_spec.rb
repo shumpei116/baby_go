@@ -167,4 +167,35 @@ RSpec.describe Store, type: :model do
       end
     end
   end
+
+  describe 'average_ratingメソッドのテスト' do
+    let(:store) { create(:store) }
+
+    context '施設のレビューがあるとき' do
+      let!(:review1) { create(:review, store: store, rating: 2) }
+      let!(:review2) { create(:review, store: store, rating: 3) }
+      let!(:review3) { create(:review, store: store, rating: 4) }
+
+      it '施設のレビュー平均点を返すこと' do
+        expect(store.average_rating).to  eq 3
+      end
+    end
+
+    context '施設のレビューがないとき' do
+      it '0.0を返すこと' do
+        expect(store.average_rating).to  eq 0.0
+      end
+    end
+  end
+
+  describe 'self.average_score_rankメソッドのテスト' do
+    let!(:store1) { create(:store, :rated1) }
+    let!(:store2) { create(:store, :rated2) }
+    let!(:store3) { create(:store, :rated3) }
+
+    it '全ての施設をレビュー平均点が高い順に並び替えた配列で返すこと' do
+      average_stores = Store.average_score_rank
+      expect(average_stores).to match [store3, store2, store1]
+    end
+  end
 end

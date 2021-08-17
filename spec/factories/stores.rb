@@ -15,5 +15,29 @@ FactoryBot.define do
     trait :with_image do
       image { File.open(Rails.root.join('spec/factories/image/valid_image.jpg')) }
     end
+
+    trait :rated1 do
+      after(:create) do |store|
+        create(:review, store: store, rating: '2')
+        create(:review, store: store, rating: '2')
+        create(:review, store: store, rating: '2')
+      end
+    end
+
+    trait :rated2 do
+      after(:create) do |store|
+        create(:review, store: store, rating: '3')
+        create(:review, store: store, rating: '3')
+        create(:review, store: store, rating: '3')
+      end
+    end
+
+    trait :rated3 do
+      after(:create) do |store|
+        create(:review, store: store, rating: '4')
+        create(:review, store: store, rating: '4')
+        create(:review, store: store, rating: '4')
+      end
+    end
   end
 end
