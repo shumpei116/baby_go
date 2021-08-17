@@ -168,6 +168,16 @@ RSpec.describe Store, type: :model do
     end
   end
 
+  describe 'reviews_countのテスト' do
+    it '施設に関連したreviewの数をカウントすること' do
+      store = create(:store)
+      user = create(:user)
+      store.reviews.create!(user: user, rating: 3, comment: '確かにいいところでした！')
+      store.reload
+      expect(store.reviews_count).to eq 1
+    end
+  end
+
   describe 'favoriteモデルアソシエーションのテスト' do
     it '施設に関連したfavoriteが作成できること' do
       store = create(:store)
