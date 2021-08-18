@@ -5,7 +5,7 @@
     </div>
   </div>
 
-  <%= form_with(model: @review, url: store_review_path(@review.store, @review), local: true) do |f| %>
+  <%= form_with(model: @review, url: store_review_path(@review.store), local: true) do |f| %>
     <div class="row justify-content-center">
       <div class="col-8">
         <%= render "devise/shared/error_messages", resource: @review %>

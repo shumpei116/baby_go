@@ -1,5 +1,7 @@
 class ReviewsController < ApplicationController
-  before_action :find_review, only: %i[edit update destroy]
+  before_action :authenticate_user!
+  before_action :find_current_user_review, only: %i[edit update destroy]
+  before_action :exclude_empty_review, only: %i[edit update destroy]
 
   def create
     @review = current_user.reviews.build(review_params)
@@ -34,10 +36,14 @@ class ReviewsController < ApplicationController
   private
 
   def review_params
-    params.require(:review).permit(:store_id, :user_id, :rating, :comment)
+    params.require(:review).permit(:store_id, :rating, :comment)
   end
 
-  def find_review
-    @review = Review.find(params[:id])
+  def find_current_user_review
+    @review = current_user.reviews.find_by(store_id: params[:store_id])
+  end
+
+  def exclude_empty_review
+    redirect_to stores_path, alert: '無効な操作です' unless @review
   end
 end

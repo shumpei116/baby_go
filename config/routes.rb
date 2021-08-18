@@ -7,7 +7,7 @@ Rails.application.routes.draw do
   resources :users, only: [:index, :show]
   resources :stores do
     resource :favorite, only: [:create, :destroy]
-    resources :reviews, only: [:create, :edit, :update, :destroy]
+    resource :review, only: [:create, :edit, :update, :destroy]
   end
   resources :ranks, only: [:index]
 end
