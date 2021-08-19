@@ -4,5 +4,9 @@ FactoryBot.define do
     association :user, strategy: :create
     rating { 3 }
     comment { 'テストレビューです' }
+
+    trait :invalid do
+      comment { '' }
+    end
   end
 end
