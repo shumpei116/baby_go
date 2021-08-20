@@ -22,10 +22,10 @@ RSpec.describe 'Ranks', type: :system do
         within '.store-1' do
           expect(page).to have_selector('img[alt=施設画像-1]')
           expect(page).to have_selector '.card-title', text: '第1位　あかちゃん本舗'
-          expect(page).to have_selector '.reviews-average-score', text: '3.0'
           expect(page).to have_css ".favorite-#{first_store.id}"
           expect(page).to have_selector '.favorite-count', text: '0'
           expect(page).to have_css '.review-average-rating'
+          expect(page).to have_selector '.reviews-average-score', text: '3.0'
           expect(page).to have_selector '.reviews-count', text: '3'
           expect(page).to have_content '綺麗な授乳室でした'
           expect(page).to have_content '北海道'
