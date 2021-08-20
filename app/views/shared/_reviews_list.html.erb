@@ -1,10 +1,10 @@
-<% reviews.each do |review|%>
+<% reviews.each_with_index do |review, index|%>
   <div class="row justify-content-center">
-    <div class="col-8 mt-3">
+    <div class="col-8 mt-3 review-<%= index + 1 %>">
       <%= review.user.name %>さん
       <div class="card">
         <div class="card-header">
-          <div id="store-rate<%= review.id %>"></div>
+          <div id="store_rate<%= review.id %>"></div>
         </div>
         <div class="card-body">
           <p class="card-text"><%= simple_format(review.comment) %></p>
@@ -21,8 +21,8 @@
       </div>
 
       <script>
-        $('#store-rate<%= review.id %>').empty();
-        $('#store-rate<%= review.id %>').raty({
+        $('#store_rate<%= review.id %>').empty();
+        $('#store_rate<%= review.id %>').raty({
           size      : 36,
           starOn: "<%= asset_path('star-on.png') %>",
           starOff: "<%= asset_path('star-off.png') %>",
