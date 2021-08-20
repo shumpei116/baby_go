@@ -4,7 +4,7 @@ FactoryBot.define do
     name { '赤ちゃんの本舗' }
     introduction { '授乳室とおむつ交換スペースが完備！　綺麗で広くてとっても利用しやすいです' }
     postcode { '3120005' }
-    prefecture_code { '8' }
+    prefecture_code { '栃木県' }
     sequence(:city) { |n| "ひたちなか市新光町35#{n}" }
     url { 'https://stores.akachan.jp/224' }
 
