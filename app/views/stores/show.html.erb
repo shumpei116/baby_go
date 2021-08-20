@@ -39,6 +39,14 @@
                   </th>
                 </tr>
                 <tr>
+                  <th scope="row">
+                    <div class ="reviews-icon">
+                      <div class="review-average-rating d-inline-block" data-score=<%= @store.average_rating %>></div>
+                      <span class="reviews-average-score me-3"><strong><%= @store.average_rating %></strong></span>
+                    </div>
+                  </th>
+                </tr>
+                <tr>
                   <th scope="row">施設名:</th>
                   <td><%= @store.name %></td>
                 </tr>
@@ -88,3 +96,17 @@
     </div>
   </div>
 </div>
+
+<script>
+  $('.review-average-rating').empty();
+  $('.review-average-rating').raty({
+    readOnly: true,
+    size: 20,
+    starOn: "<%= asset_path('star-on.png') %>",
+    starOff: "<%= asset_path('star-off.png') %>",
+    starHalf: "<%= asset_path('star-half.png') %>",
+    score: function() {
+      return $(this).attr('data-score')
+    }
+  });
+</script>

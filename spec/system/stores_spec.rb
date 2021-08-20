@@ -65,6 +65,8 @@ RSpec.describe 'Stores', type: :system do
       expect(page).to have_selector 'h2', text: 'あかちゃん本舗'
       expect(page).to have_css ".favorite-#{store.id}"
       expect(page).to have_selector '.favorite-count', text: '0'
+      expect(page).to have_css '.review-average-rating'
+      expect(page).to have_selector '.reviews-average-score', text: '0.0'
       expect(page).to have_selector 'td', text: 'あかちゃん本舗'
       expect(page).to have_content '綺麗な授乳室でした'
       expect(page).to have_link 'https://stores.akachan.jp/224'
