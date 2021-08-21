@@ -1,12 +1,12 @@
-<div class="row">
+<div class="row justify-content-center">
   <% stores.each_with_index do |store, index| %>
-    <div class="store-card col-12 col-md-4 col-xl-3">
+    <div class="store-card col-8">
       <div class="card  store-<%= index + 1 %> m-2">
         <%= link_to store_path(store) do %>
           <%= image_tag(store.image.url,class:"card-img-top img-thumbnail", alt: "施設画像-#{index + 1}") %>
         <% end %>
         <div class="card-body">
-          <h5 class="card-title"><%= store.name %></h5>
+          <h5 class="card-title"><strong>第<%= @rank_stores.index(store) + 1 %>位</strong>　<%= store.name %></h5>
           <% if user_signed_in? %>
             <p class="card-text"><%= render 'favorites/favorite', store: store %></p>
           <% else %>

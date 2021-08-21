@@ -4,10 +4,12 @@ class StoresController < ApplicationController
   before_action :correct_user, only: %i[edit update destroy]
 
   def index
-    @stores = Store.order(created_at: :desc).page(params[:page]).per(12).includes(:user)
+    @stores = Store.order(created_at: :desc).page(params[:page]).per(12).includes(:user, :reviews)
   end
 
   def show
+    @review = current_user.reviews.build if current_user
+    @reviews = @store.reviews.order(created_at: :desc).page(params[:page]).per(5).includes(:user)
   end
 
   def new

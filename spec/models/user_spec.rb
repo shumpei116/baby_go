@@ -10,7 +10,7 @@ RSpec.describe User, type: :model do
     it '名前がないときは無効であること' do
       user = build(:user, name: nil)
       user.valid?
-      expect(user.errors[:name]).to include('が入力されていません')
+      expect(user.errors[:name]).to include('を入力してね')
     end
 
     context '20文字以下の時' do
@@ -24,7 +24,7 @@ RSpec.describe User, type: :model do
       it '無効であること' do
         user = build(:user, name: 'a' * 21)
         user.valid?
-        expect(user.errors[:name]).to include('は20文字以下に設定して下さい')
+        expect(user.errors[:name]).to include('は20文字以内で入力してね')
       end
     end
   end
@@ -33,7 +33,7 @@ RSpec.describe User, type: :model do
     it 'メールアドレスがない時は無効であること' do
       user = build(:user, email: nil)
       user.valid?
-      expect(user.errors[:email]).to include('が入力されていません')
+      expect(user.errors[:email]).to include('を入力してね')
     end
 
     it '重複したメールアドレスは無効であること' do
@@ -59,7 +59,7 @@ RSpec.describe User, type: :model do
       it '無効であること' do
         user = build(:user, email: "#{'a' * 244}@example.com")
         user.valid?
-        expect(user.errors[:email]).to include('は255文字以下に設定して下さい')
+        expect(user.errors[:email]).to include('は255文字以内で入力してね')
       end
     end
 
@@ -91,7 +91,7 @@ RSpec.describe User, type: :model do
     it 'パスワードがないときは無効であること' do
       user = build(:user, password: nil)
       user.valid?
-      expect(user.errors[:password]).to include('が入力されていません')
+      expect(user.errors[:password]).to include('を入力してね')
     end
 
     it 'パスワードとパスワードコンファメーションが一致しないときは無効であること' do
@@ -107,7 +107,7 @@ RSpec.describe User, type: :model do
       end
     end
 
-    context '6文字以下の時' do
+    context '5文字以下の時' do
       it '無効であること' do
         user = build(:user, password: 'a' * 5, password_confirmation: 'a' * 5)
         user.valid?
@@ -126,7 +126,7 @@ RSpec.describe User, type: :model do
       it '無効であること' do
         user = build(:user, password: 'a' * 129, password_confirmation: 'a' * 129)
         user.valid?
-        expect(user.errors[:password]).to include('は128文字以下に設定して下さい')
+        expect(user.errors[:password]).to include('は128文字以内で入力してね')
       end
     end
   end
@@ -136,7 +136,6 @@ RSpec.describe User, type: :model do
       user = create(:user)
       user.stores.create!(name: '東松屋', introduction: '広くていい場所です', postcode: '1000000', prefecture_code: '8',
                           city: '土浦市123-234')
-      user.reload
       expect(user.stores.count).to eq 1
     end
 
@@ -145,7 +144,41 @@ RSpec.describe User, type: :model do
       user.stores.create!(name: '東松屋', introduction: '広くていい場所です', postcode: '1000000', prefecture_code: '8',
                           city: '土浦市123-234')
       user.destroy
-      expect(user.stores.count).to eq 0
+      expect(Store.count).to eq 0
+    end
+  end
+
+  describe 'favoriteモデルアソシエーションのテスト' do
+    it 'ユーザーに関連したfavoriteが作成できること' do
+      store = create(:store)
+      user = create(:user)
+      user.favorites.create!(store: store)
+      expect(user.favorites.count).to eq 1
+    end
+
+    it 'ユーザーが削除されたら関連したfavoriteも削除されること' do
+      store = create(:store)
+      user = create(:user)
+      user.favorites.create!(store: store)
+      user.destroy
+      expect(Favorite.count).to eq 0
+    end
+  end
+
+  describe 'reviewモデルアソシエーションのテスト' do
+    it 'ユーザーに関連したreviewが作成できること' do
+      store = create(:store)
+      user = create(:user)
+      user.reviews.create!(store: store, rating: 3, comment: '確かにいいところでした！')
+      expect(user.reviews.count).to eq 1
+    end
+
+    it 'ユーザーが削除されたら関連したreviewも削除されること' do
+      store = create(:store)
+      user = create(:user)
+      user.reviews.create!(store: store, rating: 3, comment: '確かにいいところでした！')
+      user.destroy
+      expect(Review.count).to eq 0
     end
   end
 
@@ -154,9 +187,7 @@ RSpec.describe User, type: :model do
     let(:user) { create(:user) }
 
     context 'いいねしてある施設のとき' do
-      before do
-        create(:favorite, user: user, store: store)
-      end
+      let!(:favorite) { create(:favorite, user: user, store: store) }
 
       it 'trueを返すこと' do
         expect(user.already_favorited?(store)).to be true
@@ -166,6 +197,25 @@ RSpec.describe User, type: :model do
     context 'いいねしていない施設のとき' do
       it 'falseを返すこと' do
         expect(user.already_favorited?(store)).to be false
+      end
+    end
+  end
+
+  describe 'already_reviewed?メソッドのテスト' do
+    let(:store) { create(:store) }
+    let(:user) { create(:user) }
+
+    context 'レビュー済みの施設のとき' do
+      let!(:review) { create(:review, user: user, store: store) }
+
+      it 'trueを返すこと' do
+        expect(user.already_reviewed?(store)).to be true
+      end
+    end
+
+    context 'レビューしていない施設のとき' do
+      it 'falseを返すこと' do
+        expect(user.already_reviewed?(store)).to be false
       end
     end
   end

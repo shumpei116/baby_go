@@ -239,7 +239,7 @@ RSpec.describe 'Stores', type: :request do
 
           it 'エラーが含まれること' do
             patch store_path(store), params: { store: attributes_for(:store, :invalid) }
-            expect(response.body).to include '施設の名前が入力されていません'
+            expect(response.body).to include '施設の名前を入力してね'
           end
         end
       end

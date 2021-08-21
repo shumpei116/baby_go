@@ -68,3 +68,13 @@ favorite_users.each do |favorite_user|
     favorite_user.favorites.create!(store_id: store.id)
   end
 end
+
+# レビューデータを生成
+review_users = users[0..6]
+reviewed_stores = Store.all[5..20]
+review_users.each do |review_user|
+  reviewed_stores.each_with_index do |store, index|
+    comment = "#{rand(1..15)}番目にいいところでした！！"
+    review_user.reviews.create!(store_id: store.id, rating: rand(1..5), comment: comment)
+  end
+end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_08_215859) do
+ActiveRecord::Schema.define(version: 2021_08_12_043332) do
 
   create_table "favorites", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -20,6 +20,18 @@ ActiveRecord::Schema.define(version: 2021_08_08_215859) do
     t.index ["store_id"], name: "index_favorites_on_store_id"
     t.index ["user_id", "store_id"], name: "index_favorites_on_user_id_and_store_id", unique: true
     t.index ["user_id"], name: "index_favorites_on_user_id"
+  end
+
+  create_table "reviews", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+    t.bigint "store_id", null: false
+    t.bigint "user_id", null: false
+    t.float "rating", default: 0.0, null: false
+    t.text "comment", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["store_id", "user_id"], name: "index_reviews_on_store_id_and_user_id", unique: true
+    t.index ["store_id"], name: "index_reviews_on_store_id"
+    t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
   create_table "stores", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -34,6 +46,7 @@ ActiveRecord::Schema.define(version: 2021_08_08_215859) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "favorites_count", default: 0, null: false
+    t.integer "reviews_count", default: 0, null: false
     t.index ["city"], name: "index_stores_on_city", unique: true
     t.index ["user_id"], name: "index_stores_on_user_id"
   end
@@ -55,5 +68,7 @@ ActiveRecord::Schema.define(version: 2021_08_08_215859) do
 
   add_foreign_key "favorites", "stores"
   add_foreign_key "favorites", "users"
+  add_foreign_key "reviews", "stores"
+  add_foreign_key "reviews", "users"
   add_foreign_key "stores", "users"
 end

@@ -1,0 +1,8 @@
+<div class ="reviews-icon">
+  <div class="review-average-rating d-inline-block" data-score=<%= store.average_rating %>></div>
+  <span class="reviews-average-score me-3"><strong><%= store.average_rating %></strong></span>
+  <%= link_to store_path(store), class:"comment-link text-decoration-none text-dark" do %>
+    <i class="far fa-comment-dots"></i>
+    <span class="reviews-count text-muted"><%= store.reviews_count %></span>
+  <% end %>
+</div>

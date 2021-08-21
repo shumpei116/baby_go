@@ -6,11 +6,19 @@ RSpec.describe Store, type: :model do
     expect(store).to be_valid
   end
 
+  describe 'ユーザーIDのテスト' do
+    it '名前がないときは無効であること' do
+      store = build(:store, user_id: nil)
+      store.valid?
+      expect(store.errors[:user_id]).to include('を入力してください')
+    end
+  end
+
   describe '施設名のテスト' do
     it '名前がないときは無効であること' do
       store = build(:store, name: nil)
       store.valid?
-      expect(store.errors[:name]).to include('が入力されていません')
+      expect(store.errors[:name]).to include('を入力してね')
     end
 
     context '20文字以下の時' do
@@ -24,7 +32,7 @@ RSpec.describe Store, type: :model do
       it '無効であること' do
         store = build(:store, name: 'a' * 21)
         store.valid?
-        expect(store.errors[:name]).to include('は20文字以下に設定して下さい')
+        expect(store.errors[:name]).to include('は20文字以内で入力してね')
       end
     end
   end
@@ -33,7 +41,7 @@ RSpec.describe Store, type: :model do
     it '施設の紹介がない時は無効であること' do
       store = build(:store, introduction: nil)
       store.valid?
-      expect(store.errors[:introduction]).to include('が入力されていません')
+      expect(store.errors[:introduction]).to include('を入力してね')
     end
 
     context '140文字以下の時' do
@@ -47,7 +55,7 @@ RSpec.describe Store, type: :model do
       it '無効であること' do
         store = build(:store, introduction: ('a' * 141).to_s)
         store.valid?
-        expect(store.errors[:introduction]).to include('は140文字以下に設定して下さい')
+        expect(store.errors[:introduction]).to include('は140文字以内で入力してね')
       end
     end
   end
@@ -56,7 +64,7 @@ RSpec.describe Store, type: :model do
     it '郵便番号が未入力の時は無効であること' do
       store = build(:store, postcode: nil)
       store.valid?
-      expect(store.errors[:postcode]).to include('が入力されていません')
+      expect(store.errors[:postcode]).to include('を入力してね')
     end
 
     context '正しいフォーマットのとき' do
@@ -85,7 +93,7 @@ RSpec.describe Store, type: :model do
     it '都道府県番号が未入力の時は無効であること' do
       store = build(:store, prefecture_code: nil)
       store.valid?
-      expect(store.errors[:prefecture_code]).to include('が入力されていません')
+      expect(store.errors[:prefecture_code]).to include('を入力してね')
     end
   end
 
@@ -93,7 +101,7 @@ RSpec.describe Store, type: :model do
     it '地区町村番地が未入力の時は無効であること' do
       store = build(:store, city: nil)
       store.valid?
-      expect(store.errors[:city]).to include('が入力されていません')
+      expect(store.errors[:city]).to include('を入力してね')
     end
 
     it '重複した市区町村番地は無効であること' do
@@ -157,6 +165,91 @@ RSpec.describe Store, type: :model do
         store.valid?
         expect(store.errors[:image]).to include('を5MB以下のサイズにしてください')
       end
+    end
+  end
+
+  describe 'favorites_countのテスト' do
+    it '施設に関連したfavoriteの数をカウントすること' do
+      store = create(:store)
+      user = create(:user)
+      store.favorites.create!(user: user)
+      store.reload
+      expect(store.favorites_count).to eq 1
+    end
+  end
+
+  describe 'reviews_countのテスト' do
+    it '施設に関連したreviewの数をカウントすること' do
+      store = create(:store)
+      user = create(:user)
+      store.reviews.create!(user: user, rating: 3, comment: '確かにいいところでした！')
+      store.reload
+      expect(store.reviews_count).to eq 1
+    end
+  end
+
+  describe 'favoriteモデルアソシエーションのテスト' do
+    it '施設に関連したfavoriteが作成できること' do
+      store = create(:store)
+      user = create(:user)
+      store.favorites.create!(user: user)
+      expect(store.favorites.count).to eq 1
+    end
+
+    it '施設が削除されたら関連したfavoriteも削除されること' do
+      store = create(:store)
+      user = create(:user)
+      store.favorites.create!(user: user)
+      store.destroy
+      expect(Favorite.count).to eq 0
+    end
+  end
+
+  describe 'reviewモデルアソシエーションのテスト' do
+    it '施設に関連したreviewが作成できること' do
+      store = create(:store)
+      user = create(:user)
+      store.reviews.create!(user: user, rating: 3, comment: '確かにいいところでした！')
+      expect(store.reviews.count).to eq 1
+    end
+
+    it '施設が削除されたら関連したreviewも削除されること' do
+      store = create(:store)
+      user = create(:user)
+      store.reviews.create!(user: user, rating: 3, comment: '確かにいいところでした！')
+      store.destroy
+      expect(Review.count).to eq 0
+    end
+  end
+
+  describe 'average_ratingメソッドのテスト' do
+    let(:store) { create(:store) }
+
+    context '施設のレビューがあるとき' do
+      let!(:review1) { create(:review, store: store, rating: 2) }
+      let!(:review2) { create(:review, store: store, rating: 3) }
+      let!(:review3) { create(:review, store: store, rating: 4) }
+
+      it '施設のレビュー平均点を返すこと' do
+        expect(store.average_rating).to  eq 3
+      end
+    end
+
+    context '施設のレビューがないとき' do
+      it '0.0を返すこと' do
+        expect(store.average_rating).to  eq 0.0
+      end
+    end
+  end
+
+  describe 'self.average_score_rankメソッドのテスト' do
+    let!(:store1) { create(:store, :rated1) }
+    let!(:store2) { create(:store, :rated2) }
+    let!(:store3) { create(:store, :rated3) }
+
+    it '全ての施設をレビュー平均点が高い順に並び替えた配列で返すこと' do
+      average_stores = Store.average_score_rank
+      expect(average_stores).to match [store3, store2, store1]
     end
   end
 end

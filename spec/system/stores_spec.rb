@@ -65,6 +65,8 @@ RSpec.describe 'Stores', type: :system do
       expect(page).to have_selector 'h2', text: 'あかちゃん本舗'
       expect(page).to have_css ".favorite-#{store.id}"
       expect(page).to have_selector '.favorite-count', text: '0'
+      expect(page).to have_css '.review-average-rating'
+      expect(page).to have_selector '.reviews-average-score', text: '0.0'
       expect(page).to have_selector 'td', text: 'あかちゃん本舗'
       expect(page).to have_content '綺麗な授乳室でした'
       expect(page).to have_link 'https://stores.akachan.jp/224'
@@ -105,6 +107,9 @@ RSpec.describe 'Stores', type: :system do
           expect(page).to have_selector '.card-title', text: 'あかちゃん本舗'
           expect(page).to have_css ".favorite-#{store1.id}"
           expect(page).to have_selector '.favorite-count', text: '0'
+          expect(page).to have_css '.review-average-rating'
+          expect(page).to have_selector '.reviews-average-score', text: '0.0'
+          expect(page).to have_selector '.reviews-count', text: '0'
           expect(page).to have_content '綺麗な授乳室でした'
           expect(page).to have_content '北海道'
           expect(page).to have_link 'shumpei'
@@ -115,6 +120,9 @@ RSpec.describe 'Stores', type: :system do
           expect(page).to have_selector '.card-title', text: 'ベビーレストラン'
           expect(page).to have_css ".favorite-#{store2.id}"
           expect(page).to have_selector '.favorite-count', text: '0'
+          expect(page).to have_css '.review-average-rating'
+          expect(page).to have_selector '.reviews-average-score', text: '0.0'
+          expect(page).to have_selector '.reviews-count', text: '0'
           expect(page).to have_content '個室の和室があって赤ちゃんと一緒でもゆっくりできました'
           expect(page).to have_content '沖縄県'
           expect(page).to have_link 'ちはるちゃんママ'
@@ -124,6 +132,14 @@ RSpec.describe 'Stores', type: :system do
 
       it '施設画像をクリックすると施設詳細画面にページ遷移すること' do
         click_link '施設画像-1'
+        expect(current_path).to eq store_path(store2)
+        expect(page).to have_selector 'h2', text: 'ベビーレストラン'
+      end
+
+      it 'コメントアイコンをクリックすると施設詳細画面にページ遷移すること' do
+        within '.store-1' do
+          find('.comment-link').click
+        end
         expect(current_path).to eq store_path(store2)
         expect(page).to have_selector 'h2', text: 'ベビーレストラン'
       end
