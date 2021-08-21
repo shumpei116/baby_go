@@ -1,16 +1,44 @@
 <div class="container">
+    <div class="row">
+      <div class="mt-2">
+        <%= search_form_for @q, url: stores_path do |f| %>
+          <div class="col-md-4 col-3 d-inline-flex">
+            <%= f.search_field :prefecture_code_or_city_cont, class:"form-control", size: 40, placeholder: 'エリア検索　[例:東京都、銀座]' %>
+          </div>
+          <div class="col-md-4 col-3 d-inline-flex">
+            <%= f.search_field :name_or_introduction_cont, class:"form-control", size: 40, placeholder: 'キーワード検索　[例:施設名、授乳室]' %>
+          </div>
+          <div class="col-md-2 col-3 d-inline-flex">
+            <%= button_tag type: "submit", class:"btn btn-outline-dark" do %>
+              <i class="fa fa-search"></i>検索
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
   <div class="row">
-    <div class="col-12 my-5">
-      <h3>みんなが投稿してくれた施設の一覧</h3>
+    <div class="col-12 justify-content-center d-flex mb-5 mt-4">
+      <h2><i class="fas fa-store-alt"></i>みんなが投稿してくれた施設の一覧</h2>
     </div>
   </div>
-  <div id ="paginate1" class="paginate-1 mb-3">
-    <%= render 'shared/paginate', pages: @stores, page_name: 'page' %>
+  <% if @stores.present? %>
+    <div id ="paginate1" class="paginate-1 mb-3">
+      <%= render 'shared/paginate', pages: @stores, page_name: 'page' %>
+    </div>
+    <div id="stores_list">
+      <%= render 'shared/stores_list', stores: @stores %>
+    </div>
+    <div id ="paginate2" class="paginate-2 mt-3">
+      <%= render 'shared/paginate', pages: @stores, page_name: 'page' %>
+    </div>
+  <% else %>
+  <div class="row mt-5">
+    <div class="col-12 d-flex justify-content-center">
+      <div>
+        <h5>入力されたエリア・キーワードに該当するエリアは見つかりませんでした！</h5>
+        <p>こんな風に検索してみよう！エリア検索 [例:東京都]・キーワード検索 [例:授乳室]</p>
+      </div>
+    </div>
   </div>
-  <div id="stores_list">
-    <%= render 'shared/stores_list', stores: @stores %>
-  </div>
-  <div id ="paginate2" class="paginate-2 mt-3">
-    <%= render 'shared/paginate', pages: @stores, page_name: 'page' %>
-  </div>
+  <% end %>
 </div>
