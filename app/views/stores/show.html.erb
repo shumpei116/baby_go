@@ -90,9 +90,14 @@
           <%= render 'shared/review_form', review: @review, store: @store %>
         <% end %>
       </div>
-      <div>
+      <div id="reviews_list">
         <%= render 'shared/reviews_list', reviews: @reviews %>
       </div>
+      <% if @reviews.present? %>
+        <div id ="paginate" class="paginate mt-3">
+          <%= render 'shared/paginate', pages: @reviews, page_name: 'page' %>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>
