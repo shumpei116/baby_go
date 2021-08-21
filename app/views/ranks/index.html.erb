@@ -32,7 +32,7 @@
     <div class="row mt-5">
       <div class="col-12 d-flex justify-content-center">
         <div>
-          <h5>入力された都道府県にはまだ施設が投稿されていません</h5>
+          <h5><%= (params[:q][:prefecture_code_cont]) %>にはまだ施設が投稿されていません</h5>
           <%= link_to new_store_path, class:"btn btn-lg btn-outline-warning mt-5 d-flex justify-content-center" do %>
             <i class="far fa-edit"></i>ここから施設を投稿してみよう！
           <% end %>
