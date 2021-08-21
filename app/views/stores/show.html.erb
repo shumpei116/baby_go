@@ -74,15 +74,15 @@
       </div>
 
       <div class="mt-5">
-        <hr>
         <div class="row justify-content-center">
-          <div class="col-8">
+          <% if user_signed_in? && !current_user.already_reviewed?(@store) %>
+            <%= render 'shared/review_form', review: @review, store: @store %>
+          <% end %>
+          <hr>
+          <div class="col-8 mt-5">
             <h4>☆利用したパパママからのメッセージ☆</h4>
           </div>
         </div>
-        <% if user_signed_in? && !current_user.already_reviewed?(@store) %>
-          <%= render 'shared/review_form', review: @review, store: @store %>
-        <% end %>
       </div>
       <div id="reviews_list">
         <%= render 'shared/reviews_list', reviews: @reviews %>
