@@ -18,15 +18,15 @@ RSpec.describe 'Reviews', type: :system, js: true do
         expect(page).to_not have_content '最高でした'
 
         within '.review-1' do
-          expect(page).to have_content 'ちはるママ'
-          expect(page).to have_content 'まあまあでした'
-          expect(find("#store_rate#{review1.id}").find('input', visible: false).value).to eq '2'
-        end
-
-        within '.review-2' do
           expect(page).to have_content 'ちあきパパ'
           expect(page).to have_content 'とってもよかったです'
           expect(find("#store_rate#{review2.id}").find('input', visible: false).value).to eq '4.5'
+        end
+
+        within '.review-2' do
+          expect(page).to have_content 'ちはるママ'
+          expect(page).to have_content 'まあまあでした'
+          expect(find("#store_rate#{review1.id}").find('input', visible: false).value).to eq '2'
         end
       end
     end

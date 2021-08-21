@@ -9,7 +9,7 @@ class StoresController < ApplicationController
 
   def show
     @review = current_user.reviews.build if current_user
-    @reviews = @store.reviews.page(params[:page]).per(5).includes(:user)
+    @reviews = @store.reviews.order(created_at: :desc).page(params[:page]).per(5).includes(:user)
   end
 
   def new
