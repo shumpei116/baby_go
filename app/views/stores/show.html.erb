@@ -21,31 +21,25 @@
           </div>
         </div>
         <div class= "col-12 col-md-6 mt-5 pt-1">
+          <div class="ps-1">
+          <% if user_signed_in? %>
+            <%= render 'favorites/favorite', store: @store %>
+          <% else %>
+            <div class ="favorite-icon" id="store_favorite_<%= @store.id %>">
+              <%= link_to store_favorite_path(@store), class:"favorite-#{@store.id} text-decoration-none", method: :post do %>
+                <i class="far fa-heart"></i>
+              <% end %>
+              <span class="favorite-count text-muted"><%= @store.favorites_count %></span>
+            </div>
+          <% end %>
+          <div class ="reviews-icon">
+            <div class="review-average-rating d-inline-block" data-score=<%= @store.average_rating %>></div>
+            <span class="reviews-average-score me-3"><strong><%= @store.average_rating %></strong></span>
+          </div>
+          </div>
           <div class= "table-responsive">
             <table class="table table-borderless">
               <tbody>
-                <tr>
-                  <th scope="row">
-                    <% if user_signed_in? %>
-                      <%= render 'favorites/favorite', store: @store %>
-                    <% else %>
-                      <div class ="favorite-icon" id="store_favorite_<%= @store.id %>">
-                        <%= link_to store_favorite_path(@store), class:"favorite-#{@store.id} text-decoration-none", method: :post do %>
-                          <i class="far fa-heart"></i>
-                        <% end %>
-                        <span class="favorite-count text-muted"><%= @store.favorites_count %></span>
-                      </div>
-                    <% end %>
-                  </th>
-                </tr>
-                <tr>
-                  <th scope="row">
-                    <div class ="reviews-icon">
-                      <div class="review-average-rating d-inline-block" data-score=<%= @store.average_rating %>></div>
-                      <span class="reviews-average-score me-3"><strong><%= @store.average_rating %></strong></span>
-                    </div>
-                  </th>
-                </tr>
                 <tr>
                   <th scope="row">施設名:</th>
                   <td><%= @store.name %></td>
