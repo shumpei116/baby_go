@@ -13,6 +13,10 @@ RSpec.describe 'Ranks', type: :system do
         create(:store, :rated2, name: 'ベビーレストラン', introduction: '個室の和室があって赤ちゃんと一緒でもゆっくりできました', postcode: '1234567',
                                 prefecture_code: '沖縄県', city: '那覇市1-1-1', user: user)
       }
+      let!(:third_store) {
+        create(:store, :rated3, name: '東松屋', introduction: '広くて新しい授乳室でした', postcode: '2222222',
+                                prefecture_code: '北海道', city: '稚内市1-1-1', user: user)
+      }
 
       before do
         visit ranks_path
@@ -36,51 +40,33 @@ RSpec.describe 'Ranks', type: :system do
           within '.store-2' do
             expect(page).to have_selector('img[alt=施設画像-2]')
             expect(page).to have_selector '.card-title', text: '第2位　ベビーレストラン'
-            expect(page).to have_selector '.reviews-average-score', text: '3.0'
             expect(page).to have_css ".favorite-#{second_store.id}"
             expect(page).to have_selector '.favorite-count', text: '0'
             expect(page).to have_css '.review-average-rating'
+            expect(page).to have_selector '.reviews-average-score', text: '3.0'
             expect(page).to have_selector '.reviews-count', text: '3'
             expect(page).to have_content '個室の和室があって赤ちゃんと一緒でもゆっくりできました'
             expect(page).to have_content '沖縄県'
             expect(page).to have_link 'shumpei'
           end
-          expect(page).to have_selector('.store-card', count: 2)
-        end
 
-        it '施設画像をクリックすると施設詳細画面にページ遷移すること' do
-          click_link '施設画像-1'
-          expect(current_path).to eq store_path(first_store)
-          expect(page).to have_selector 'h2', text: 'あかちゃん本舗'
-        end
-
-        it 'コメントアイコンをクリックすると施設詳細画面にページ遷移すること' do
-          within '.store-1' do
-            find('.comment-link').click
+          within '.store-3' do
+            expect(page).to have_selector('img[alt=施設画像-3]')
+            expect(page).to have_selector '.card-title', text: '第3位　東松屋'
+            expect(page).to have_css ".favorite-#{third_store.id}"
+            expect(page).to have_selector '.favorite-count', text: '0'
+            expect(page).to have_css '.review-average-rating'
+            expect(page).to have_selector '.reviews-average-score', text: '2.0'
+            expect(page).to have_selector '.reviews-count', text: '3'
+            expect(page).to have_content '広くて新しい授乳室でした'
+            expect(page).to have_content '北海道'
+            expect(page).to have_link 'shumpei'
           end
-          expect(current_path).to eq store_path(first_store)
-          expect(page).to have_selector 'h2', text: 'あかちゃん本舗'
-        end
-
-        it 'ユーザー名をクリックするとユーザーの詳細画面に遷移すること' do
-          within '.store-1' do
-            click_link 'shumpei'
-          end
-          expect(current_path).to eq user_path(user)
-          expect(page).to have_selector '.card-title', text: 'shumpei'
+          expect(page).to have_selector('.store-card', count: 3)
         end
       end
 
       context '都道府県検索が選択されているとき' do
-        let!(:third_store) {
-          create(:store, :rated3, name: '東松屋', introduction: '広くて新しい授乳室でした', postcode: '2222222',
-                                  prefecture_code: '北海道', city: '稚内市1-1-1', user: user)
-        }
-
-        before do
-          visit ranks_path
-        end
-
         context '選択された都道府県に施設が登録されているとき' do
           it '該当する施設情報のみレビュー平均点順に表示されていること' do
             select '北海道', from: 'q[prefecture_code_cont]'
@@ -124,6 +110,28 @@ RSpec.describe 'Ranks', type: :system do
             expect(page).to have_link 'ここから施設を投稿してみよう！'
           end
         end
+      end
+
+      it '施設画像をクリックすると施設詳細画面にページ遷移すること' do
+        click_link '施設画像-1'
+        expect(current_path).to eq store_path(first_store)
+        expect(page).to have_selector 'h2', text: 'あかちゃん本舗'
+      end
+
+      it 'コメントアイコンをクリックすると施設詳細画面にページ遷移すること' do
+        within '.store-1' do
+          find('.comment-link').click
+        end
+        expect(current_path).to eq store_path(first_store)
+        expect(page).to have_selector 'h2', text: 'あかちゃん本舗'
+      end
+
+      it 'ユーザー名をクリックするとユーザーの詳細画面に遷移すること' do
+        within '.store-1' do
+          click_link 'shumpei'
+        end
+        expect(current_path).to eq user_path(user)
+        expect(page).to have_selector '.card-title', text: 'shumpei'
       end
     end
 
