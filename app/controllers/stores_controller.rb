@@ -2,9 +2,10 @@ class StoresController < ApplicationController
   before_action :find_store, only: %i[show edit update destroy]
   before_action :authenticate_user!, only: %i[new create edit update destroy]
   before_action :correct_user, only: %i[edit update destroy]
+  before_action :set_q, only: :index
 
   def index
-    @stores = Store.order(created_at: :desc).page(params[:page]).per(12).includes(:user, :reviews)
+    @stores = @q.result.order(created_at: :desc).page(params[:page]).per(12).includes(:user, :reviews)
   end
 
   def show
@@ -60,5 +61,9 @@ class StoresController < ApplicationController
 
     flash[:alert] = '無効な操作です'
     redirect_to root_url
+  end
+
+  def set_q
+    @q = Store.ransack(params[:q])
   end
 end

@@ -43,7 +43,7 @@
     <div class="row justify-content-center">
       <div class="col-8 mt-3 py-3">
         <span class="badge bg-warning text-dark me-2 mb-1">必須</span><%= f.label :prefecture_code %>
-        <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :name, :name, include_blank: "選択して下さい", id: "store_prefecture_code", class:"form-control" %>
+        <%= f.collection_select :prefecture_code, JpPrefecture::Prefecture.all, :name, :name, { include_blank: "選択して下さい" }, { id: "store_prefecture_code", class:"form-control" } %>
       </div>
     </div>
 

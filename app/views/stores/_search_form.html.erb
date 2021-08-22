@@ -1,0 +1,13 @@
+<%= search_form_for q, url: stores_path do |f| %>
+  <div class="col-md-3 col-3 d-inline-flex">
+    <%= f.search_field :prefecture_code_or_city_cont, class:"form-control", placeholder: 'エリア検索　[例:東京都、銀座]' %>
+  </div>
+  <div class="col-md-3 col-3 d-inline-flex">
+    <%= f.search_field :name_or_introduction_cont, class:"form-control", placeholder: 'キーワード検索　[例:施設名、授乳室]' %>
+  </div>
+  <div class="col-md-2 col-3 d-inline-flex">
+    <%= button_tag type: "submit", class:"btn btn-outline-dark" do %>
+      <i class="fa fa-search"></i>検索
+    <% end %>
+  </div>
+<% end %>

@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe 'Stores', type: :system do
   describe '施設新規登録のテスト' do
     let(:user) { create(:user, name: 'shumpei', email: 'shumpei@example.com') }
+
     context 'ログインしているとき' do
       before do
         sign_in(user)
@@ -101,33 +102,87 @@ RSpec.describe 'Stores', type: :system do
         visit stores_path
       end
 
-      it '全ての施設情報が表示されていること' do
-        within '.store-2' do
-          expect(page).to have_selector('img[alt=施設画像-2]')
-          expect(page).to have_selector '.card-title', text: 'あかちゃん本舗'
-          expect(page).to have_css ".favorite-#{store1.id}"
-          expect(page).to have_selector '.favorite-count', text: '0'
-          expect(page).to have_css '.review-average-rating'
-          expect(page).to have_selector '.reviews-average-score', text: '0.0'
-          expect(page).to have_selector '.reviews-count', text: '0'
-          expect(page).to have_content '綺麗な授乳室でした'
-          expect(page).to have_content '北海道'
-          expect(page).to have_link 'shumpei'
+      context 'エリア検索・キーワード検索をしていないとき' do
+        it '全ての施設情報が表示されていること' do
+          within '.store-2' do
+            expect(page).to have_selector('img[alt=施設画像-2]')
+            expect(page).to have_selector '.card-title', text: 'あかちゃん本舗'
+            expect(page).to have_css ".favorite-#{store1.id}"
+            expect(page).to have_selector '.favorite-count', text: '0'
+            expect(page).to have_css '.review-average-rating'
+            expect(page).to have_selector '.reviews-average-score', text: '0.0'
+            expect(page).to have_selector '.reviews-count', text: '0'
+            expect(page).to have_content '綺麗な授乳室でした'
+            expect(page).to have_content '北海道'
+            expect(page).to have_link 'shumpei'
+          end
+
+          within '.store-1' do
+            expect(page).to have_selector('img[alt=施設画像-1]')
+            expect(page).to have_selector '.card-title', text: 'ベビーレストラン'
+            expect(page).to have_css ".favorite-#{store2.id}"
+            expect(page).to have_selector '.favorite-count', text: '0'
+            expect(page).to have_css '.review-average-rating'
+            expect(page).to have_selector '.reviews-average-score', text: '0.0'
+            expect(page).to have_selector '.reviews-count', text: '0'
+            expect(page).to have_content '個室の和室があって赤ちゃんと一緒でもゆっくりできました'
+            expect(page).to have_content '沖縄県'
+            expect(page).to have_link 'ちはるちゃんママ'
+          end
+          expect(page).to have_selector('.store-card', count: 2)
+        end
+      end
+
+      context 'エリア検索・キーワード検索をしているとき' do
+        context '検索に該当する施設が登録されているとき' do
+          it '該当する施設情報のみ表示されていること' do
+            fill_in 'q[prefecture_code_or_city_cont]', with: '北海道'
+            click_button '検索'
+            expect(page).to have_selector('img[alt=施設画像-1]')
+            expect(page).to have_selector '.card-title', text: 'あかちゃん本舗'
+            expect(page).to have_css ".favorite-#{store1.id}"
+            expect(page).to have_selector '.favorite-count', text: '0'
+            expect(page).to have_css '.review-average-rating'
+            expect(page).to have_selector '.reviews-average-score', text: '0.0'
+            expect(page).to have_selector '.reviews-count', text: '0'
+            expect(page).to have_content '綺麗な授乳室でした'
+            expect(page).to have_content '北海道'
+            expect(page).to have_link 'shumpei'
+            expect(page).to_not have_content 'ベビーレストラン'
+
+            visit stores_path
+            fill_in 'q[name_or_introduction_cont]', with: '和室'
+            click_button '検索'
+            expect(page).to have_selector('img[alt=施設画像-1]')
+            expect(page).to have_selector '.card-title', text: 'ベビーレストラン'
+            expect(page).to have_css ".favorite-#{store2.id}"
+            expect(page).to have_selector '.favorite-count', text: '0'
+            expect(page).to have_css '.review-average-rating'
+            expect(page).to have_selector '.reviews-average-score', text: '0.0'
+            expect(page).to have_selector '.reviews-count', text: '0'
+            expect(page).to have_content '個室の和室があって赤ちゃんと一緒でもゆっくりできました'
+            expect(page).to have_content '沖縄県'
+            expect(page).to have_link 'ちはるちゃんママ'
+            expect(page).to_not have_content 'あかちゃん本舗'
+          end
         end
 
-        within '.store-1' do
-          expect(page).to have_selector('img[alt=施設画像-1]')
-          expect(page).to have_selector '.card-title', text: 'ベビーレストラン'
-          expect(page).to have_css ".favorite-#{store2.id}"
-          expect(page).to have_selector '.favorite-count', text: '0'
-          expect(page).to have_css '.review-average-rating'
-          expect(page).to have_selector '.reviews-average-score', text: '0.0'
-          expect(page).to have_selector '.reviews-count', text: '0'
-          expect(page).to have_content '個室の和室があって赤ちゃんと一緒でもゆっくりできました'
-          expect(page).to have_content '沖縄県'
-          expect(page).to have_link 'ちはるちゃんママ'
+        context '検索に該当する施設が登録されていないとき' do
+          it 'コメントと施設登録のリンクが表示されること' do
+            fill_in 'q[prefecture_code_or_city_cont]', with: 'アメリカ合衆国'
+            click_button '検索'
+            expect(page).to have_selector('.store-card', count: 0)
+            expect(page).to have_content '入力されたエリア・キーワードに該当する施設は見つかりませんでした！'
+            expect(page).to have_link '施設の投稿はこちら'
+
+            visit stores_path
+            fill_in 'q[name_or_introduction_cont]', with: 'おむつ交換スペース'
+            click_button '検索'
+            expect(page).to have_selector('.store-card', count: 0)
+            expect(page).to have_content '入力されたエリア・キーワードに該当する施設は見つかりませんでした！'
+            expect(page).to have_link '施設の投稿はこちら'
+          end
         end
-        expect(page).to have_selector('.store-card', count: 2)
       end
 
       it '施設画像をクリックすると施設詳細画面にページ遷移すること' do
