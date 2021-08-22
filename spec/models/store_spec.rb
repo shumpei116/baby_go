@@ -249,7 +249,7 @@ RSpec.describe Store, type: :model do
 
     it '全ての施設をレビュー平均点が高い順に並び替えた配列で返すこと' do
       average_stores = Store.average_score_rank
-      expect(average_stores).to match [store3, store2, store1]
+      expect(average_stores).to match [store1, store2, store3]
     end
   end
 end
