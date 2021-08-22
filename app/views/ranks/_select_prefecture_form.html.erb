@@ -1,0 +1,10 @@
+<%= search_form_for q, url: ranks_path do |f| %>
+  <div class=" d-inline-flex">
+    <%= f.collection_select :prefecture_code_cont, JpPrefecture::Prefecture.all, :name, :name, { include_blank: "都道府県別でランキング" }, { class:"form-control", id: "store_prefecture_code" } %>
+  </div>
+  <div class=" d-inline-flex">
+    <%= button_tag type: "submit", class:"btn btn-outline-dark" do %>
+      <i class="fa fa-search"></i>検索
+    <% end %>
+  </div>
+<% end %>
