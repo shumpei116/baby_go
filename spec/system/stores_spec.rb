@@ -4,10 +4,16 @@ RSpec.describe 'Stores', type: :system do
   describe '施設新規登録のテスト' do
     let(:user) { create(:user, name: 'shumpei', email: 'shumpei@example.com') }
 
-    context 'ログインしているとき' do
+    context 'ログインしているとき', js: true do
       before do
         sign_in(user)
         visit new_store_path
+      end
+
+      it '郵便番号を入力すると都道府県と市区町村番地が自動で入力されること' do
+        fill_in '郵便番号', with: '1000001'
+        expect(page).to have_select('都道府県', selected: '東京都')
+        expect(page).to have_field '市区町村番地', with: '千代田区千代田'
       end
 
       context 'フォームの入力値が正しいとき' do
@@ -15,9 +21,7 @@ RSpec.describe 'Stores', type: :system do
           expect {
             fill_in '名前',	with: '東松屋'
             fill_in '施設の紹介',	with: '綺麗で広くて使いやすい授乳室がありました'
-            fill_in '郵便番号',	with: '1111111'
-            select '茨城県', from: '都道府県'
-            fill_in '市区町村番地',	with: 'テスト市テスト町1-1-1'
+            fill_in '郵便番号',	with: '1000001'
             fill_in 'URL',	with: 'https://github.com/shumpei116'
             attach_file 'store[image]', Rails.root.join('spec/factories/image/valid_image.jpg')
             click_button '施設を登録する'
@@ -31,9 +35,7 @@ RSpec.describe 'Stores', type: :system do
           expect {
             fill_in '名前',	with: '東松屋'
             fill_in '施設の紹介',	with: ''
-            fill_in '郵便番号',	with: '1111111'
-            select '茨城県', from: '都道府県'
-            fill_in '市区町村番地',	with: 'テスト市テスト町1-1-1'
+            fill_in '郵便番号',	with: '1000001'
             fill_in 'URL',	with: 'https://github.com/shumpei116'
             click_button '施設を登録する'
             expect(page).to have_selector '#error_explanation', text: 'エラーが発生したため 施設 は保存されませんでした'
