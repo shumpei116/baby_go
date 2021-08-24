@@ -73,6 +73,8 @@
         </div>
       </div>
 
+      <div id="map"></div>
+
       <div class="mt-5">
         <div class="row justify-content-center">
           <% if user_signed_in? && !current_user.already_reviewed?(@store) %>
@@ -107,4 +109,36 @@
       return $(this).attr('data-score')
     }
   });
+</script>
+
+<script>
+  let map;
+
+  function initMap() {
+    // geocoderを初期化
+    geocoder = new google.maps.Geocoder()
+
+    map = new google.maps.Map(document.getElementById('map'), {
+      // コントローラーで定義した変数から緯度経度を呼び出し、マップの中心に表示
+      center: {
+        lat: gon.store.latitude,
+        lng: gon.store.longitude
+      },
+      // マップの倍率はお好みで
+      zoom: 17,
+    });
+
+    marker = new google.maps.Marker({
+      // コントローラーで定義した変数から緯度経度を呼び出し、マーカーを立てる
+      position: {
+        lat: gon.store.latitude,
+        lng: gon.store.longitude
+      },
+      map: map
+    });
+  }
+</script>
+
+<script async defer
+      src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= Rails.application.credentials.g_map[:api] %>&callback=initMap">
 </script>
