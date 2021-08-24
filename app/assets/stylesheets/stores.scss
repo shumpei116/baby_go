@@ -1,4 +1,11 @@
 #map {
-  height: 500px;
-  width: 100%;
+  height: 400px;
+  width: 80%;
+}
+@media only screen and (max-device-width : 480px) {
+  /* スマートフォンだけ以下を適用 */
+  #map {
+    height: 400px;
+    width: 100%;
+  }
 }
