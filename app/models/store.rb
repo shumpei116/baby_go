@@ -1,4 +1,5 @@
 class Store < ApplicationRecord
+  geocoded_by :prefecture_code
   mount_uploader :image, ImageUploader
   belongs_to :user
   has_many :favorites, dependent: :destroy
@@ -13,6 +14,7 @@ class Store < ApplicationRecord
   validates :city, presence: true, uniqueness: true
   VALID_URL_REGEX = %r{https?:/{2}[\w/:%#{Regexp.last_match(0)}?()~.=+\-]+}.freeze
   validates :url, format: { with: VALID_URL_REGEX }, allow_blank: true
+  after_validation :geocode, if: :prefecture_code_changed?
 
   def average_rating
     ratings = reviews.map(&:rating)
