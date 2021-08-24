@@ -11,6 +11,7 @@ class StoresController < ApplicationController
   def show
     @review = current_user.reviews.build if current_user
     @reviews = @store.reviews.order(created_at: :desc).page(params[:page]).per(5).includes(:user)
+    gon.store = @store
   end
 
   def new
