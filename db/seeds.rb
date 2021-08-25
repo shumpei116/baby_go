@@ -37,7 +37,7 @@ end
                       introduction: "和室がたくさんあって子供と一緒でもゆっくりご飯が食べられます！",
                       postcode: "3114153",
                       prefecture_code: '茨城県',
-                      city: "水戸市河和田町３８２９-#{n + 2}",
+                      city: "水戸市河和田町3829-#{n + 2}",
                       url: 'https://test.example.com',
                       image: open(Rails.root.join('db/fixtures/test-3.jpg')))
 end
