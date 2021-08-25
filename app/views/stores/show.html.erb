@@ -110,6 +110,9 @@
       return $(this).attr('data-score')
     }
   });
+</script>
+
+<script>
 
   let map;
 
@@ -118,7 +121,7 @@
     geocoder = new google.maps.Geocoder()
 
     map = new google.maps.Map(document.getElementById('map'), {
-      // コントローラーで定義した変数から緯度経度を呼び出し、マップの中心に表示
+      // コントローラーで定義した変数から緯度経度を呼び出してマップの中心に表示
       center: {
         lat: gon.store.latitude,
         lng: gon.store.longitude
@@ -133,10 +136,10 @@
     `<p class="mt-3 mb-0">施設紹介:${gon.store.introduction}</p>` +
     `<p class="mt-1 mb-0">住所　　:${gon.store.prefecture_code}${gon.store.city}</p>`;
 
-  // 情報ウィンドウの呼び出し
-  const infowindow = new google.maps.InfoWindow({
-    content: contentString,
-  });
+    // 情報ウィンドウの呼び出し
+    const infowindow = new google.maps.InfoWindow({
+      content: contentString,
+    });
 
     marker = new google.maps.Marker({
       // コントローラーで定義した変数から緯度経度を呼び出し、マーカーを立てる
@@ -149,12 +152,12 @@
     });
     // マーカーをクリックすると情報ウィンドウを表示
     marker.addListener("click", () => {
-    infowindow.open({
-      anchor: marker,
-      map,
-      shouldFocus: false,
+      infowindow.open({
+        anchor: marker,
+        map,
+        shouldFocus: false,
+      });
     });
-  });
   }
 </script>
 
