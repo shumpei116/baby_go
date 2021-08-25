@@ -10,4 +10,5 @@ Rails.application.routes.draw do
     resource :review, only: [:create, :edit, :update, :destroy]
   end
   resources :ranks, only: [:index]
+  resources :spots, only: [:index]
 end
