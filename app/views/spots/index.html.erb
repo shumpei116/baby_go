@@ -19,10 +19,12 @@
     // 現在地が取得できたら地図の中心にピンを立てて表示、取得に失敗したらアラートを表示
     navigator.geolocation.getCurrentPosition(function(position) {
       latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
       map = new google.maps.Map(document.getElementById('map'), {
         center: latLng,
-        zoom: 15,
+        zoom: 10,
       });
+
       marker = new google.maps.Marker({
         position:  latLng,
         map: map
