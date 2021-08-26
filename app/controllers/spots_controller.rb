@@ -1,6 +1,6 @@
 class SpotsController < ApplicationController
   def index
-    # @stores = Store.all
-    # gon.stores = @stores
+    @stores = Store.all
+    gon.stores = @stores
   end
 end
