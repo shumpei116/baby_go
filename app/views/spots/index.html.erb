@@ -8,7 +8,7 @@
 </div>
 
 <script>
-  let map, geocoder, storemarker = [], infoWindow = [];
+  let map, geocoder, icon, storemarker = [], infoWindow = [];
   const stores = gon.stores;
   let currentInfoWindow = null;
 
@@ -27,9 +27,17 @@
         zoom: 12,
       });
 
+      image = {
+        url: "<%= asset_path('gmap_icon.png') %>",
+        scaledSize: new google.maps.Size(50, 50),
+      }
+
       marker = new google.maps.Marker({
         position:  latLng,
-        map: map
+        map: map,
+        icon: image,
+        animation: google.maps.Animation.DROP,
+        title:"現在地",
       });
 
       for (let i = 0; i < stores.length; i++){
@@ -37,7 +45,7 @@
           map: map,
           position: {
             lat: stores[i].latitude,
-            lng: stores[i].longitude
+            lng: stores[i].longitude,
           }
         });
 
@@ -50,7 +58,7 @@
           `<p class="mt-1 mb-0">住所　　:${stores[i].prefecture_code}${stores[i].city}</p>`;
 
         infoWindow[i] = new google.maps.InfoWindow({
-          content: contentString
+          content: contentString,
         });
         storemarker[i].addListener("click", () => {
           if (currentInfoWindow) {
