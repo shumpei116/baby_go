@@ -8,7 +8,7 @@
 </div>
 
 <script>
-  let map, geocoder, icon, storemarker = [], infoWindow = [];
+  let map, geocoder, icon, storeMarker = [], infoWindow = [];
   const stores = gon.stores;
   let currentInfoWindow = null;
 
@@ -21,17 +21,14 @@
     // 現在地が取得できたら地図の中心にピンを立てて表示、取得に失敗したらアラートを表示
     navigator.geolocation.getCurrentPosition(function(position) {
       latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-
       map = new google.maps.Map(document.getElementById('map'), {
         center: latLng,
         zoom: 12,
       });
-
       image = {
         url: "<%= asset_path('gmap_icon.png') %>",
         scaledSize: new google.maps.Size(50, 50),
       }
-
       marker = new google.maps.Marker({
         position:  latLng,
         map: map,
@@ -41,18 +38,15 @@
       });
 
       for (let i = 0; i < stores.length; i++){
-        storemarker[i] = new google.maps.Marker({
+        storeMarker[i] = new google.maps.Marker({
           map: map,
           position: {
             lat: stores[i].latitude,
             lng: stores[i].longitude,
           }
         });
-
-        storeId = stores[i].id
-
         contentString =
-          `<p class="mb-0">施設名：<a href='/stores/${storeId}'>${stores[i].name}</a></p>` +
+          `<p class="mb-0">施設名：<a href='/stores/${stores[i].id}'>${stores[i].name}</a></p>` +
           '<hr class="my-0">' +
           `<p class="mt-3 mb-0">施設紹介:${stores[i].introduction}</p>` +
           `<p class="mt-1 mb-0">住所　　:${stores[i].prefecture_code}${stores[i].city}</p>`;
@@ -60,17 +54,17 @@
         infoWindow[i] = new google.maps.InfoWindow({
           content: contentString,
         });
-        storemarker[i].addListener("click", () => {
+        storeMarker[i].addListener("click", () => {
           if (currentInfoWindow) {
             currentInfoWindow.close();
           }
-          infoWindow[i].open(map,storemarker[i]);
+          infoWindow[i].open(map,storeMarker[i]);
           currentInfoWindow = infoWindow[i];
         });
       }
     }, function() {
-        alert('位置情報取得に失敗しました！位置情報へのアクセスが許可されているか確認してください');
-      });
+      alert('位置情報取得に失敗しました！位置情報へのアクセスが許可されているか確認してください');
+    });
   }
 </script>
 
