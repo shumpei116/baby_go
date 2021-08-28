@@ -7,7 +7,9 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav ms-auto">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">現在地から探す</a>
+          <%= link_to spots_path, class:"nav-link" do %>
+            <i class="fas fa-map-marked-alt"></i>現在地から探す
+          <% end %>
         </li>
         <li class="nav-item">
           <%= link_to ranks_path, class:"nav-link" do %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_12_043332) do
+ActiveRecord::Schema.define(version: 2021_08_24_051003) do
 
   create_table "favorites", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -47,6 +47,8 @@ ActiveRecord::Schema.define(version: 2021_08_12_043332) do
     t.datetime "updated_at", precision: 6, null: false
     t.integer "favorites_count", default: 0, null: false
     t.integer "reviews_count", default: 0, null: false
+    t.float "latitude"
+    t.float "longitude"
     t.index ["city"], name: "index_stores_on_city", unique: true
     t.index ["user_id"], name: "index_stores_on_user_id"
   end

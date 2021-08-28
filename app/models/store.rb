@@ -14,6 +14,9 @@ class Store < ApplicationRecord
   VALID_URL_REGEX = %r{https?:/{2}[\w/:%#{Regexp.last_match(0)}?()~.=+\-]+}.freeze
   validates :url, format: { with: VALID_URL_REGEX }, allow_blank: true
 
+  geocoded_by :address
+  after_validation :geocode, if: :city_changed?
+
   def average_rating
     ratings = reviews.map(&:rating)
     ratings.size.zero? ? 0.0 : ratings.sum.fdiv(ratings.size).round(2)
@@ -22,5 +25,9 @@ class Store < ApplicationRecord
   def self.average_score_rank
     left_joins(:reviews).includes(:reviews, :user).distinct.sort_by(&:average_rating)
                         .reverse
+  end
+
+  def address
+    [prefecture_code, city].compact.join
   end
 end

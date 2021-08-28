@@ -84,6 +84,18 @@ RSpec.describe 'Stores', type: :system do
       click_link 'shumpei'
       expect(current_path).to eq user_path(user)
     end
+
+    it '地図が表示されピンをクリックすると施設名と施設紹介・住所が表示されること', js: true do
+      expect(page).to have_css '.gm-style'
+      pin = find('map#gmimap0 area', visible: false)
+      pin.click
+      expect(page).to have_css '.gm-style-iw' # infowindow クラスの有無をテスト
+      within '.gm-style-iw-d' do
+        expect(page).to have_selector 'h5', text: '施設名：あかちゃん本舗'
+        expect(page).to have_selector 'p', text: '施設紹介:綺麗な授乳室でした'
+        expect(page).to have_selector 'p', text: '住所　　:北海道函館市1-1-1'
+      end
+    end
   end
 
   describe '一覧ページのテスト' do

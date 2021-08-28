@@ -8,7 +8,7 @@ User.create!(name: '俊平',
 
 # 複数のユーザーをまとめて生成する
 5.times do |n|
-  name = "test-#{n + 1}"
+  name = "testパパ#{n + 1}"
   email = "example-#{n + 1}@example.com"
   introduction = "#{n + 1}回目のこんにちは！"
   password = 'password'
@@ -22,22 +22,22 @@ end
 # 施設データを生成する
 user1 = User.first
 3.times do |n|
-  user1.stores.create!(name: '東松屋',
+  user1.stores.create!(name: "東松屋 #{n}",
                        introduction: "綺麗な授乳室が#{n + 1}部屋あります",
-                       postcode: "987654#{n}",
-                       prefecture_code: '北海道',
-                       city: "テスト町テスト1-2-3-#{n}",
+                       postcode: "3190317",
+                       prefecture_code: '茨城県',
+                       city: "水戸市内原1−18#{n + 8}",
                        url: 'https://test.example.com',
                        image: open(Rails.root.join("db/fixtures/test-#{n + 1}.jpg")))
 end
 
 # ページネーション用に追加で施設データを生成する
 16.times do |n|
-  user1.stores.create!(name: '東松屋',
-                      introduction: "綺麗な授乳室が#{n + 1}部屋あります",
-                      postcode: "12332#{n + 10}",
-                      prefecture_code: '北海道',
-                      city: "赤ちゃん町ベイビー#{n}",
+  user1.stores.create!(name: "ばんどう三郎 #{n}",
+                      introduction: "和室がたくさんあって子供と一緒でもゆっくりご飯が食べられます！",
+                      postcode: "3114153",
+                      prefecture_code: '茨城県',
+                      city: "水戸市河和田町3829-#{n + 2}",
                       url: 'https://test.example.com',
                       image: open(Rails.root.join('db/fixtures/test-3.jpg')))
 end
@@ -45,11 +45,11 @@ end
 # 複数の施設データをまとめて生成する
 users = User.all
 users.each_with_index do |user, index|
-  name = "テスト本舗- #{index}"
+  name = "ベイビー本舗- #{index}"
   introduction = "広いおむつ交換スペースが#{index}部屋ありました！"
-  postcode = "123456#{index}"
-  prefecture_code = '東京都'
-  city = "テスト市ベイビー#{index}番町"
+  postcode = "3120005"
+  prefecture_code = '茨城県'
+  city = "ひたちなか市新光町#{35 + index}"
   url = "https://test.example#{index}.com"
   user.stores.create!(name: name,
                       introduction: introduction,

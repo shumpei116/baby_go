@@ -252,4 +252,11 @@ RSpec.describe Store, type: :model do
       expect(average_stores).to match [store1, store2, store3]
     end
   end
+
+  describe 'addressメソッドのテスト' do
+    it '都道府県と市町村番地を繋いだ住所を返すこと' do
+      store = build(:store, prefecture_code: '東京都', city: '千代田区丸の内1-1-1')
+      expect(store.address).to eq '東京都千代田区丸の内1-1-1'
+    end
+  end
 end
