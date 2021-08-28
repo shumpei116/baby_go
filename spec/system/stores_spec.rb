@@ -287,6 +287,12 @@ RSpec.describe 'Stores', type: :system do
           click_link '編集'
         end
 
+        it '郵便番号を編集すると都道府県と市区町村番地が自動で修正されること', js: true do
+          fill_in '郵便番号', with: '1000001'
+          expect(page).to have_select('都道府県', selected: '東京都')
+          expect(page).to have_field '市区町村番地', with: '千代田区千代田'
+        end
+
         context 'フォームの入力値が正しいとき' do
           it '編集に成功すること' do
             fill_in '施設の名前',	with: '東松屋'
