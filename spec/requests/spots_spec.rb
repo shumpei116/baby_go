@@ -2,9 +2,30 @@ require 'rails_helper'
 
 RSpec.describe 'Spots', type: :request do
   describe 'GET /index' do
-    it 'returns http success' do
-      get '/spots/index'
-      expect(response).to have_http_status(:success)
+    let!(:first_store) { create(:store) }
+
+    before do
+      get spots_path
+    end
+
+    it '200レスポンスが返ってくること' do
+      expect(response).to have_http_status(200)
+    end
+
+    it '施設名が含まれること' do
+      expect(response.body).to include '赤ちゃんの本舗'
+    end
+
+    it '施設紹介が含まれること' do
+      expect(response.body).to include '授乳室とおむつ交換スペースが完備！　綺麗で広くてとっても利用しやすいです'
+    end
+
+    it '都道府県名が含まれること' do
+      expect(response.body).to include '栃木県'
+    end
+
+    it '情報提供者名が含まれること' do
+      expect(response.body).to include 'test'
     end
   end
 end
