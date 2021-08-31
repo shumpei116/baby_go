@@ -8,8 +8,7 @@ RUN apt-get update \
     && apt-get install -y nodejs yarn chromium-driver
 RUN mkdir /myapp
 WORKDIR /myapp
-COPY Gemfile /myapp/Gemfile
-COPY Gemfile.lock /myapp/Gemfile.lock
+COPY Gemfile Gemfile.lock package.json yarn.lock /myapp/
 RUN gem install bundler
 RUN bundle install
 COPY . /myapp
