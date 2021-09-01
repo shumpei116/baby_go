@@ -29,14 +29,8 @@ services:
       - "3000:3000"
     depends_on:
       - db
-      - chrome
     stdin_open: true
     tty: true
-
-  chrome:
-    image: selenium/standalone-chrome:3.141.59
-    ports:
-      - 4444:4444
 
 volumes:
   mysql_data: #名前付きボリュームの登録
