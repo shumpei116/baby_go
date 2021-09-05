@@ -1,0 +1,59 @@
+version: 2.1
+
+orbs:
+  ruby: circleci/ruby@1.1.4
+
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.7.4-node-browsers
+    working_directory: ~/app
+    steps:
+      - checkout:
+          path: ~/app
+      - ruby/install-deps
+
+  test:
+    docker:
+      - image: circleci/ruby:2.7.4-node-browsers
+      - image: circleci/mysql:8.0
+        command: --default-authentication-plugin=mysql_native_password
+        environment:
+          MYSQL_DATABASE: baby_go_test
+          MYSQL_ROOT_PASSWORD: 'password'
+          TZ: "Asia/Tokyo"
+
+    environment:
+      BUNDLE_JOBS: "4"
+      BUNDLE_RETRY: "3"
+      MYSQL_HOST: 127.0.0.1
+      RAILS_ENV: test
+    working_directory: ~/app
+    steps:
+      - checkout:
+          path: ~/app
+      - ruby/install-deps
+      - run:
+          name: yarn Install
+          command: yarn install
+      - run:
+          name: bin/webpack
+          command: bundle exec bin/webpack
+      - run:
+          name: rails db:migrate
+          command: bundle exec rails db:migrate
+      - run:
+          name: Rubocop実行
+          command: bundle exec rubocop
+      - run:
+          name: RSpec実行
+          command: bundle exec rspec -b --format documentation
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
