@@ -1,6 +1,10 @@
 @import "bootstrap";
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
 
+body {
+  font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro", "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "メイリオ", sans-serif;
+}
+
 // 共通アラート
 .alert {
   margin: 0;
@@ -41,27 +45,46 @@ background-color: #e6a40f;
 }
 
 // top.html.erb
-.top-iamge {
-  z-index: 0;
+.top-image{
+  width: 100%;
   position: relative;
 }
 
 .top-image-view {
   width: 100%;
-  height: 90%;
+  height: 80%;
 }
 
 .top-card {
-  z-index: 1;
-  padding: 0.5em 1em;
-  margin: 2em 0;
   color: #2c2c2f;
   background: #ffffff;
   opacity: 0.7;
   position: absolute;
-  top: 60%;
-  left: 30%;
-  font-family :Quicksand, sans-serif;
+  bottom: 20%;
+  right: 5%;
+  padding: 10px;
+}
+
+.top-sm-info {
+  font-size: 0.9em;
+  text-align: center;
+  background-color: #ffc10778;
+}
+
+.title-border {
+  border-bottom: .5rem solid #ffc10778;
+}
+
+#back {
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+  border-radius: 50%;
+  background-color: rgb(180, 179, 179);
+}
+.scroll{
+  width:      70px;
+  height:     70px;
 }
 
 // アイコン　far fa-heart
