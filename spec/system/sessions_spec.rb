@@ -38,7 +38,9 @@ RSpec.describe 'Sessions', type: :system do
       sign_in(user)
       visit user_path(user)
       click_button 'shumpei'
-      click_link 'ログアウト'
+      page.accept_confirm do
+        click_link 'ログアウト'
+      end
       expect(current_path).to eq root_path
       expect(page).to have_selector '.alert-notice', text: 'ログアウトしました'
     end
