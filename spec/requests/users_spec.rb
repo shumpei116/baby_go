@@ -3,13 +3,6 @@ require 'rails_helper'
 RSpec.describe 'Users', type: :request do
   let(:user) { create(:user, name: 'shumpei') }
 
-  describe 'GET #index' do
-    it '200レスポンスが返ってくること' do
-      get users_path
-      expect(response).to have_http_status(200)
-    end
-  end
-
   describe 'GET #show' do
     before do
       get user_path(user)
