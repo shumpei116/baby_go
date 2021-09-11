@@ -11,8 +11,10 @@ import "../stylesheets/application"
 import "jquery"
 import '@fortawesome/fontawesome-free/js/all';
 window.$ = window.jQuery = require('jquery');
-import 'packs/raty'
-import 'packs/jquery.jpostal'
+import 'src/raty'
+import 'src/jquery.jpostal'
+require.context("../images", true)
+import 'src/scroll'
 
 Rails.start()
 ActiveStorage.start()

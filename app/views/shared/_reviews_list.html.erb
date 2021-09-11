@@ -24,9 +24,9 @@
         $('#store_rate<%= review.id %>').empty();
         $('#store_rate<%= review.id %>').raty({
           size      : 36,
-          starOn: "<%= asset_path('star-on.png') %>",
-          starOff: "<%= asset_path('star-off.png') %>",
-          starHalf: "<%= asset_path('star-half.png') %>",
+          starOn: "<%= asset_pack_path('media/images/star-on.png') %>",
+          starOff: "<%= asset_pack_path('media/images/star-off.png') %>",
+          starHalf: "<%= asset_pack_path('media/images/star-half.png') %>",
           scoreName: 'review[rating]',
           half: true, 
           readOnly: true,

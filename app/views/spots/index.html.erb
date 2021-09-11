@@ -1,7 +1,7 @@
 <div class="container">
   <div class="row">
     <div class="col-12 my-5 d-flex justify-content-center">
-      <h2><i class="fas fa-map-marked-alt"></i>現在地から探す</h2>
+      <h1 class="title-border h2 px-4 pb-2"><i class="fas fa-map-marked-alt"></i>現在地から探す</h1>
     </div>
     <div id="map" class="mt-5 mx-auto"></div>
   </div>
@@ -26,7 +26,7 @@
         zoom: 12,
       });
       image = {
-        url: "<%= asset_path('gmap_icon.png') %>",
+        url: "<%= asset_pack_path('media/images/gmap_icon.png') %>",
         scaledSize: new google.maps.Size(50, 50),
       }
       marker = new google.maps.Marker({

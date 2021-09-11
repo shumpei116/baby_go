@@ -106,7 +106,7 @@ RSpec.describe 'Ranks', type: :system do
             select '茨城県', from: 'q[prefecture_code_cont]'
             click_button '検索'
             expect(page).to have_selector('.store-card', count: 0)
-            expect(page).to have_content '茨城県にはまだ施設が投稿されていません'
+            expect(page).to have_content 'まだ施設が投稿されていません'
             expect(page).to have_link 'ここから施設を投稿してみよう！'
           end
         end
@@ -175,6 +175,43 @@ RSpec.describe 'Ranks', type: :system do
           expect(page).to have_css '.pagination', count: 2
           expect(page).to have_selector '.pagination-count', text: "11-11\n/11件中"
           expect(page).to have_css '.store-card', count: 1
+        end
+      end
+    end
+
+    describe 'スクロールボタンのテスト', js: true do
+      let!(:stores) {
+        create_list(:store, 10, :rated1, name: 'あかちゃん本舗', introduction: '綺麗な授乳室でした', postcode: '1111111',
+                                         prefecture_code: '北海道', user: user)
+      }
+
+      before do
+        visit ranks_path
+      end
+
+      context '画面スクロールが500px以下のとき' do
+        it 'scrollボタンが表示されないこと' do
+          expect(find('#back', visible: false)).to_not be_visible
+          page.execute_script('window.scroll(0, 500)')
+          sleep 1
+          expect(find('#back', visible: false)).to_not be_visible
+          scrolly = page.evaluate_script('window.pageYOffset')
+          expect(scrolly).to eq(500)
+        end
+      end
+
+      context '画面スクロールが501px以上のとき' do
+        it 'scrollボタンが表示されてクリックするとページ最上部に遷移すること' do
+          expect(find('#back', visible: false)).to_not be_visible
+          page.execute_script('window.scroll(0, 501)')
+          sleep 1
+          scrolly1 = page.evaluate_script('window.pageYOffset')
+          expect(scrolly1).to eq(501)
+          expect(find('#back', visible: false)).to be_visible
+          click_link 'スクロール画像'
+          sleep 1
+          scrolly2 = page.evaluate_script('window.pageYOffset')
+          expect(scrolly2).to eq(0)
         end
       end
     end

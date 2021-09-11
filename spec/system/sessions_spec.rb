@@ -38,7 +38,9 @@ RSpec.describe 'Sessions', type: :system do
       sign_in(user)
       visit user_path(user)
       click_button 'shumpei'
-      click_link 'ログアウト'
+      page.accept_confirm do
+        click_link 'ログアウト'
+      end
       expect(current_path).to eq root_path
       expect(page).to have_selector '.alert-notice', text: 'ログアウトしました'
     end
@@ -47,7 +49,7 @@ RSpec.describe 'Sessions', type: :system do
   describe 'フレンドリフォワーディングのテスト' do
     it 'ログイン後にリクエストしたページにリダイレクトされること' do
       visit root_path
-      click_link '施設を投稿'
+      click_link '施設の投稿'
       expect(current_path).to eq new_user_session_path
       expect(page).to have_selector '.alert-alert', text: 'ログインもしくはアカウント登録してください'
       fill_in 'メールアドレス',	with: 'shumpei@example.com'

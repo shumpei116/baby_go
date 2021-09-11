@@ -1,2 +1,111 @@
 @import "bootstrap";
 @import '~@fortawesome/fontawesome-free/scss/fontawesome';
+
+body {
+  font-family: "Hiragino Kaku Gothic Pro", "ヒラギノ角ゴ Pro", "Yu Gothic Medium", "游ゴシック Medium", YuGothic, "游ゴシック体", "メイリオ", sans-serif;
+}
+
+// 共通アラート
+.alert {
+  margin: 0;
+  border-radius: 0;
+}
+
+.alert-notice {
+  color: aliceblue;
+  background-color: rgba(169, 169, 169, 0.644);
+}
+
+.alert-alert {
+  color: aliceblue;
+  background-color: rgba(255, 0, 0, 0.671);
+}
+
+// ヘッダー
+.nav-color {
+  background-color: #e6a40f;
+  a {
+    color: #ffffff;
+  }
+}
+
+.dropdown-menu {
+  a {
+    color: black;
+  }
+}
+
+.btn-outline-light:hover {
+background-color: #e6a40f;
+}
+
+// フッター
+.footer-color {
+background-color: #e6a40f;
+}
+
+// top.html.erb
+.top-image{
+  width: 100%;
+  position: relative;
+}
+
+.top-image-view {
+  width: 100%;
+  height: 80%;
+}
+
+.top-card {
+  color: #2c2c2f;
+  background: #ffffff;
+  opacity: 0.7;
+  position: absolute;
+  bottom: 20%;
+  right: 5%;
+  padding: 10px;
+}
+
+.top-sm-info {
+  font-size: 0.9em;
+  text-align: center;
+  background-color: #ffc10778;
+}
+
+.title-border {
+  border-bottom: .5rem solid #ffc10778;
+}
+
+#back {
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+  border-radius: 50%;
+  background-color: rgb(180, 179, 179);
+}
+.scroll{
+  width:      70px;
+  height:     70px;
+}
+
+// アイコン　far fa-heart
+.favorite-icon  a {
+  font-size: 20px;
+
+  svg {
+      color: rgb(255, 0, 170)
+      ;
+  }
+}
+
+// googlemap
+#map {
+  height: 400px;
+  width: 80%;
+}
+@media only screen and (max-device-width : 480px) {
+  /* スマートフォンだけ以下を適用 */
+  #map {
+    height: 400px;
+    width: 100%;
+  }
+}

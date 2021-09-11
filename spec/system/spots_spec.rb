@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Spots', type: :system do
-  xdescribe '表示とリンクのテスト', js: true do
+  describe '表示とリンクのテスト', js: true do
     let!(:store1) {
       create(:store, name: 'あかちゃん本舗', introduction: '綺麗な授乳室でした', postcode: '1111111', prefecture_code: '北海道',
                      city: '函館市1-1-1')
@@ -17,10 +17,8 @@ RSpec.describe 'Spots', type: :system do
       end
     end
 
-    it '地図が表示されていて施設の数だけマーカーが立っていること' do
-      expect(page).to have_css '.gm-style'
-      expect(page).to have_css '#gmimap0'
-      expect(page).to have_css '#gmimap1'
+    it 'タイトルが表示されること' do
+      expect(page).to have_selector 'h1', text: '現在地から探す'
     end
   end
 end
