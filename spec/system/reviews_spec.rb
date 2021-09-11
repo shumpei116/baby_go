@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe 'Reviews', type: :system, js: true do
-  describe '詳細ページレビューのテスト' do
+  describe '施設詳細ページレビューのテスト' do
     let(:user1) { create(:user, name: 'ちはるママ') }
     let(:user2) { create(:user, name: 'ちあきパパ') }
     let(:store) { create(:store) }
@@ -10,61 +10,74 @@ RSpec.describe 'Reviews', type: :system, js: true do
     let!(:review2) { create(:review, store: store, user: user2, rating: 4.5, comment: 'とってもよかったです') }
     let!(:other_review) { create(:review, store: other_store, comment: '最高でした') }
 
-    describe '表示のテスト' do
-      it '施設詳細ページにその施設のレビューのみ全て表示されること' do
-        visit store_path(store)
-        expect(current_path).to eq store_path(store)
-        expect(page).to have_selector 'h4', text: '利用したパパママからのメッセージ'
-        expect(page).to_not have_content '最高でした'
-
-        within '.review-1' do
-          expect(page).to have_content 'ちあきパパ'
-          expect(page).to have_content 'とってもよかったです'
-          expect(find("#store_rate#{review2.id}").find('input', visible: false).value).to eq '4.5'
-        end
-
-        within '.review-2' do
-          expect(page).to have_content 'ちはるママ'
-          expect(page).to have_content 'まあまあでした'
-          expect(find("#store_rate#{review1.id}").find('input', visible: false).value).to eq '2'
-        end
-      end
-    end
-
-    describe 'ページネーションのテスト' do
-      let!(:reviews) { create_list(:review, 3, store: store) }
-
-      context '施設レビューが5個登録されているとき' do
-        before do
+    describe '表示のテスト', forcus: true do
+      context 'レビューが投稿されているとき' do
+        it '施設詳細ページにその施設のレビューのみ全て表示されること' do
           visit store_path(store)
-        end
+          expect(current_path).to eq store_path(store)
+          expect(page).to have_selector 'h4', text: '利用したパパママからのメッセージ'
+          expect(page).to_not have_content '最高でした'
 
-        it '.cardが5個表示されていること' do
-          expect(page).to have_selector('.card', count: 5)
-        end
-
-        it 'ページネーションリンクが表示されていないこと' do
-          expect(page).to_not have_css '.pagination'
-        end
-      end
-
-      context '施設レビューが6個登録されているとき' do
-        let!(:review6) { create(:review, store: store) }
-
-        before do
-          visit store_path(store)
-        end
-
-        it 'ページネーションが1つ表示され2ページ目をクリックすると次ページに遷移すること', js: true do
-          expect(page).to have_css '.pagination', count: 1
-          expect(page).to have_selector '.pagination-count', text: "1-5\n/6件中"
-          expect(page).to have_css '.card', count: 5
-          within '.paginate' do
-            click_link '2'
+          within '.review-1' do
+            expect(page).to have_content 'ちあきパパ'
+            expect(page).to have_content 'とってもよかったです'
+            expect(find("#store_rate#{review2.id}").find('input', visible: false).value).to eq '4.5'
           end
-          expect(page).to have_css '.pagination', count: 1
-          expect(page).to have_selector '.pagination-count', text: "6-6\n/6件中"
-          expect(page).to have_css '.card', count: 1
+
+          within '.review-2' do
+            expect(page).to have_content 'ちはるママ'
+            expect(page).to have_content 'まあまあでした'
+            expect(find("#store_rate#{review1.id}").find('input', visible: false).value).to eq '2'
+          end
+        end
+      end
+
+      context 'レビューが投稿されていないとき' do
+        let(:no_review_store) { create(:store) }
+
+        it 'レビューが投稿されていないメッセージが表示されること' do
+          visit store_path(no_review_store)
+          expect(current_path).to eq store_path(no_review_store)
+          expect(page).to have_selector 'h5', text: '投稿されたレビューはありません'
+          expect(page).to have_selector 'p', text: '利用した感想を投稿してみてね'
+        end
+      end
+
+      describe 'ページネーションのテスト' do
+        let!(:reviews) { create_list(:review, 3, store: store) }
+
+        context '施設レビューが5個登録されているとき' do
+          before do
+            visit store_path(store)
+          end
+
+          it '.cardが5個表示されていること' do
+            expect(page).to have_selector('.card', count: 5)
+          end
+
+          it 'ページネーションリンクが表示されていないこと' do
+            expect(page).to_not have_css '.pagination'
+          end
+        end
+
+        context '施設レビューが6個登録されているとき' do
+          let!(:review6) { create(:review, store: store) }
+
+          before do
+            visit store_path(store)
+          end
+
+          it 'ページネーションが1つ表示され2ページ目をクリックすると次ページに遷移すること', js: true do
+            expect(page).to have_css '.pagination', count: 1
+            expect(page).to have_selector '.pagination-count', text: "1-5\n/6件中"
+            expect(page).to have_css '.card', count: 5
+            within '.paginate' do
+              click_link '2'
+            end
+            expect(page).to have_css '.pagination', count: 1
+            expect(page).to have_selector '.pagination-count', text: "6-6\n/6件中"
+            expect(page).to have_css '.card', count: 1
+          end
         end
       end
     end
