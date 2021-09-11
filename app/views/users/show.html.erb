@@ -1,5 +1,5 @@
 <div class="container my-5">
-  <div class="card border-warning mb-3">
+  <section class="card border-warning mb-3">
     <div class="row g-0">
       <div class="col-md-4">
         <%= image_tag(@user.avatar.medium_thumb.url, class:"m-3 img-fluid img-thumbnail", alt:"ユーザー画像") %>
@@ -7,64 +7,28 @@
       <div class="col-md-8">
         <div class="card-body d-grid gap-2">
           <h1 class="card-title h5">名前：<%= @user.name %></h1>
-          <p class="card-text card-introduction">自己紹介：<%= @user.introduction %></p>
+          <p class="card-text card-introduction mb-0">自己紹介：<%= @user.introduction %></p>
           <% if @user == current_user%>
-            <p class="card-text card-email">メールアドレス：<%= @user.email%></p>
-            <%= link_to "編集", edit_user_registration_path, class:"btn btn-warning" %>
+            <p class="card-text card-email mb-0">メールアドレス：<%= @user.email%></p>
+            <%= link_to "編集", edit_user_registration_path, class:"btn btn-warning mt-3" %>
           <% end %>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 
-  <div class="mt-5">
+  <section class="mt-5 row">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
-      <li class="nav-item" role="presentation">
-        <%= link_to "投稿した施設一覧", "#store_index", class:"nav-link active", 'id': :"store_index_tab", 'data-bs-toggle': :"tab", 'role': :"tab",  'aria-controls': :"store_index", 'aria-selected': :"true" %>
+      <li class="nav-item col-6 col-sm-3" role="presentation">
+        <%= link_to "投稿した施設", "#store_index", class:"nav-link active", 'id': :"store_index_tab", 'data-bs-toggle': :"tab", 'role': :"tab",  'aria-controls': :"store_index", 'aria-selected': :"true" %>
       </li>
-      <li class="nav-item" role="presentation">
+      <li class="nav-item col-6 col-sm-3" role="presentation">
         <%= link_to "いいねした施設", "#store_favorite", class:"nav-link", 'id': :"store_favorite_tab", 'data-bs-toggle': :"tab", 'role': :"tab",  'aria-controls': :"store_favorite", 'aria-selected': :"false" %>
       </li>
     </ul>
-
     <div class="tab-content" id="myTabContent">
-      <div class="tab-pane fade show active" id="store_index" role="tabpanel" aria-labelledby="store_index_tab">
-        <div class="container">
-          <div class="row">
-            <div class="col-12 my-5">
-              <h4><%=@user.name %>さんが紹介してくれた施設の一覧</h4>
-            </div>
-          </div>
-          <div id ="index_paginate1" class="paginate-1 mb-3">
-            <%= render 'shared/paginate', pages: @stores, page_name: 'index_page' %>
-          </div>
-          <div id="index_stores_list">
-            <%= render 'shared/stores_list', stores: @stores %>
-          </div>
-          <div id ="index_paginate2" class="paginate-2 mt-3">
-            <%= render "shared/paginate", pages: @stores, page_name: 'index_page' %>
-          </div>
-        </div>
-      </div>
-
-      <div class="tab-pane fade" id="store_favorite" role="tabpanel" aria-labelledby="store_favorite_tab">
-        <div class="container">
-          <div class="row">
-            <div class="col-12 my-5">
-              <h4><%= @user.name %>さんがいいねした施設の一覧</h4>
-            </div>
-          </div>
-          <div id ="favorite_paginate1" class="paginate-1 mb-3">
-            <%= render 'shared/paginate', pages: @favorite_stores, page_name: 'favorite_page' %>
-          </div>
-          <div id="favorite_stores_list">
-            <%= render 'shared/stores_list', stores: @favorite_stores %>
-          </div>
-          <div id ="favorite_paginate2" class="paginate-2 mt-3">
-            <%= render 'shared/paginate', pages: @favorite_stores, page_name: 'favorite_page' %>
-          </div>
-        </div>
-      </div>
+      <%= render "posted_stores", stores: @stores, user: @user %>
+      <%= render "favorited_stores", stores: @favorite_stores, user: @user %>
     </div>
-  </div>
+  </section>
 </div>

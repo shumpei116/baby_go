@@ -1,0 +1,18 @@
+<section class="tab-pane fade" id="store_favorite" role="tabpanel" aria-labelledby="store_favorite_tab">
+  <div class="container">
+    <section class="row">
+      <div class="col-12 my-5">
+        <h4><%= user.name %>さんがいいねした施設の一覧</h4>
+      </div>
+    </section>
+    <div id ="favorite_paginate1" class="paginate-1 mb-3">
+      <%= render 'shared/paginate', pages: stores, page_name: 'favorite_page' %>
+    </div>
+    <div id="favorite_stores_list">
+      <%= render 'shared/stores_list', stores: stores %>
+    </div>
+    <div id ="favorite_paginate2" class="paginate-2 mt-3">
+      <%= render 'shared/paginate', pages: stores, page_name: 'favorite_page' %>
+    </div>
+  </div>
+</section>
