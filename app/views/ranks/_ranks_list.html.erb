@@ -7,16 +7,7 @@
         <% end %>
         <div class="card-body">
           <h2 class="card-title h5"><strong>第<%= @rank_stores.index(store) + 1 %>位</strong>　<%= store.name %></h2>
-          <% if user_signed_in? %>
-            <p class="card-text"><%= render 'favorites/favorite', store: store %></p>
-          <% else %>
-            <div class ="favorite-icon" id="store_favorite_<%= store.id %>">
-              <%= link_to store_favorite_path(store), class:"favorite-#{store.id} text-decoration-none", method: :post do %>
-                <i class="far fa-heart"></i>
-              <% end %>
-              <span class="favorite-count text-muted"><%= store.favorites_count %></span>
-            </div>
-          <% end %>
+          <%= render "shared/check_signed_in_for_favorite", store: store %>
           <p class="card-text"><%= render 'shared/reviews_average', store: store %></p>
           <p class="card-text text-truncate">施設紹介：<%= store.introduction %></p>
           <p class="card-text">住所：<%= store.prefecture_code %></p>
