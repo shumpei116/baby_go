@@ -79,7 +79,7 @@
       <div class="mt-5">
         <div class="row justify-content-center">
           <% if user_signed_in? && !current_user.already_reviewed?(@store) %>
-            <%= render 'shared/review_form', review: @review, store: @store %>
+            <%= render 'review_form', review: @review, store: @store %>
           <% end %>
           <hr>
           <div class="col-8 mt-5 text-center">
@@ -88,21 +88,12 @@
         </div>
       </div>
       <% if @reviews.present? %>
-      <div id="reviews_list">
-        <%= render 'shared/reviews_list', reviews: @reviews %>
-      </div>
+        <%= render 'reviews_list', reviews: @reviews %>
         <div id ="paginate" class="paginate mt-3">
           <%= render 'shared/paginate', pages: @reviews, page_name: 'page' %>
         </div>
       <% else %>
-        <div class="row mt-5">
-          <div class="col-12 d-flex justify-content-center">
-            <div class="text-center">
-              <h5>投稿されたレビューはありません</h5>
-              <p>利用した感想を投稿してみてね！</p>
-            </div>
-          </div>
-        </div>
+        <%= render "no_review_posted" %>
       <% end %>
     </div>
   </div>
