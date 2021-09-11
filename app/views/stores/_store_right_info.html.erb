@@ -1,0 +1,56 @@
+<section class= "col-12 col-md-6 mt-5 pt-1">
+  <div class="ps-1">
+    <%= render "shared/check_signed_in_for_favorite", store: store %>
+    <div class ="reviews-icon">
+      <div class="review-average-rating d-inline-block" data-score=<%= store.average_rating %>></div>
+      <span class="reviews-average-score me-3"><strong><%= store.average_rating %></strong></span>
+    </div>
+  </div>
+  <div class= "table-responsive">
+    <table class="table table-borderless">
+      <tbody>
+        <tr>
+          <th scope="row">施設名:</th>
+          <td><%= @store.name %></td>
+        </tr>
+        <tr>
+          <th scope="row">施設紹介:</th>
+          <td><%= @store.introduction %></td>
+        </tr>
+        <tr>
+          <th scope="row">施設URL:</th>
+          <td><%= link_to @store.url, @store.url, target: :_blank %></td>
+        </tr>
+        <tr>
+          <th scope="row">住所:</th>
+          <td colspan="2">〒<%= @store.postcode %></td>
+        </tr>
+        <tr>
+          <th scope="row"></th>
+          <td colspan="2"><%= @store.prefecture_code%> <%= @store.city %></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div>
+    <% if @store.user == current_user%>
+      <div class="d-grid gap-2 col-12">
+        <%= link_to "編集", edit_store_path(@store), class:"btn btn-warning" %>
+      </div>
+    <% end %>
+  </div>
+</section>
+
+
+<script>
+  $('.review-average-rating').empty();
+  $('.review-average-rating').raty({
+    readOnly: true,
+    starOn: "<%= asset_pack_path('media/images/star-on.png') %>",
+    starOff: "<%= asset_pack_path('media/images/star-off.png') %>",
+    starHalf: "<%= asset_pack_path('media/images/star-half.png') %>",
+    score: function() {
+      return $(this).attr('data-score')
+    }
+  });
+</script>
