@@ -1,4 +1,4 @@
-<section class ="favorite-icon" id="store_favorite_<%= store.id %>">
+<div class ="favorite-icon" id="store_favorite_<%= store.id %>">
   <% if current_user.already_favorited?(store) %>
     <%= link_to store_favorite_path(store), class:"favorited-#{store.id} text-decoration-none", method: :delete, remote: true do %>
       <i class="fas fa-heart"></i>
@@ -9,4 +9,4 @@
     <% end %>
   <% end %>
   <span class="favorite-count text-muted"><%= store.favorites_count %></span>
-</section>
+</div>
