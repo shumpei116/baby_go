@@ -12,20 +12,8 @@ RSpec.describe 'Spots', type: :request do
       expect(response).to have_http_status(200)
     end
 
-    it '施設名が含まれること' do
-      expect(response.body).to include '赤ちゃんの本舗'
-    end
-
-    it '施設紹介が含まれること' do
-      expect(response.body).to include '授乳室とおむつ交換スペースが完備！　綺麗で広くてとっても利用しやすいです'
-    end
-
-    it '都道府県名が含まれること' do
-      expect(response.body).to include '栃木県'
-    end
-
-    it '情報提供者名が含まれること' do
-      expect(response.body).to include 'test'
+    it 'タイトルが含まれること' do
+      expect(response.body).to include '現在地から探す'
     end
   end
 end
