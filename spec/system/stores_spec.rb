@@ -10,6 +10,10 @@ RSpec.describe 'Stores', type: :system do
         visit new_store_path
       end
 
+      it 'タイトルが正しく表示されること' do
+        expect(page).to have_title '施設の登録 - Baby_Go'
+      end
+
       it '郵便番号を入力すると都道府県と市区町村番地が自動で入力されること' do
         fill_in '郵便番号', with: '1000001'
         expect(page).to have_select('都道府県', selected: '東京都')
@@ -64,6 +68,10 @@ RSpec.describe 'Stores', type: :system do
       visit store_path(store)
     end
 
+    it 'タイトルが正しく表示されること' do
+      expect(page).to have_title 'あかちゃん本舗 - Baby_Go'
+    end
+
     it '施設情報が表示されていること' do
       expect(page).to have_selector 'h2', text: 'あかちゃん本舗'
       expect(page).to have_css ".favorite-#{store.id}"
@@ -114,6 +122,10 @@ RSpec.describe 'Stores', type: :system do
 
       before do
         visit stores_path
+      end
+
+      it 'タイトルが正しく表示されること' do
+        expect(page).to have_title '施設の一覧 - Baby_Go'
       end
 
       context 'エリア検索・キーワード検索をしていないとき' do
@@ -285,6 +297,10 @@ RSpec.describe 'Stores', type: :system do
           expect(page).to have_selector 'td', text: 'https://stores.akachan.jp/224'
           expect(page).to have_selector("img[src$='thumb_default_store.jpg']")
           click_link '編集'
+        end
+
+        it 'タイトルが正しく表示されること' do
+          expect(page).to have_title '施設情報の編集 - Baby_Go'
         end
 
         it '郵便番号を編集すると都道府県と市区町村番地が自動で修正されること', js: true do

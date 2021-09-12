@@ -159,6 +159,10 @@ RSpec.describe 'Reviews', type: :system, js: true do
           click_link '修正する'
         end
 
+        it 'タイトルが正しく表示されること' do
+          expect(page).to have_title 'レビューの修正 - Baby_Go'
+        end
+
         context 'フォームの入力値が正しいとき' do
           it '編集に成功すること' do
             expect(current_path).to eq edit_store_review_path(store)

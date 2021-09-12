@@ -6,6 +6,10 @@ RSpec.describe 'Registrations', type: :system do
       visit new_user_registration_path
     end
 
+    it 'タイトルが正しく表示されること' do
+      expect(page).to have_title '新規登録 - Baby_Go'
+    end
+
     context 'フォームの入力値が正しいとき' do
       it 'ユーザーの登録に成功すること' do
         expect {
@@ -44,6 +48,10 @@ RSpec.describe 'Registrations', type: :system do
       expect(page).to have_selector '.card-introduction', text: ''
       expect(page).to have_selector '.card-email', text: 'shumpei@example.com'
       click_link '編集'
+    end
+
+    it 'タイトルが正しく表示されること' do
+      expect(page).to have_title 'アカウントの編集 - Baby_Go'
     end
 
     context 'フォームの入力値が正しいとき' do

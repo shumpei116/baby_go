@@ -15,6 +15,11 @@ RSpec.describe 'Users', type: :system do
           before do
             visit user_path(user)
           end
+
+          it 'タイトルが正しく表示されること' do
+            expect(page).to have_title 'shumpeiのページ - Baby_Go'
+          end
+
           it '名前・自己紹介・メールアドレス・編集ボタンが表示されていること' do
             expect(page).to have_selector('img[alt=ユーザー画像]')
             expect(page).to have_selector '.card-title', text: 'shumpei'

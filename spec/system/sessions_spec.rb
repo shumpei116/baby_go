@@ -8,6 +8,10 @@ RSpec.describe 'Sessions', type: :system do
       visit new_user_session_path
     end
 
+    it 'タイトルが正しく表示されること' do
+      expect(page).to have_title 'ログイン - Baby_Go'
+    end
+
     context 'パラメーターが正しいとき' do
       it 'ログインできること' do
         expect(page).to have_link 'ログイン'

@@ -67,6 +67,10 @@ RSpec.describe 'Homes', type: :system do
       visit root_path
     end
 
+    it 'タイトルが正しく表示されること' do
+      expect(page).to have_title 'Baby_Go'
+    end
+
     it 'トップ画像とメッセージが表示されていること' do
       expect(page).to have_selector('img[alt=トップ画像]')
       within '.top-card' do

@@ -133,6 +133,10 @@ RSpec.describe 'Ranks', type: :system do
         expect(current_path).to eq user_path(user)
         expect(page).to have_selector '.card-title', text: 'shumpei'
       end
+
+      it 'タイトルが正しく表示されること' do
+        expect(page).to have_title 'レビューランキング - Baby_Go'
+      end
     end
 
     describe 'ページネーションのテスト' do
