@@ -9,7 +9,12 @@
       <div class="col-md-8">
         <div class="card-body d-grid gap-2">
           <h1 class="card-title h5">名前：<%= @user.name %></h1>
-          <p class="card-text card-introduction mb-0">自己紹介：<%= @user.introduction %></p>
+          <p class="card-text card-introduction mb-0">自己紹介：
+          <% if @user.introduction.present? %>
+            <%= @user.introduction %></p>
+          <% else %>
+            -
+          <% end %>
           <% if @user == current_user%>
             <p class="card-text card-email mb-0">メールアドレス：<%= @user.email%></p>
             <%= link_to "編集", edit_user_registration_path, class:"btn btn-warning mt-3" %>
