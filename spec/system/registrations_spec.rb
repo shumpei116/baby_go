@@ -7,7 +7,7 @@ RSpec.describe 'Registrations', type: :system do
     end
 
     it 'タイトルが正しく表示されること' do
-      expect(page).to have_title '新規登録 - Baby_Go'
+      expect(page).to have_title '新規アカウントを登録 - Baby_Go'
     end
 
     context 'フォームの入力値が正しいとき' do

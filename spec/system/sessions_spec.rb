@@ -19,7 +19,7 @@ RSpec.describe 'Sessions', type: :system do
         expect(page).to_not have_button 'shumpei'
         fill_in 'メールアドレス',	with: 'shumpei@example.com'
         fill_in 'パスワード',	with: 'password'
-        click_button 'Log in'
+        click_button 'ログイン'
         expect(current_path).to eq root_path
         expect(page).to_not have_link 'ログイン'
         expect(page).to_not have_link '新規登録'
@@ -30,7 +30,7 @@ RSpec.describe 'Sessions', type: :system do
       it 'ログインに失敗すること' do
         fill_in 'メールアドレス',	with: ''
         fill_in 'パスワード',	with: 'password'
-        click_button 'Log in'
+        click_button 'ログイン'
         expect(current_path).to eq new_user_session_path
         expect(page).to have_selector '.alert-alert', text: 'メールアドレスまたはパスワードが違います'
       end
@@ -58,7 +58,7 @@ RSpec.describe 'Sessions', type: :system do
       expect(page).to have_selector '.alert-alert', text: 'ログインもしくはアカウント登録してください'
       fill_in 'メールアドレス',	with: 'shumpei@example.com'
       fill_in 'パスワード',	with: 'password'
-      click_button 'Log in'
+      click_button 'ログイン'
       expect(current_path).to eq new_store_path
     end
   end

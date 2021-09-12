@@ -73,7 +73,7 @@ RSpec.describe 'Stores', type: :system do
     end
 
     it '施設情報が表示されていること' do
-      expect(page).to have_selector 'h2', text: 'あかちゃん本舗'
+      expect(page).to have_selector 'h1', text: 'あかちゃん本舗'
       expect(page).to have_css ".favorite-#{store.id}"
       expect(page).to have_selector '.favorite-count', text: '0'
       expect(page).to have_css '.review-average-rating'
@@ -214,7 +214,7 @@ RSpec.describe 'Stores', type: :system do
       it '施設画像をクリックすると施設詳細画面にページ遷移すること' do
         click_link '施設画像-1'
         expect(current_path).to eq store_path(store2)
-        expect(page).to have_selector 'h2', text: 'ベビーレストラン'
+        expect(page).to have_selector 'h1', text: 'ベビーレストラン'
       end
 
       it 'コメントアイコンをクリックすると施設詳細画面にページ遷移すること' do
@@ -222,7 +222,7 @@ RSpec.describe 'Stores', type: :system do
           find('.comment-link').click
         end
         expect(current_path).to eq store_path(store2)
-        expect(page).to have_selector 'h2', text: 'ベビーレストラン'
+        expect(page).to have_selector 'h1', text: 'ベビーレストラン'
       end
 
       it 'ユーザー名をクリックするとユーザーの詳細画面に遷移すること' do
@@ -289,7 +289,7 @@ RSpec.describe 'Stores', type: :system do
         before do
           sign_in(user)
           visit store_path(store)
-          expect(page).to have_selector 'h2', text: 'あかちゃん本舗'
+          expect(page).to have_selector 'h1', text: 'あかちゃん本舗'
           expect(page).to have_selector 'td', text: '綺麗な授乳室でした'
           expect(page).to have_selector 'td', text: '1111111'
           expect(page).to have_selector 'td', text: '北海道'
@@ -321,7 +321,7 @@ RSpec.describe 'Stores', type: :system do
             click_button '更新する'
             expect(current_path).to eq store_path(store)
             expect(page).to have_content '施設の情報を更新しました'
-            expect(page).to have_selector 'h2', text: '東松屋'
+            expect(page).to have_selector 'h1', text: '東松屋'
             expect(page).to have_selector 'td', text: '素敵なおむつ交換スペースでした'
             expect(page).to have_selector 'td', text: '2222222'
             expect(page).to have_selector 'td', text: '沖縄県'
@@ -337,7 +337,7 @@ RSpec.describe 'Stores', type: :system do
             click_button '更新する'
             expect(page).to have_selector '#error_explanation', text: 'エラーが発生したため 施設 は保存されませんでした'
             visit store_path(store)
-            expect(page).to have_selector 'h2', text: 'あかちゃん本舗'
+            expect(page).to have_selector 'h1', text: 'あかちゃん本舗'
           end
         end
       end
@@ -377,7 +377,7 @@ RSpec.describe 'Stores', type: :system do
           visit store_path(store)
           expect {
             page.accept_confirm do
-              click_link '施設情報を削除する'
+              click_link '施設情報を削除'
             end
             expect(page).to have_selector '.alert-success', text: '施設を削除しました'
             expect(current_path).to eq user_path(user)
@@ -392,7 +392,7 @@ RSpec.describe 'Stores', type: :system do
           sign_in(other_user)
           visit store_path(store)
           expect(current_path).to eq store_path(store)
-          expect(page).to_not have_link '施設情報を削除する'
+          expect(page).to_not have_link '施設情報を削除'
         end
       end
     end
@@ -401,7 +401,7 @@ RSpec.describe 'Stores', type: :system do
       it '施設削除ボタンが表示されないこと' do
         visit store_path(store)
         expect(current_path).to eq store_path(store)
-        expect(page).to_not have_link '施設情報を削除する'
+        expect(page).to_not have_link '施設情報を削除'
       end
     end
   end

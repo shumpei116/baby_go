@@ -51,7 +51,7 @@ RSpec.describe 'Favorites', type: :system do
         it '.favorite-store.idをクリックするといいねをつけたり削除したりできること' do
           sign_in(user)
           visit store_path(store)
-          expect(page).to have_selector 'h2', text: 'あかちゃん本舗'
+          expect(page).to have_selector 'h1', text: 'あかちゃん本舗'
           expect(page).to have_selector '.favorite-count', text: '0'
 
           expect {

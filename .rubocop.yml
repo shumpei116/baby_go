@@ -43,7 +43,7 @@ Security/Open:
     - 'db/seeds.rb'
 
 Metrics/AbcSize:
-  Max: 20 
+  Max: 25
 
 Style/AsciiComments:
   Enabled: false

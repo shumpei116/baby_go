@@ -117,7 +117,7 @@ RSpec.describe 'Users', type: :system do
         it '施設画像をクリックすると施設詳細画面に遷移すること' do
           click_link '施設画像-1'
           expect(current_path).to eq store_path(store2)
-          expect(page).to have_selector 'h2', text: 'ベビーレストラン'
+          expect(page).to have_selector 'h1', text: 'ベビーレストラン'
         end
 
         it 'コメントアイコンをクリックすると施設詳細画面にページ遷移すること' do
@@ -125,7 +125,7 @@ RSpec.describe 'Users', type: :system do
             find('.comment-link').click
           end
           expect(current_path).to eq store_path(store2)
-          expect(page).to have_selector 'h2', text: 'ベビーレストラン'
+          expect(page).to have_selector 'h1', text: 'ベビーレストラン'
         end
       end
     end
@@ -191,7 +191,7 @@ RSpec.describe 'Users', type: :system do
         it '施設画像をクリックすると施設詳細画面に遷移すること' do
           click_link '施設画像-1'
           expect(current_path).to eq store_path(store2)
-          expect(page).to have_selector 'h2', text: 'ベビーレストラン'
+          expect(page).to have_selector 'h1', text: 'ベビーレストラン'
         end
 
         it 'コメントアイコンをクリックすると施設詳細画面にページ遷移すること' do
@@ -199,7 +199,7 @@ RSpec.describe 'Users', type: :system do
             find('.comment-link').click
           end
           expect(current_path).to eq store_path(store2)
-          expect(page).to have_selector 'h2', text: 'ベビーレストラン'
+          expect(page).to have_selector 'h1', text: 'ベビーレストラン'
         end
 
         it 'ユーザー名をクリックするとユーザーの詳細画面に遷移すること' do

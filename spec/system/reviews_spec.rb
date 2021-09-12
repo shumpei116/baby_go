@@ -15,7 +15,7 @@ RSpec.describe 'Reviews', type: :system, js: true do
         it '施設詳細ページにその施設のレビューのみ全て表示されること' do
           visit store_path(store)
           expect(current_path).to eq store_path(store)
-          expect(page).to have_selector 'h4', text: '利用したパパママからのメッセージ'
+          expect(page).to have_selector 'h2', text: '利用したパパママからのメッセージ'
           expect(page).to_not have_content '最高でした'
 
           within '.review-1' do

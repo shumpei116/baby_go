@@ -4,13 +4,13 @@
   <div class="row">
     <div class="col-12">
       <section class="row justify-content-center">
-        <%= render "store_left_info", store: @store %>
-        <%= render "store_right_info", store: @store %>
+        <%= render "shared/store_left_info", store: @store %>
+        <%= render "shared/store_right_info", store: @store %>
       </section>
-      <%= render "show_store_gmap" %>
+      <%= render "shared/show_store_gmap" %>
       <% if user_signed_in? && !current_user.already_reviewed?(@store) %>
         <div class="row justify-content-center mt-5">
-          <%= render "review_form", review: @review, store: @store %>
+          <%= render "shared/review_form", review: @review, store: @store %>
         </div>
       <% end %>
       <hr>
@@ -20,12 +20,12 @@
         </div>
       </div>
       <% if @reviews.present? %>
-        <%= render "reviews_list", reviews: @reviews %>
+        <%= render "shared/reviews_list", reviews: @reviews %>
         <div id ="paginate" class="paginate mt-3">
           <%= render "shared/paginate", pages: @reviews, page_name: "page" %>
         </div>
       <% else %>
-        <%= render "no_review_posted" %>
+        <%= render "shared/no_review_posted" %>
       <% end %>
     </div>
   </div>
