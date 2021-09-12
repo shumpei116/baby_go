@@ -20,11 +20,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   process resize_to_fit: [800, 800]
 
   version :thumb do
-    process resize_to_fill: [630, 420, 'Center']
-  end
-
-  version :medium_thumb do
-    process resize_to_fill: [250, 167, 'Center']
+    process resize_to_fill: [640, 420, 'Center']
   end
 
   def size_range
