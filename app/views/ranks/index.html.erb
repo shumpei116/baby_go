@@ -4,22 +4,22 @@
       <h1 class="title-border h2 px-4 pb-2"><i class="fas fa-crown"></i>レビューランキング</h1>
     </div>
     <div class="d-flex justify-content-center mb-3">
-      <%= render 'select_prefecture_form', q: @q %>
+      <%= render "select_prefecture_form", q: @q %>
     </div>
   </section>
   <% if @stores.present? %>
     <div id ="paginate1" class="paginate-1 mb-3">
-      <%= render 'shared/paginate', pages: @stores, page_name: 'rank_page' %>
+      <%= render "shared/paginate", pages: @stores, page_name: "rank_page" %>
     </div>
     <div id="ranks_list">
-      <%= render 'ranks_list', stores: @stores %>
+      <%= render "ranks_list", stores: @stores %>
     </div>
     <div id ="paginate2" class="paginate-2 mt-3">
-      <%= render 'shared/paginate', pages: @stores, page_name: 'rank_page' %>
+      <%= render "shared/paginate", pages: @stores, page_name: "rank_page" %>
     </div>
   <% else %>
     <%= render "no_store_rank" %>
   <% end %>
 </div>
 
-<%= render 'shared/scroll' %>
+<%= render "shared/scroll" %>

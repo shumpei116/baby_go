@@ -8,7 +8,7 @@
         <div class="card-body">
           <h2 class="card-title h5"><strong>第<%= @rank_stores.index(store) + 1 %>位</strong>　<%= store.name %></h2>
           <%= render "shared/check_signed_in_for_favorite", store: store %>
-          <p class="card-text"><%= render 'shared/reviews_average', store: store %></p>
+          <p class="card-text"><%= render "shared/reviews_average", store: store %></p>
           <p class="card-text text-truncate">施設紹介：<%= store.introduction %></p>
           <p class="card-text">住所：<%= store.prefecture_code %></p>
           <%= link_to user_path(store.user), class:"text-decoration-none text-reset" do %>
@@ -21,14 +21,14 @@
 </section>
 
 <script>
-  $('.review-average-rating').empty();
-  $('.review-average-rating').raty({
+  $(".review-average-rating").empty();
+  $(".review-average-rating").raty({
     readOnly: true,
     starOn: "<%= asset_pack_path('media/images/star-on.png') %>",
     starOff: "<%= asset_pack_path('media/images/star-off.png') %>",
     starHalf: "<%= asset_pack_path('media/images/star-half.png') %>",
     score: function() {
-      return $(this).attr('data-score')
+      return $(this).attr("data-score")
     }
   });
 </script>

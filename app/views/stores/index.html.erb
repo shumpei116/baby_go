@@ -1,7 +1,7 @@
 <div class="container">
   <section class="row">
     <div class="mt-2">
-      <%= render 'search_form', q: @q %>
+      <%= render "search_form", q: @q %>
     </div>
   </section>
   <section class="row">
@@ -11,15 +11,15 @@
   </section>
   <% if @stores.present? %>
     <div id ="paginate1" class="paginate-1 mb-3">
-      <%= render 'shared/paginate', pages: @stores, page_name: 'page' %>
+      <%= render "shared/paginate", pages: @stores, page_name: "page" %>
     </div>
     <div id="stores_list">
-      <%= render 'shared/stores_list', stores: @stores %>
+      <%= render "shared/stores_list", stores: @stores %>
     </div>
     <div id ="paginate2" class="paginate-2 mt-3">
-      <%= render 'shared/paginate', pages: @stores, page_name: 'page' %>
+      <%= render "shared/paginate", pages: @stores, page_name: "page" %>
     </div>
   <% else %>
-    <%= render 'no_store' %>
+    <%= render "no_store" %>
   <% end %>
 </div>

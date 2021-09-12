@@ -43,14 +43,14 @@
 
 
 <script>
-  $('.review-average-rating').empty();
-  $('.review-average-rating').raty({
+  $(".review-average-rating").empty();
+  $(".review-average-rating").raty({
     readOnly: true,
     starOn: "<%= asset_pack_path('media/images/star-on.png') %>",
     starOff: "<%= asset_pack_path('media/images/star-off.png') %>",
     starHalf: "<%= asset_pack_path('media/images/star-half.png') %>",
     score: function() {
-      return $(this).attr('data-score')
+      return $(this).attr("data-score")
     }
   });
 </script>

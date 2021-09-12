@@ -11,9 +11,9 @@
       </div>
       <div id="rating" class="mb-2">
         <label>評価：</label>
-        <%= f.hidden_field :rating, value: 'score' %>
+        <%= f.hidden_field :rating, value: "score" %>
       </div>
-      <%= f.text_area :comment, rows:'5', placeholder: "施設のレビューを投稿してね！", class: "form-control" %>
+      <%= f.text_area :comment, rows:"5", placeholder: "施設のレビューを投稿してね！", class: "form-control" %>
       <%= f.hidden_field :store_id, value: store.id %>
     </div>
   </div>
@@ -25,13 +25,13 @@
 <% end %>
 
 <script>
-  $('#rating').empty();
-  $('#rating').raty({
+  $("#rating").empty();
+  $("#rating").raty({
     size      : 36,
     starOn: "<%= asset_pack_path('media/images/star-on.png') %>",
     starOff: "<%= asset_pack_path('media/images/star-off.png') %>",
     starHalf: "<%= asset_pack_path('media/images/star-half.png') %>",
-    scoreName: 'review[rating]',
+    scoreName: "review[rating]",
     half: true, 
   });
 </script>

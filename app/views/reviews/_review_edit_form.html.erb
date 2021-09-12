@@ -8,9 +8,9 @@
     <div class="col-8 mt-3">
       <div id="rating" class="mb-2">
         <label>評価：</label>
-        <%= f.hidden_field :rating, value: 'score' %>
+        <%= f.hidden_field :rating, value: "score" %>
       </div>
-      <%= f.text_area :comment, rows:'5', placeholder: "施設のレビューを投稿してね！", class: "form-control" %>
+      <%= f.text_area :comment, rows:"5", placeholder: "施設のレビューを投稿してね！", class: "form-control" %>
       <%= f.hidden_field :store_id, value: review.store.id %>
     </div>
   </div>

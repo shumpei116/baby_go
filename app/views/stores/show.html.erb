@@ -8,7 +8,7 @@
       <%= render "show_store_gmap" %>
       <% if user_signed_in? && !current_user.already_reviewed?(@store) %>
         <div class="row justify-content-center mt-5">
-          <%= render 'review_form', review: @review, store: @store %>
+          <%= render "review_form", review: @review, store: @store %>
         </div>
       <% end %>
       <hr>
@@ -18,9 +18,9 @@
         </div>
       </div>
       <% if @reviews.present? %>
-        <%= render 'reviews_list', reviews: @reviews %>
+        <%= render "reviews_list", reviews: @reviews %>
         <div id ="paginate" class="paginate mt-3">
-          <%= render 'shared/paginate', pages: @reviews, page_name: 'page' %>
+          <%= render "shared/paginate", pages: @reviews, page_name: "page" %>
         </div>
       <% else %>
         <%= render "no_review_posted" %>
