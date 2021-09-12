@@ -18,7 +18,7 @@ RSpec.describe 'Homes', type: :system do
         expect(current_path).to eq new_user_session_path
         click_link '新規登録'
         expect(current_path).to eq new_user_registration_path
-        click_link 'Baby_Go'
+        click_link 'ロゴ画像'
         expect(current_path).to eq root_path
       end
 
@@ -50,7 +50,7 @@ RSpec.describe 'Homes', type: :system do
         click_link 'マイページ'
         expect(current_path).to eq user_path(user)
         page.accept_confirm do
-          click_link 'Baby_Go'
+          click_link 'ロゴ画像'
         end
         expect(current_path).to eq root_path
         click_on 'shumpei'

@@ -1,6 +1,8 @@
 <header class="navbar navbar-expand-md sticky-top nav-color navbar-dark text-end py-3">
   <div class="container-fluid">
-    <%= link_to "Baby_Go", root_url, class:"navbar-brand fs-2" %>
+    <%= link_to root_url, class:"navbar-brand" do %>
+      <%= image_pack_tag("media/images/logo.png", alt: "ロゴ画像")%>
+    <% end %>
     <button class="navbar-toggler mb-2 " type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
