@@ -1,0 +1,49 @@
+<section class="row">
+  <% stores.each_with_index do |store,index| %>
+    <div class="col-4 col-md-4">
+      <div class="card shadow bg-white rounded my-5">
+        <div class="text-center my-3 fw-bold">
+          <%= "第#{index+1}位"%>
+        </div>
+        <%= link_to store_path(store) do %>
+          <%= image_tag(store.image.url,class:"card-img-top img-thumbnail", alt: "施設画像-#{index + 1}") %>
+        <% end %>
+        <div class="card-body">
+          <h2 class="card-title h5"><%= store.name %></h2>
+          <div class="mb-1">
+            <%= render "shared/check_signed_in_for_favorite", store: store %>
+          </div>
+          <div class="mb-1">
+            <%= render "shared/reviews_average", store: store %>
+          </div>
+          <div class="mb-1 text-truncate">
+            施設紹介：<%= store.introduction %>
+          </div>
+          <div class="mb-1">
+            <i class="fas fa-map-marker-alt"></i>
+            <%= store.address %>
+          </div>
+          <div class="mb-1">
+            <i class="far fa-user"></i>
+            <%= link_to user_path(store.user), class:"text-decoration-none text-reset" do %>
+              <%= store.user.name %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</section>
+
+<script>
+  $(".review-average-rating").empty();
+  $(".review-average-rating").raty({
+    readOnly: true,
+    starOn: "<%= asset_pack_path('media/images/star-on.png') %>",
+    starOff: "<%= asset_pack_path('media/images/star-off.png') %>",
+    starHalf: "<%= asset_pack_path('media/images/star-half.png') %>",
+    score: function() {
+      return $(this).attr("data-score")
+    }
+  });
+</script>
