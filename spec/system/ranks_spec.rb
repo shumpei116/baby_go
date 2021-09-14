@@ -142,6 +142,45 @@ RSpec.describe 'Ranks', type: :system do
       it 'タイトルが正しく表示されること' do
         expect(page).to have_title 'レビューランキング - Baby_Go'
       end
+
+      describe 'いいね機能のテスト', js: true do
+        context 'ログインしているとき' do
+          it '.favorite-store.idをクリックするといいねをつけたり削除したりできること' do
+            sign_in(user)
+            page.accept_confirm do
+              visit root_path
+            end
+            within '.store-1' do
+              expect(page).to have_selector '.favorite-count', text: '0'
+
+              expect {
+                find(".favorite-#{first_store.id}").click
+                expect(page).to have_css ".favorited-#{first_store.id}"
+                expect(page).to have_selector '.favorite-count', text: '1'
+              }.to change(Favorite, :count).by(1)
+
+              expect {
+                find(".favorited-#{first_store.id}").click
+                expect(page).to have_css ".favorite-#{first_store.id}"
+                expect(page).to have_selector '.favorite-count', text: '0'
+              }.to change(Favorite, :count).by(-1)
+            end
+          end
+        end
+
+        context 'ログインしていないとき' do
+          it '.favorite-store.idをクリックするとログインページに遷移すること' do
+            page.accept_confirm do
+              visit root_path
+            end
+            within '.store-1' do
+              find(".favorite-#{first_store.id}").click
+            end
+            expect(current_path).to eq new_user_session_path
+            expect(page).to have_selector '.alert-alert', text: 'ログインもしくはアカウント登録してください'
+          end
+        end
+      end
     end
 
     describe 'ページネーションのテスト' do

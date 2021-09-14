@@ -10,7 +10,7 @@ RSpec.describe 'Reviews', type: :system, js: true do
     let!(:review2) { create(:review, store: store, user: user2, rating: 4.5, comment: 'とってもよかったです') }
     let!(:other_review) { create(:review, store: other_store, comment: '最高でした') }
 
-    describe '表示のテスト', forcus: true do
+    describe '表示のテスト' do
       context 'レビューが投稿されているとき' do
         it '施設詳細ページにその施設のレビューのみ全て表示されること' do
           visit store_path(store)

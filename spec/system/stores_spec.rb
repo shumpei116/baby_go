@@ -104,9 +104,41 @@ RSpec.describe 'Stores', type: :system do
         expect(page).to have_selector 'p', text: '住所　　:北海道函館市1-1-1'
       end
     end
+
+    describe 'いいね機能のテスト', js: true do
+      context 'ログインしているとき' do
+        it '.favorite-store.idをクリックするといいねをつけたり削除したりできること' do
+          sign_in(user)
+          visit store_path(store)
+          expect(page).to have_selector 'h1', text: 'あかちゃん本舗'
+          expect(page).to have_selector '.favorite-count', text: '0'
+
+          expect {
+            find(".favorite-#{store.id}").click
+            expect(page).to have_css ".favorited-#{store.id}"
+            expect(page).to have_selector '.favorite-count', text: '1'
+          }.to change(Favorite, :count).by(1)
+
+          expect {
+            find(".favorited-#{store.id}").click
+            expect(page).to have_css ".favorite-#{store.id}"
+            expect(page).to have_selector '.favorite-count', text: '0'
+          }.to change(Favorite, :count).by(-1)
+        end
+      end
+
+      context 'ログインしていないとき' do
+        it '.favorite-store.idをクリックするとログインページに遷移すること' do
+          visit store_path(store)
+          find(".favorite-#{store.id}").click
+          expect(current_path).to eq new_user_session_path
+          expect(page).to have_selector '.alert-alert', text: 'ログインもしくはアカウント登録してください'
+        end
+      end
+    end
   end
 
-  describe '一覧ページのテスト' do
+  describe '一覧ページのテスト', forcus: true do
     let(:user1)   { create(:user, name: 'shumpei') }
     let(:user2)   { create(:user, name: 'ちはるちゃんママ') }
 
@@ -229,6 +261,41 @@ RSpec.describe 'Stores', type: :system do
         click_link 'ちはるちゃんママ'
         expect(current_path).to eq user_path(user2)
         expect(page).to have_selector '.card-title', text: 'ちはるちゃんママ'
+      end
+
+      describe 'いいね機能のテスト', js: true do
+        context 'ログインしているとき' do
+          it '.favorite-store.idをクリックするといいねをつけたり削除したりできること' do
+            sign_in(user1)
+            visit stores_path
+            expect(page).to have_selector 'h1', text: 'みんなが投稿してくれた施設の一覧'
+            within '.store-2' do
+              expect(page).to have_selector '.favorite-count', text: '0'
+              expect {
+                find(".favorite-#{store1.id}").click
+                expect(page).to have_css ".favorited-#{store1.id}"
+                expect(page).to have_selector '.favorite-count', text: '1'
+              }.to change(Favorite, :count).by(1)
+
+              expect {
+                find(".favorited-#{store1.id}").click
+                expect(page).to have_css ".favorite-#{store1.id}"
+                expect(page).to have_selector '.favorite-count', text: '0'
+              }.to change(Favorite, :count).by(-1)
+            end
+          end
+        end
+
+        context 'ログインしていないとき' do
+          it '.favorite-store.idをクリックするとログインページに遷移すること' do
+            visit stores_path
+            within '.store-2' do
+              find(".favorite-#{store1.id}").click
+            end
+            expect(current_path).to eq new_user_session_path
+            expect(page).to have_selector '.alert-alert', text: 'ログインもしくはアカウント登録してください'
+          end
+        end
       end
     end
 
