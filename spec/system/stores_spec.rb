@@ -82,8 +82,7 @@ RSpec.describe 'Stores', type: :system do
       expect(page).to have_content '綺麗な授乳室でした'
       expect(page).to have_link 'https://stores.akachan.jp/224'
       expect(page).to have_content '1111111'
-      expect(page).to have_content '北海道'
-      expect(page).to have_content '函館市1-1-1'
+      expect(page).to have_content '北海道函館市1-1-1'
       expect(page).to have_selector('img[alt=施設画像]')
       expect(page).to have_content 'shumpei'
     end
