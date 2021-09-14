@@ -23,8 +23,7 @@ class Store < ApplicationRecord
   end
 
   def self.average_score_rank
-    left_joins(:reviews).includes(:reviews, :user).distinct.sort_by(&:average_rating)
-                        .reverse
+    left_joins(:reviews).group(:id).order('avg(rating) desc')
   end
 
   def address
