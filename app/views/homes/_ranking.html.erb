@@ -1,8 +1,8 @@
 <section class="row">
   <% stores.each_with_index do |store,index| %>
-    <div class="col-4 col-md-4">
-      <div class="card shadow bg-white rounded my-5">
-        <div class="text-center my-3 fw-bold">
+    <div class="store-card col-4 col-md-4">
+      <div class="card store-<%= index + 1 %> shadow bg-white rounded my-5">
+        <div class="card-rank text-center my-3 fw-bold">
           <%= "第#{index+1}位"%>
         </div>
         <%= link_to store_path(store) do %>
