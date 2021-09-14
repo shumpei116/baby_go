@@ -57,7 +57,7 @@ RSpec.describe 'StoreImages', type: :system do
     describe '画像表示と削除のテスト' do
       context '施設画像が設定されていないとき' do
         it 'デフォルト画像が表示されること' do
-          expect(page).to have_selector("img[src$='thumb_default_store.jpg']")
+          expect(page).to have_selector("img[src$='thumb_default_store.jpeg']")
         end
 
         it '画像削除のチェックボックスが表示されないこと' do
@@ -80,7 +80,7 @@ RSpec.describe 'StoreImages', type: :system do
           click_button '更新する'
           expect(current_path).to eq store_path(store)
           expect(page).to have_content '施設の情報を更新しました'
-          expect(page).to have_selector("img[src$='thumb_default_store.jpg']")
+          expect(page).to have_selector("img[src$='thumb_default_store.jpeg']")
         end
       end
     end

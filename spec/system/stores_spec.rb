@@ -295,7 +295,7 @@ RSpec.describe 'Stores', type: :system do
           expect(page).to have_selector 'td', text: '北海道'
           expect(page).to have_selector 'td', text: '函館市1-1-1'
           expect(page).to have_selector 'td', text: 'https://stores.akachan.jp/224'
-          expect(page).to have_selector("img[src$='thumb_default_store.jpg']")
+          expect(page).to have_selector("img[src$='thumb_default_store.jpeg']")
           click_link '編集'
         end
 
