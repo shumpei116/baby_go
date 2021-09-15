@@ -99,13 +99,17 @@ RSpec.describe 'Homes', type: :system do
       create(:store, :rated3, name: '東松屋', introduction: '広くて新しい授乳室でした', postcode: '2222222',
                               prefecture_code: '北海道', city: '稚内市1-1-1', user: user)
     }
+    let!(:fourth_store) {
+      create(:store, :rated3, name: 'バースデイ', introduction: '子供服が安くてたくさん売っていました', postcode: '3333333',
+                              prefecture_code: '大阪府', city: '御堂筋1-1-1', user: user)
+    }
 
     describe '表示とリンクのテスト' do
       before do
         visit root_path
       end
 
-      it '全ての施設情報がレビュー平均点順に表示されていること' do
+      it '施設情報がレビュー平均点順に3件表示されていること' do
         within '.store-1' do
           expect(page).to have_selector '.card-rank', text: '第1位'
           expect(page).to have_selector('img[alt=施設画像-1]')
@@ -147,6 +151,7 @@ RSpec.describe 'Homes', type: :system do
           expect(page).to have_content '北海道稚内市1-1-1'
           expect(page).to have_link 'shumpei'
         end
+        expect(page).to_not have_content 'バースデイ'
         expect(page).to have_selector('.store-card', count: 3)
       end
 
