@@ -60,8 +60,8 @@ RSpec.describe 'Stores', type: :system do
   describe '詳細ページのテスト' do
     let(:user) { create(:user, name: 'shumpei', email: 'shumpei@example.com') }
     let(:store) {
-      create(:store, name: 'あかちゃん本舗', introduction: '綺麗な授乳室でした', postcode: '1111111',
-                     prefecture_code: '北海道', city: '函館市1-1-1', url: 'https://stores.akachan.jp/224', user: user)
+      create(:store, name: 'アカチャンホンポニューポートひたちなか店', introduction: '綺麗な授乳室でした', postcode: '3120005',
+                     prefecture_code: '茨城県', city: 'ひたちなか市新光町35', url: 'https://stores.akachan.jp/224', user: user)
     }
 
     before do
@@ -69,20 +69,20 @@ RSpec.describe 'Stores', type: :system do
     end
 
     it 'タイトルが正しく表示されること' do
-      expect(page).to have_title 'あかちゃん本舗 - Baby_Go'
+      expect(page).to have_title 'アカチャンホンポニューポートひたちなか店 - Baby_Go'
     end
 
     it '施設情報が表示されていること' do
-      expect(page).to have_selector 'h1', text: 'あかちゃん本舗'
+      expect(page).to have_selector 'h1', text: 'アカチャンホンポニューポートひたちなか店'
       expect(page).to have_css ".favorite-#{store.id}"
       expect(page).to have_selector '.favorite-count', text: '0'
       expect(page).to have_css '.review-average-rating'
       expect(page).to have_selector '.reviews-average-score', text: '0.0'
-      expect(page).to have_selector 'td', text: 'あかちゃん本舗'
+      expect(page).to have_selector 'td', text: 'アカチャンホンポニューポートひたちなか店'
       expect(page).to have_content '綺麗な授乳室でした'
       expect(page).to have_link 'https://stores.akachan.jp/224'
-      expect(page).to have_content '1111111'
-      expect(page).to have_content '北海道函館市1-1-1'
+      expect(page).to have_content '3120005'
+      expect(page).to have_content '茨城県ひたちなか市新光町35'
       expect(page).to have_selector('img[alt=施設画像]')
       expect(page).to have_content 'shumpei'
     end
@@ -98,9 +98,18 @@ RSpec.describe 'Stores', type: :system do
       pin.click
       expect(page).to have_css '.gm-style-iw' # infowindow クラスの有無をテスト
       within '.gm-style-iw-d' do
-        expect(page).to have_selector 'h5', text: '施設名：あかちゃん本舗'
+        expect(page).to have_selector 'h5', text: '施設名：アカチャンホンポニューポートひたちなか店'
         expect(page).to have_selector 'p', text: '施設紹介:綺麗な授乳室でした'
-        expect(page).to have_selector 'p', text: '住所　　:北海道函館市1-1-1'
+        expect(page).to have_selector 'p', text: '住所　:茨城県ひたちなか市新光町35'
+      end
+    end
+
+    it 'GoogleMapで開くをクリックすると別タブでGoogleMapが開いて施設名が表示されること', js: true do
+      googlemap_window = window_opened_by do
+        click_link 'GoogleMapで開く'
+      end
+      within_window googlemap_window do
+        expect(page).to have_content 'アカチャンホンポニューポートひたちなか店'
       end
     end
 
@@ -109,7 +118,7 @@ RSpec.describe 'Stores', type: :system do
         it '.favorite-store.idをクリックするといいねをつけたり削除したりできること' do
           sign_in(user)
           visit store_path(store)
-          expect(page).to have_selector 'h1', text: 'あかちゃん本舗'
+          expect(page).to have_selector 'h1', text: 'アカチャンホンポニューポートひたちなか店'
           expect(page).to have_selector '.favorite-count', text: '0'
 
           expect {
@@ -137,7 +146,7 @@ RSpec.describe 'Stores', type: :system do
     end
   end
 
-  describe '一覧ページのテスト', forcus: true do
+  describe '一覧ページのテスト' do
     let(:user1)   { create(:user, name: 'shumpei') }
     let(:user2)   { create(:user, name: 'ちはるちゃんママ') }
 
