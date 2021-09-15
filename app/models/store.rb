@@ -5,7 +5,7 @@ class Store < ApplicationRecord
   has_many :reviews, dependent: :destroy
 
   validates :user_id, presence: true
-  validates :name, presence: true, length: { maximum: 20 }
+  validates :name, presence: true, length: { maximum: 50 }
   validates :introduction, presence: true, length: { maximum: 140 }
   VALID_POSTCODE_REGEX = /\A\d{3}\d{4}\z/.freeze
   validates :postcode, presence: true, format: { with: VALID_POSTCODE_REGEX }

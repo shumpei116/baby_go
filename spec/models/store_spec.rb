@@ -21,18 +21,18 @@ RSpec.describe Store, type: :model do
       expect(store.errors[:name]).to include('を入力してね')
     end
 
-    context '20文字以下の時' do
+    context '50文字以下の時' do
       it '有効であること' do
-        store = build(:store, name: 'a' * 20)
+        store = build(:store, name: 'a' * 50)
         expect(store).to be_valid
       end
     end
 
-    context '21文字以上の時' do
+    context '51文字以上の時' do
       it '無効であること' do
-        store = build(:store, name: 'a' * 21)
+        store = build(:store, name: 'a' * 51)
         store.valid?
-        expect(store.errors[:name]).to include('は20文字以内で入力してね')
+        expect(store.errors[:name]).to include('は50文字以内で入力してね')
       end
     end
   end
