@@ -131,6 +131,38 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '施設画像のテスト' do
+    context '正しいフォーマットのとき' do
+      it '有効であること' do
+        user = build(:user, avatar: File.open(Rails.root.join('spec/factories/avatar/valid_image.jpg')))
+        expect(user).to be_valid
+      end
+    end
+
+    context '正しくないフォーマットのとき' do
+      it '無効であること' do
+        user = build(:user, avatar: File.open(Rails.root.join('spec/factories/avatar/invalid_image.txt')))
+        user.valid?
+        expect(user.errors[:avatar]).to include('"txt"ファイルのアップロードは許可されていません。アップロードできるファイルタイプ: jpg, jpeg, gif, png')
+      end
+    end
+
+    context '5.0MB以下の画像がアップロードされたとき' do
+      it '有効であること' do
+        user = build(:user, avatar: File.open(Rails.root.join('spec/factories/avatar/5MB_image.jpg')))
+        expect(user).to be_valid
+      end
+    end
+
+    context '5.0MBより大きな画像がアップロードされたとき' do
+      it '無効であること' do
+        user = build(:user, avatar: File.open(Rails.root.join('spec/factories/avatar/6MB_image.jpg')))
+        user.valid?
+        expect(user.errors[:avatar]).to include('を5MB以下のサイズにしてください')
+      end
+    end
+  end
+
   describe 'storeモデルアソシエーションのテスト' do
     it 'ユーザーに関連したstoreが作成できること' do
       user = create(:user)
