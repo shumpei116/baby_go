@@ -109,7 +109,7 @@ RSpec.describe 'Stores', type: :system do
         click_link 'GoogleMapで開く'
       end
       within_window googlemap_window do
-        expect(page).to have_content 'アカチャンホンポニューポートひたちなか店'
+        expect(page).to have_content 'アカチャンホンポ ニューポートひたちなか店'
       end
     end
 
