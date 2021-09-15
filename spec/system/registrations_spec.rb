@@ -18,7 +18,7 @@ RSpec.describe 'Registrations', type: :system do
           fill_in 'パスワード',	with: 'password'
           fill_in '確認用パスワード',	with: 'password'
           click_button 'アカウントを作成する'
-          expect(current_path).to eq root_path
+          expect(page).to have_current_path(root_path)
           expect(page).to have_content 'アカウント登録が完了しました'
         }.to change(User, :count).by(1)
       end
@@ -60,7 +60,7 @@ RSpec.describe 'Registrations', type: :system do
         fill_in '自己紹介', with: 'こんにちは！'
         fill_in 'メールアドレス', with: 'chiharu@example.com'
         click_button 'アカウントを変更する'
-        expect(current_path).to eq user_path(user)
+        expect(page).to have_current_path(user_path(user))
         expect(page).to have_content 'アカウント情報を変更しました'
         expect(page).to have_selector '.card-title', text: 'chiharu'
         expect(page).to have_selector '.card-introduction', text: 'こんにちは！'

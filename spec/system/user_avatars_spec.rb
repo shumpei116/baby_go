@@ -15,7 +15,7 @@ RSpec.describe 'UserAvatars', type: :system do
           click_link '編集'
           attach_file 'user[avatar]', Rails.root.join('spec/factories/avatar/valid_image.jpg')
           click_button 'アカウントを変更する'
-          expect(current_path).to eq user_path(user)
+          expect(page).to have_current_path(user_path(user))
           expect(page).to have_content 'アカウント情報を変更しました'
           expect(page).to have_selector("img[src$='medium_thumb_valid_image.jpg']")
         end
@@ -36,7 +36,7 @@ RSpec.describe 'UserAvatars', type: :system do
           click_link '編集'
           attach_file 'user[avatar]', Rails.root.join('spec/factories/avatar/5MB_image.jpg')
           click_button 'アカウントを変更する'
-          expect(current_path).to eq user_path(user)
+          expect(page).to have_current_path(user_path(user))
           expect(page).to have_content 'アカウント情報を変更しました'
           expect(page).to have_selector("img[src$='medium_thumb_5MB_image.jpg']")
         end
@@ -61,7 +61,7 @@ RSpec.describe 'UserAvatars', type: :system do
 
         it '画像削除のチェックボックスが表示されないこと' do
           click_link '編集'
-          expect(current_path).to eq edit_user_registration_path
+          expect(page).to have_current_path(edit_user_registration_path)
           expect(page).to_not have_field('user[remove_avatar]')
         end
       end
@@ -77,7 +77,7 @@ RSpec.describe 'UserAvatars', type: :system do
           click_link '編集'
           check 'user[remove_avatar]'
           click_button 'アカウントを変更する'
-          expect(current_path).to eq user_path(user)
+          expect(page).to have_current_path(user_path(user))
           expect(page).to have_content 'アカウント情報を変更しました'
           expect(page).to have_selector("img[src$='medium_thumb_default.jpg']")
         end

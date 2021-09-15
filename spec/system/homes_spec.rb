@@ -9,22 +9,22 @@ RSpec.describe 'Homes', type: :system do
 
       it 'ヘッダーのリンクをクリックするとそれぞれのページに遷移すること' do
         click_link '現在地から探す'
-        expect(current_path).to eq spots_path
+        expect(page).to have_current_path(spots_path)
         click_link 'ランキング'
-        expect(current_path).to eq ranks_path
+        expect(page).to have_current_path(ranks_path)
         click_link '施設一覧'
-        expect(current_path).to eq stores_path
+        expect(page).to have_current_path(stores_path)
         click_link 'ログイン'
-        expect(current_path).to eq new_user_session_path
+        expect(page).to have_current_path(new_user_session_path)
         click_link '新規登録'
-        expect(current_path).to eq new_user_registration_path
+        expect(page).to have_current_path(new_user_registration_path)
         click_link 'ロゴ画像'
-        expect(current_path).to eq root_path
+        expect(page).to have_current_path(root_path)
       end
 
       it '施設の投稿ページをクリックするとログイン画面に遷移すること' do
         click_link '施設の投稿'
-        expect(current_path).to eq new_user_session_path
+        expect(page).to have_current_path(new_user_session_path)
       end
     end
 
@@ -39,25 +39,25 @@ RSpec.describe 'Homes', type: :system do
         page.accept_confirm do
           click_link '現在地から探す'
         end
-        expect(current_path).to eq spots_path
+        expect(page).to have_current_path(spots_path)
         click_link 'ランキング'
-        expect(current_path).to eq ranks_path
+        expect(page).to have_current_path(ranks_path)
         click_link '施設一覧'
-        expect(current_path).to eq stores_path
+        expect(page).to have_current_path(stores_path)
         click_link '施設の投稿'
-        expect(current_path).to eq new_store_path
+        expect(page).to have_current_path(new_store_path)
         click_on 'shumpei'
         click_link 'マイページ'
-        expect(current_path).to eq user_path(user)
+        expect(page).to have_current_path(user_path(user))
         page.accept_confirm do
           click_link 'ロゴ画像'
         end
-        expect(current_path).to eq root_path
+        expect(page).to have_current_path(root_path)
         click_on 'shumpei'
         page.accept_confirm do
           click_link 'ログアウト'
         end
-        expect(current_path).to eq root_path
+        expect(page).to have_current_path(root_path)
       end
     end
   end
@@ -152,7 +152,7 @@ RSpec.describe 'Homes', type: :system do
 
       it '施設画像をクリックすると施設詳細画面にページ遷移すること' do
         click_link '施設画像-1'
-        expect(current_path).to eq store_path(first_store)
+        expect(page).to have_current_path(store_path(first_store))
         expect(page).to have_selector 'h1', text: 'あかちゃん本舗'
       end
 
@@ -160,7 +160,7 @@ RSpec.describe 'Homes', type: :system do
         within '.store-1' do
           find('.comment-link').click
         end
-        expect(current_path).to eq store_path(first_store)
+        expect(page).to have_current_path(store_path(first_store))
         expect(page).to have_selector 'h1', text: 'あかちゃん本舗'
       end
 
@@ -168,7 +168,7 @@ RSpec.describe 'Homes', type: :system do
         within '.store-1' do
           click_link 'shumpei'
         end
-        expect(current_path).to eq user_path(user)
+        expect(page).to have_current_path(user_path(user))
         expect(page).to have_selector '.card-title', text: 'shumpei'
       end
     end
@@ -206,7 +206,7 @@ RSpec.describe 'Homes', type: :system do
           within '.store-1' do
             find(".favorite-#{first_store.id}").click
           end
-          expect(current_path).to eq new_user_session_path
+          expect(page).to have_current_path(new_user_session_path)
           expect(page).to have_selector '.alert-alert', text: 'ログインもしくはアカウント登録してください'
         end
       end

@@ -119,7 +119,7 @@ RSpec.describe 'Ranks', type: :system do
 
       it '施設画像をクリックすると施設詳細画面にページ遷移すること' do
         click_link '施設画像-1'
-        expect(current_path).to eq store_path(first_store)
+        expect(page).to have_current_path(store_path(first_store))
         expect(page).to have_selector 'h1', text: 'あかちゃん本舗'
       end
 
@@ -127,7 +127,7 @@ RSpec.describe 'Ranks', type: :system do
         within '.store-1' do
           find('.comment-link').click
         end
-        expect(current_path).to eq store_path(first_store)
+        expect(page).to have_current_path(store_path(first_store))
         expect(page).to have_selector 'h1', text: 'あかちゃん本舗'
       end
 
@@ -135,7 +135,7 @@ RSpec.describe 'Ranks', type: :system do
         within '.store-1' do
           click_link 'shumpei'
         end
-        expect(current_path).to eq user_path(user)
+        expect(page).to have_current_path(user_path(user))
         expect(page).to have_selector '.card-title', text: 'shumpei'
       end
 
@@ -176,7 +176,7 @@ RSpec.describe 'Ranks', type: :system do
             within '.store-1' do
               find(".favorite-#{first_store.id}").click
             end
-            expect(current_path).to eq new_user_session_path
+            expect(page).to have_current_path(new_user_session_path)
             expect(page).to have_selector '.alert-alert', text: 'ログインもしくはアカウント登録してください'
           end
         end

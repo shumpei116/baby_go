@@ -51,7 +51,7 @@ RSpec.describe 'Stores', type: :system do
     context 'ログインしていないとき' do
       it 'ログインページにリダイレクトされること' do
         visit new_store_path
-        expect(current_path).to eq new_user_session_path
+        expect(page).to have_current_path(new_user_session_path)
         expect(page).to have_selector '.alert-alert', text: 'ログインもしくはアカウント登録してください'
       end
     end
@@ -89,7 +89,7 @@ RSpec.describe 'Stores', type: :system do
 
     it '投稿者名をクリックするとユーザー詳細画面が表示されること' do
       click_link 'shumpei'
-      expect(current_path).to eq user_path(user)
+      expect(page).to have_current_path(user_path(user))
     end
 
     it '地図が表示されピンをクリックすると施設名と施設紹介・住所が表示されること', js: true do
@@ -139,7 +139,7 @@ RSpec.describe 'Stores', type: :system do
         it '.favorite-store.idをクリックするとログインページに遷移すること' do
           visit store_path(store)
           find(".favorite-#{store.id}").click
-          expect(current_path).to eq new_user_session_path
+          expect(page).to have_current_path(new_user_session_path)
           expect(page).to have_selector '.alert-alert', text: 'ログインもしくはアカウント登録してください'
         end
       end
@@ -253,7 +253,7 @@ RSpec.describe 'Stores', type: :system do
 
       it '施設画像をクリックすると施設詳細画面にページ遷移すること' do
         click_link '施設画像-1'
-        expect(current_path).to eq store_path(store2)
+        expect(page).to have_current_path(store_path(store2))
         expect(page).to have_selector 'h1', text: 'ベビーレストラン'
       end
 
@@ -261,13 +261,13 @@ RSpec.describe 'Stores', type: :system do
         within '.store-1' do
           find('.comment-link').click
         end
-        expect(current_path).to eq store_path(store2)
+        expect(page).to have_current_path(store_path(store2))
         expect(page).to have_selector 'h1', text: 'ベビーレストラン'
       end
 
       it 'ユーザー名をクリックするとユーザーの詳細画面に遷移すること' do
         click_link 'ちはるちゃんママ'
-        expect(current_path).to eq user_path(user2)
+        expect(page).to have_current_path(user_path(user2))
         expect(page).to have_selector '.card-title', text: 'ちはるちゃんママ'
       end
 
@@ -300,7 +300,7 @@ RSpec.describe 'Stores', type: :system do
             within '.store-2' do
               find(".favorite-#{store1.id}").click
             end
-            expect(current_path).to eq new_user_session_path
+            expect(page).to have_current_path(new_user_session_path)
             expect(page).to have_selector '.alert-alert', text: 'ログインもしくはアカウント登録してください'
           end
         end
@@ -394,7 +394,7 @@ RSpec.describe 'Stores', type: :system do
             fill_in '施設参考URL',	with: 'http://localhost:3000/'
             attach_file 'store[image]', Rails.root.join('spec/factories/image/valid_image.jpg')
             click_button '更新する'
-            expect(current_path).to eq store_path(store)
+            expect(page).to have_current_path(store_path(store))
             expect(page).to have_content '施設の情報を更新しました'
             expect(page).to have_selector 'h1', text: '東松屋'
             expect(page).to have_selector 'td', text: '素敵なおむつ交換スペースでした'
@@ -423,7 +423,7 @@ RSpec.describe 'Stores', type: :system do
         it '編集ボタンが表示されないこと' do
           sign_in(other_user)
           visit store_path(store)
-          expect(current_path).to eq store_path(store)
+          expect(page).to have_current_path(store_path(store))
           expect(page).to_not have_link '編集'
         end
       end
@@ -432,7 +432,7 @@ RSpec.describe 'Stores', type: :system do
     context 'ログインしていないとき' do
       it '編集ボタンが表示されないこと' do
         visit store_path(store)
-        expect(current_path).to eq store_path(store)
+        expect(page).to have_current_path(store_path(store))
         expect(page).to_not have_link '編集'
       end
     end
@@ -455,7 +455,7 @@ RSpec.describe 'Stores', type: :system do
               click_link '施設情報を削除'
             end
             expect(page).to have_selector '.alert-success', text: '施設を削除しました'
-            expect(current_path).to eq user_path(user)
+            expect(page).to have_current_path(user_path(user))
           }.to change(Store, :count).by(-1)
         end
       end
@@ -466,7 +466,7 @@ RSpec.describe 'Stores', type: :system do
         it '施設削除ボタンが表示されないこと' do
           sign_in(other_user)
           visit store_path(store)
-          expect(current_path).to eq store_path(store)
+          expect(page).to have_current_path(store_path(store))
           expect(page).to_not have_link '施設情報を削除'
         end
       end
@@ -475,7 +475,7 @@ RSpec.describe 'Stores', type: :system do
     context 'ログインしていないとき' do
       it '施設削除ボタンが表示されないこと' do
         visit store_path(store)
-        expect(current_path).to eq store_path(store)
+        expect(page).to have_current_path(store_path(store))
         expect(page).to_not have_link '施設情報を削除'
       end
     end

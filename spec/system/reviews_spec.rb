@@ -14,7 +14,7 @@ RSpec.describe 'Reviews', type: :system, js: true do
       context 'レビューが投稿されているとき' do
         it '施設詳細ページにその施設のレビューのみ全て表示されること' do
           visit store_path(store)
-          expect(current_path).to eq store_path(store)
+          expect(page).to have_current_path(store_path(store))
           expect(page).to have_selector 'h2', text: '利用したパパママからのメッセージ'
           expect(page).to_not have_content '最高でした'
 
@@ -37,7 +37,7 @@ RSpec.describe 'Reviews', type: :system, js: true do
 
         it 'レビューが投稿されていないメッセージが表示されること' do
           visit store_path(no_review_store)
-          expect(current_path).to eq store_path(no_review_store)
+          expect(page).to have_current_path(store_path(no_review_store))
           expect(page).to have_selector 'h5', text: '投稿されたレビューはありません'
           expect(page).to have_selector 'p', text: '利用した感想を投稿してみてね'
         end
@@ -123,7 +123,7 @@ RSpec.describe 'Reviews', type: :system, js: true do
         let!(:review) { create(:review, store: store, user: user) }
         it '投稿フォームが表示されないこと' do
           visit store_path(store)
-          expect(current_path).to eq store_path(store)
+          expect(page).to have_current_path(store_path(store))
           expect(page).to_not have_content 'ちはるママさんからのメッセージを書いてみてね！'
           expect(page).to_not have_selector 'review_comment'
           expect(page).to_not have_button 'レビューを投稿する'
@@ -134,7 +134,7 @@ RSpec.describe 'Reviews', type: :system, js: true do
     context 'ログインしていないとき' do
       it '投稿フォームが表示されないこと' do
         visit store_path(store)
-        expect(current_path).to eq store_path(store)
+        expect(page).to have_current_path(store_path(store))
         expect(page).to_not have_content 'ちはるママさんからのメッセージを書いてみてね！'
         expect(page).to_not have_selector 'review_comment'
         expect(page).to_not have_button 'レビューを投稿する'
@@ -165,7 +165,7 @@ RSpec.describe 'Reviews', type: :system, js: true do
 
         context 'フォームの入力値が正しいとき' do
           it '編集に成功すること' do
-            expect(current_path).to eq edit_store_review_path(store)
+            expect(page).to have_current_path(edit_store_review_path(store))
             expect(page).to have_content 'レビューの修正'
             find('#rating').find("img[alt='5']").click
             fill_in 'review_comment',	with: '最高でした'
@@ -189,7 +189,7 @@ RSpec.describe 'Reviews', type: :system, js: true do
       context 'その施設のレビューを投稿していないとき' do
         it '編集ボタンが表示されないこと' do
           visit store_path(store)
-          expect(current_path).to eq store_path(store)
+          expect(page).to have_current_path(store_path(store))
           expect(page).to_not have_link '修正する'
         end
       end
@@ -198,7 +198,7 @@ RSpec.describe 'Reviews', type: :system, js: true do
     context 'ログインしていないとき' do
       it '編集ボタンが表示されないこと' do
         visit store_path(store)
-        expect(current_path).to eq store_path(store)
+        expect(page).to have_current_path(store_path(store))
         expect(page).to_not have_link '修正する'
       end
     end
@@ -223,7 +223,7 @@ RSpec.describe 'Reviews', type: :system, js: true do
               click_link '削除する'
             end
             expect(page).to have_selector '.alert-success', text: 'レビューを削除しました'
-            expect(current_path).to eq store_path(store)
+            expect(page).to have_current_path(store_path(store))
           }.to change(Review, :count).by(-1)
         end
       end
@@ -231,7 +231,7 @@ RSpec.describe 'Reviews', type: :system, js: true do
       context 'その施設のレビューを投稿していないとき' do
         it '削除ボタンが表示されないこと' do
           visit store_path(store)
-          expect(current_path).to eq store_path(store)
+          expect(page).to have_current_path(store_path(store))
           expect(page).to_not have_link '削除する'
         end
       end
@@ -240,7 +240,7 @@ RSpec.describe 'Reviews', type: :system, js: true do
     context 'ログインしていないとき' do
       it '削除ボタンが表示されないこと' do
         visit store_path(store)
-        expect(current_path).to eq store_path(store)
+        expect(page).to have_current_path(store_path(store))
         expect(page).to_not have_link '削除する'
       end
     end

@@ -20,18 +20,19 @@ RSpec.describe 'Sessions', type: :system do
         fill_in 'メールアドレス',	with: 'shumpei@example.com'
         fill_in 'パスワード',	with: 'password'
         click_button 'ログイン'
-        expect(current_path).to eq root_path
+        expect(page).to have_current_path(root_path)
         expect(page).to_not have_link 'ログイン'
         expect(page).to_not have_link '新規登録'
         expect(page).to have_button 'shumpei'
       end
     end
+
     context 'パラメーターが正しくないとき' do
       it 'ログインに失敗すること' do
         fill_in 'メールアドレス',	with: ''
         fill_in 'パスワード',	with: 'password'
         click_button 'ログイン'
-        expect(current_path).to eq new_user_session_path
+        expect(page).to have_current_path(new_user_session_path)
         expect(page).to have_selector '.alert-alert', text: 'メールアドレスまたはパスワードが違います'
       end
     end
@@ -45,21 +46,21 @@ RSpec.describe 'Sessions', type: :system do
       page.accept_confirm do
         click_link 'ログアウト'
       end
-      expect(current_path).to eq root_path
+      expect(page).to have_current_path(root_path)
       expect(page).to have_selector '.alert-notice', text: 'ログアウトしました'
     end
   end
 
   describe 'フレンドリフォワーディングのテスト' do
-    it 'ログイン後にリクエストしたページにリダイレクトされること' do
+    it 'ログイン後にリクエストしていたページにリダイレクトされること' do
       visit root_path
       click_link '施設の投稿'
-      expect(current_path).to eq new_user_session_path
+      expect(page).to have_current_path(new_user_session_path)
       expect(page).to have_selector '.alert-alert', text: 'ログインもしくはアカウント登録してください'
       fill_in 'メールアドレス',	with: 'shumpei@example.com'
       fill_in 'パスワード',	with: 'password'
       click_button 'ログイン'
-      expect(current_path).to eq new_store_path
+      expect(page).to have_current_path(new_store_path)
     end
   end
 end
