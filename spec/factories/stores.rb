@@ -39,5 +39,13 @@ FactoryBot.define do
         create(:review, store: store, rating: '2')
       end
     end
+
+    trait :rated4 do
+      after(:create) do |store|
+        create(:review, store: store, rating: '1')
+        create(:review, store: store, rating: '1')
+        create(:review, store: store, rating: '1')
+      end
+    end
   end
 end

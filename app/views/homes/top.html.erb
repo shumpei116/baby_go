@@ -1,6 +1,6 @@
 <section class="section">
   <div class="top-image">
-    <%= image_pack_tag("media/images/home_image.jpg", class:"top-image-view d-block", alt: 'トップ画像')%>
+    <%= image_pack_tag("media/images/home_image.jpg", class:"top-image-view d-block", alt: "トップ画像")%>
     <div class="top-card col-md-8 col-xs-12 text-center">
       <p class="mb-0">
         <span class="m-2">さぁ 家族で出かけよう</span>
@@ -22,78 +22,22 @@
   <div class="container mb-5">
     <div class="row d-flex justify-content-center">
       <div class="title-border col-lg-4 col-10 my-2 text-center">
+        <h2><i class="fas fa-map-marked-alt h3"></i>レビューランキング</h2>
+      </div>
+    </div>
+    <%= render "ranking", stores: @rank_store %>
+  </div>
+</section>
+
+<section>
+  <div class="container mb-5">
+    <div class="row d-flex justify-content-center">
+      <div class="title-border col-lg-4 col-10 my-2 text-center">
         <h2><i class="fas fa-map-marked-alt"></i>現在地から探す</h2>
       </div>
-      <div id="map" class="mt-3 mx-auto"></div>
+        <%= render "shared/gmap" %>
     </div>
   </div>
 </section>
 
-<%= render 'shared/scroll' %>
-
-<script>
-  let map, geocoder, icon, storeMarker = [], infoWindow = [];
-  const stores = gon.stores;
-  let currentInfoWindow = null;
-
-  function initMap(){
-    geocoder = new google.maps.Geocoder()
-    if(!navigator.geolocation) {
-      alert('Geolocation APIに対応していません');
-      return false;
-    }
-    // 現在地が取得できたら地図の中心にピンを立てて表示、取得に失敗したらアラートを表示
-    navigator.geolocation.getCurrentPosition(function(position) {
-      latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-      map = new google.maps.Map(document.getElementById('map'), {
-        center: latLng,
-        zoom: 12,
-      });
-      image = {
-        url: "<%= asset_pack_path('media/images/gmap_icon.png') %>",
-        scaledSize: new google.maps.Size(50, 50),
-      }
-      marker = new google.maps.Marker({
-        position:  latLng,
-        map: map,
-        icon: image,
-        animation: google.maps.Animation.DROP,
-        title:"現在地",
-      });
-
-      for (let i = 0; i < stores.length; i++){
-        storeMarker[i] = new google.maps.Marker({
-          map: map,
-          position: {
-            lat: stores[i].latitude,
-            lng: stores[i].longitude,
-          }
-        });
-        contentString =
-          `<p class="mb-0">施設名：<a href='/stores/${stores[i].id}'>${stores[i].name}</a></p>` +
-          '<hr class="my-0">' +
-          `<p class="mt-3 mb-0">施設紹介:${stores[i].introduction}</p>` +
-          `<p class="mt-1 mb-0">住所　　:${stores[i].prefecture_code}${stores[i].city}</p>`;
-
-        infoWindow[i] = new google.maps.InfoWindow({
-          content: contentString,
-        });
-        storeMarker[i].addListener("click", () => {
-          if (currentInfoWindow) {
-            currentInfoWindow.close();
-          }
-          infoWindow[i].open(map,storeMarker[i]);
-          currentInfoWindow = infoWindow[i];
-        });
-      }
-    }, function() {
-      alert('位置情報取得に失敗しました！位置情報へのアクセスが許可されているか確認してください');
-    });
-  }
-</script>
-
-
-
-<script async defer
-      src="https://maps.googleapis.com/maps/api/js?v=3.exp&key=<%= Rails.application.credentials.g_map[:api] %>&callback=initMap">
-</script>
+<%= render "shared/scroll" %>

@@ -1,0 +1,10 @@
+<% if user_signed_in? %>
+  <%= render "favorites/favorite", store: store %>
+<% else %>
+  <div class ="favorite-icon" id="store_favorite_<%= store.id %>">
+    <%= link_to store_favorite_path(store), class:"favorite-#{store.id} text-decoration-none", method: :post do %>
+      <i class="far fa-heart"></i>
+    <% end %>
+    <span class="favorite-count text-muted"><%= store.favorites_count %></span>
+  </div>
+<% end %>

@@ -16,7 +16,7 @@ RSpec.describe 'StoreImages', type: :system do
           click_link '編集'
           attach_file 'store[image]', Rails.root.join('spec/factories/image/valid_image.jpg')
           click_button '更新する'
-          expect(current_path).to eq store_path(store)
+          expect(page).to have_current_path(store_path(store))
           expect(page).to have_content '施設の情報を更新しました'
           expect(page).to have_selector("img[src$='thumb_valid_image.jpg']")
         end
@@ -37,7 +37,7 @@ RSpec.describe 'StoreImages', type: :system do
           click_link '編集'
           attach_file 'store[image]', Rails.root.join('spec/factories/image/5MB_image.jpg')
           click_button '更新する'
-          expect(current_path).to eq store_path(store)
+          expect(page).to have_current_path(store_path(store))
           expect(page).to have_content '施設の情報を更新しました'
           expect(page).to have_selector("img[src$='thumb_5MB_image.jpg']")
         end
@@ -57,12 +57,12 @@ RSpec.describe 'StoreImages', type: :system do
     describe '画像表示と削除のテスト' do
       context '施設画像が設定されていないとき' do
         it 'デフォルト画像が表示されること' do
-          expect(page).to have_selector("img[src$='thumb_default_store.jpg']")
+          expect(page).to have_selector("img[src$='thumb_default_store.jpeg']")
         end
 
         it '画像削除のチェックボックスが表示されないこと' do
           click_link '編集'
-          expect(current_path).to eq edit_store_path(store)
+          expect(page).to have_current_path(edit_store_path(store))
           expect(page).to_not have_field('store[remove_image]')
         end
       end
@@ -78,9 +78,9 @@ RSpec.describe 'StoreImages', type: :system do
           click_link '編集'
           check 'store[remove_image]'
           click_button '更新する'
-          expect(current_path).to eq store_path(store)
+          expect(page).to have_current_path(store_path(store))
           expect(page).to have_content '施設の情報を更新しました'
-          expect(page).to have_selector("img[src$='thumb_default_store.jpg']")
+          expect(page).to have_selector("img[src$='thumb_default_store.jpeg']")
         end
       end
     end

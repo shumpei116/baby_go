@@ -5,7 +5,7 @@ class Store < ApplicationRecord
   has_many :reviews, dependent: :destroy
 
   validates :user_id, presence: true
-  validates :name, presence: true, length: { maximum: 20 }
+  validates :name, presence: true, length: { maximum: 50 }
   validates :introduction, presence: true, length: { maximum: 140 }
   VALID_POSTCODE_REGEX = /\A\d{3}\d{4}\z/.freeze
   validates :postcode, presence: true, format: { with: VALID_POSTCODE_REGEX }
@@ -23,8 +23,7 @@ class Store < ApplicationRecord
   end
 
   def self.average_score_rank
-    left_joins(:reviews).includes(:reviews, :user).distinct.sort_by(&:average_rating)
-                        .reverse
+    left_joins(:reviews).group(:id).order('avg(rating) desc')
   end
 
   def address

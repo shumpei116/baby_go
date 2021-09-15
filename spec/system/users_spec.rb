@@ -15,6 +15,11 @@ RSpec.describe 'Users', type: :system do
           before do
             visit user_path(user)
           end
+
+          it 'タイトルが正しく表示されること' do
+            expect(page).to have_title 'shumpeiのページ - Baby_Go'
+          end
+
           it '名前・自己紹介・メールアドレス・編集ボタンが表示されていること' do
             expect(page).to have_selector('img[alt=ユーザー画像]')
             expect(page).to have_selector '.card-title', text: 'shumpei'
@@ -25,7 +30,7 @@ RSpec.describe 'Users', type: :system do
 
           it '編集ボタンを押したらユーザーの編集ページに遷移すること' do
             click_link '編集'
-            expect(current_path).to eq edit_user_registration_path
+            expect(page).to have_current_path(edit_user_registration_path)
             expect(page).to have_field '名前', with: 'shumpei'
           end
         end
@@ -111,16 +116,16 @@ RSpec.describe 'Users', type: :system do
 
         it '施設画像をクリックすると施設詳細画面に遷移すること' do
           click_link '施設画像-1'
-          expect(current_path).to eq store_path(store2)
-          expect(page).to have_selector 'h2', text: 'ベビーレストラン'
+          expect(page).to have_current_path(store_path(store2))
+          expect(page).to have_selector 'h1', text: 'ベビーレストラン'
         end
 
         it 'コメントアイコンをクリックすると施設詳細画面にページ遷移すること' do
           within '.store-1' do
             find('.comment-link').click
           end
-          expect(current_path).to eq store_path(store2)
-          expect(page).to have_selector 'h2', text: 'ベビーレストラン'
+          expect(page).to have_current_path(store_path(store2))
+          expect(page).to have_selector 'h1', text: 'ベビーレストラン'
         end
       end
     end
@@ -185,21 +190,21 @@ RSpec.describe 'Users', type: :system do
 
         it '施設画像をクリックすると施設詳細画面に遷移すること' do
           click_link '施設画像-1'
-          expect(current_path).to eq store_path(store2)
-          expect(page).to have_selector 'h2', text: 'ベビーレストラン'
+          expect(page).to have_current_path(store_path(store2))
+          expect(page).to have_selector 'h1', text: 'ベビーレストラン'
         end
 
         it 'コメントアイコンをクリックすると施設詳細画面にページ遷移すること' do
           within '.store-1' do
             find('.comment-link').click
           end
-          expect(current_path).to eq store_path(store2)
-          expect(page).to have_selector 'h2', text: 'ベビーレストラン'
+          expect(page).to have_current_path(store_path(store2))
+          expect(page).to have_selector 'h1', text: 'ベビーレストラン'
         end
 
         it 'ユーザー名をクリックするとユーザーの詳細画面に遷移すること' do
           click_link 'ちはるちゃんママ'
-          expect(current_path).to eq user_path(other_user)
+          expect(page).to have_current_path(user_path(other_user))
           expect(page).to have_selector '.card-title', text: 'ちはるちゃんママ'
         end
       end

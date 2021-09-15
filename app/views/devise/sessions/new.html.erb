@@ -1,7 +1,9 @@
+<% provide(:title, "ログイン") %>
+
 <div class="container mt-5 shadow mb-5 bg-white rounded text-secondary">
   <div class="row justify-content-center">
     <div class="col-8 mt-5 text-dark">
-      <h3>ログイン</h3>
+      <h1><span class="title-border h2 px-4">ログイン</span></h1>
     </div>
   </div>
 
@@ -35,7 +37,7 @@
 
     <div class="row justify-content-center">
       <div class="col-8 mt-3 mb-5">
-        <%= f.submit "  Log in  ", class: "btn btn-primary" %>
+        <%= f.submit "ログイン", class: "btn btn-outline-primary" %>
       </div>
     </div>
   <% end %>

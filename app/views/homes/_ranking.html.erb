@@ -1,7 +1,10 @@
 <section class="row">
-  <% stores.each_with_index do |store, index| %>
-    <div class="store-card col-12 col-md-4 col-xl-3">
-      <div class="card  store-<%= index + 1 %> m-2">
+  <% stores.each_with_index do |store,index| %>
+    <div class="store-card col-4 col-md-4">
+      <div class="card store-<%= index + 1 %> shadow bg-white rounded my-5">
+        <div class="card-rank text-center my-3 fw-bold">
+          <%= "第#{index+1}位"%>
+        </div>
         <%= link_to store_path(store) do %>
           <%= image_tag(store.image.url,class:"card-img-top img-thumbnail", alt: "施設画像-#{index + 1}") %>
         <% end %>

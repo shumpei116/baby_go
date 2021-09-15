@@ -17,7 +17,11 @@ RSpec.describe 'Spots', type: :system do
       end
     end
 
-    it 'タイトルが表示されること' do
+    it 'タイトルが正しく表示されること' do
+      expect(page).to have_title '現在地から探す - Baby_Go'
+    end
+
+    it 'ページタイトルが表示されること' do
       expect(page).to have_selector 'h1', text: '現在地から探す'
     end
   end

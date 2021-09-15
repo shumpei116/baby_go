@@ -1,17 +1,16 @@
-# 将来的には対応する規約の読込
 inherit_from: .rubocop_todo.yml
 
-# 追加した規約ファイル読込
+Rails:
+  Enabled: true
+
 require:
   - rubocop-rails
 
-# 全てのcops
 AllCops:
-  # 新しい規約を適用する
   NewCops: enable
-  # Rubyバージョン指定
+
   TargetRubyVersion: 2.7.4
-  # 除外
+
   Exclude:
     - 'config.ru'
     - 'bin/**'
@@ -23,7 +22,6 @@ AllCops:
     - 'spec/spec_helper.rb'
     - 'vendor/**/*'
 
-#　特定のcops
 Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
@@ -45,21 +43,16 @@ Security/Open:
     - 'db/seeds.rb'
 
 Metrics/AbcSize:
-  Max: 20 
+  Max: 25
 
-# 日本語でのコメントを許可
-AsciiComments:
+Style/AsciiComments:
   Enabled: false
 
-# クラスのコメント必須を無視
-Documentation:
+Style/Documentation:
   Enabled: false
 
-# モジュール名::クラス名の定義を許可
-ClassAndModuleChildren:
+Style/ClassAndModuleChildren:
   Enabled: false
 
-# 文字リテラルのイミュータブル宣言を無視（freezeになるのはRuby3以降）
 Style/FrozenStringLiteralComment:
   Enabled: false
-  

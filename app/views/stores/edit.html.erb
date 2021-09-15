@@ -1,7 +1,9 @@
+<% provide(:title, "施設情報の編集") %>
+
 <div class="container mt-5 shadow mb-5 bg-white rounded text-secondary">
   <div class="row justify-content-center">
     <div class="col-8 mt-5 mb-4 text-dark">
-      <h1 class="title-border h3 pb-2">施設情報を編集する</h1>
+      <h1><span class="title-border h3 pb-2 px-4">施設情報を編集する</span></h1>
     </div>
   </div>
 
@@ -81,8 +83,8 @@
 </div>
 
 <script>
-  $('#store_postcode').jpostal({
-    postcode : ['#store_postcode'],
+  $("#store_postcode").jpostal({
+    postcode : ["#store_postcode"],
     address: {
       "#store_prefecture_code": "%3",
       "#store_city"           : "%4%5%6%7",

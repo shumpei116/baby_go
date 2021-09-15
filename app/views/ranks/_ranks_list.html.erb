@@ -1,43 +1,49 @@
-<div class="row justify-content-center">
-  <% stores.each_with_index do |store, index| %>
+<section class="row justify-content-center">
+  <% stores.each_with_index do |store,index| %>
     <div class="store-card col-12 col-md-8">
-      <div class="card  store-<%= index + 1 %> m-2">
+      <div class="card store-<%= index + 1 %> shadow bg-white rounded my-5">
+        <div class="card-rank text-center my-3 fw-bold">
+          <%= "第#{index+1}位"%>
+        </div>
         <%= link_to store_path(store) do %>
           <%= image_tag(store.image.url,class:"card-img-top img-thumbnail", alt: "施設画像-#{index + 1}") %>
         <% end %>
         <div class="card-body">
-          <h5 class="card-title"><strong>第<%= @rank_stores.index(store) + 1 %>位</strong>　<%= store.name %></h5>
-          <% if user_signed_in? %>
-            <p class="card-text"><%= render 'favorites/favorite', store: store %></p>
-          <% else %>
-            <div class ="favorite-icon" id="store_favorite_<%= store.id %>">
-              <%= link_to store_favorite_path(store), class:"favorite-#{store.id} text-decoration-none", method: :post do %>
-                <i class="far fa-heart"></i>
-              <% end %>
-              <span class="favorite-count text-muted"><%= store.favorites_count %></span>
-            </div>
-          <% end %>
-          <p class="card-text"><%= render 'shared/reviews_average', store: store %></p>
-          <p class="card-text text-truncate">施設紹介：<%= store.introduction %></p>
-          <p class="card-text">住所：<%= store.prefecture_code %></p>
-          <%= link_to user_path(store.user), class:"text-decoration-none text-reset" do %>
-            <p class="card-text"><small>情報提供者：<%= store.user.name %></small></p>
-          <% end %>
+          <h1 class="card-title h5"><%= store.name %></h1>
+          <div class="mb-1">
+            <%= render "shared/check_signed_in_for_favorite", store: store %>
+          </div>
+          <div class="mb-1">
+            <%= render "shared/reviews_average", store: store %>
+          </div>
+          <div class="mb-1">
+            施設紹介：<%= store.introduction %>
+          </div>
+          <div class="mb-1">
+            <i class="fas fa-map-marker-alt"></i>
+            <%= store.address %>
+          </div>
+          <div class="mb-1">
+            <i class="far fa-user"></i>
+            <%= link_to user_path(store.user), class:"text-decoration-none text-reset" do %>
+              <%= store.user.name %>
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
   <% end %>
-</div>
+</section>
 
 <script>
-  $('.review-average-rating').empty();
-  $('.review-average-rating').raty({
+  $(".review-average-rating").empty();
+  $(".review-average-rating").raty({
     readOnly: true,
     starOn: "<%= asset_pack_path('media/images/star-on.png') %>",
     starOff: "<%= asset_pack_path('media/images/star-off.png') %>",
     starHalf: "<%= asset_pack_path('media/images/star-half.png') %>",
     score: function() {
-      return $(this).attr('data-score')
+      return $(this).attr("data-score")
     }
   });
 </script>

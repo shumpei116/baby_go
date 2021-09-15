@@ -10,7 +10,8 @@ class ReviewsController < ApplicationController
       redirect_to store_path(@review.store)
     else
       @store = Store.find(params[:store_id])
-      @reviews = @store.reviews
+      @reviews = @store.reviews.order(created_at: :desc).page(params[:page]).per(5).includes(:user)
+      gon.store = @store
       render 'stores/show'
     end
   end

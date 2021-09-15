@@ -10,6 +10,10 @@ RSpec.describe 'Stores', type: :system do
         visit new_store_path
       end
 
+      it 'タイトルが正しく表示されること' do
+        expect(page).to have_title '施設の登録 - Baby_Go'
+      end
+
       it '郵便番号を入力すると都道府県と市区町村番地が自動で入力されること' do
         fill_in '郵便番号', with: '1000001'
         expect(page).to have_select('都道府県', selected: '東京都')
@@ -47,7 +51,7 @@ RSpec.describe 'Stores', type: :system do
     context 'ログインしていないとき' do
       it 'ログインページにリダイレクトされること' do
         visit new_store_path
-        expect(current_path).to eq new_user_session_path
+        expect(page).to have_current_path(new_user_session_path)
         expect(page).to have_selector '.alert-alert', text: 'ログインもしくはアカウント登録してください'
       end
     end
@@ -56,33 +60,36 @@ RSpec.describe 'Stores', type: :system do
   describe '詳細ページのテスト' do
     let(:user) { create(:user, name: 'shumpei', email: 'shumpei@example.com') }
     let(:store) {
-      create(:store, name: 'あかちゃん本舗', introduction: '綺麗な授乳室でした', postcode: '1111111',
-                     prefecture_code: '北海道', city: '函館市1-1-1', url: 'https://stores.akachan.jp/224', user: user)
+      create(:store, name: 'アカチャンホンポニューポートひたちなか店', introduction: '綺麗な授乳室でした', postcode: '3120005',
+                     prefecture_code: '茨城県', city: 'ひたちなか市新光町35', url: 'https://stores.akachan.jp/224', user: user)
     }
 
     before do
       visit store_path(store)
     end
 
+    it 'タイトルが正しく表示されること' do
+      expect(page).to have_title 'アカチャンホンポニューポートひたちなか店 - Baby_Go'
+    end
+
     it '施設情報が表示されていること' do
-      expect(page).to have_selector 'h2', text: 'あかちゃん本舗'
+      expect(page).to have_selector 'h1', text: 'アカチャンホンポニューポートひたちなか店'
       expect(page).to have_css ".favorite-#{store.id}"
       expect(page).to have_selector '.favorite-count', text: '0'
       expect(page).to have_css '.review-average-rating'
       expect(page).to have_selector '.reviews-average-score', text: '0.0'
-      expect(page).to have_selector 'td', text: 'あかちゃん本舗'
+      expect(page).to have_selector 'td', text: 'アカチャンホンポニューポートひたちなか店'
       expect(page).to have_content '綺麗な授乳室でした'
       expect(page).to have_link 'https://stores.akachan.jp/224'
-      expect(page).to have_content '1111111'
-      expect(page).to have_content '北海道'
-      expect(page).to have_content '函館市1-1-1'
+      expect(page).to have_content '3120005'
+      expect(page).to have_content '茨城県ひたちなか市新光町35'
       expect(page).to have_selector('img[alt=施設画像]')
       expect(page).to have_content 'shumpei'
     end
 
     it '投稿者名をクリックするとユーザー詳細画面が表示されること' do
       click_link 'shumpei'
-      expect(current_path).to eq user_path(user)
+      expect(page).to have_current_path(user_path(user))
     end
 
     it '地図が表示されピンをクリックすると施設名と施設紹介・住所が表示されること', js: true do
@@ -91,9 +98,50 @@ RSpec.describe 'Stores', type: :system do
       pin.click
       expect(page).to have_css '.gm-style-iw' # infowindow クラスの有無をテスト
       within '.gm-style-iw-d' do
-        expect(page).to have_selector 'h5', text: '施設名：あかちゃん本舗'
+        expect(page).to have_selector 'h5', text: '施設名：アカチャンホンポニューポートひたちなか店'
         expect(page).to have_selector 'p', text: '施設紹介:綺麗な授乳室でした'
-        expect(page).to have_selector 'p', text: '住所　　:北海道函館市1-1-1'
+        expect(page).to have_selector 'p', text: '住所　:茨城県ひたちなか市新光町35'
+      end
+    end
+
+    it 'GoogleMapで開くをクリックすると別タブでGoogleMapが開いて施設名が表示されること', js: true do
+      googlemap_window = window_opened_by do
+        click_link 'GoogleMapで開く'
+      end
+      within_window googlemap_window do
+        expect(page).to have_content 'アカチャンホンポ ニューポートひたちなか店'
+      end
+    end
+
+    describe 'いいね機能のテスト', js: true do
+      context 'ログインしているとき' do
+        it '.favorite-store.idをクリックするといいねをつけたり削除したりできること' do
+          sign_in(user)
+          visit store_path(store)
+          expect(page).to have_selector 'h1', text: 'アカチャンホンポニューポートひたちなか店'
+          expect(page).to have_selector '.favorite-count', text: '0'
+
+          expect {
+            find(".favorite-#{store.id}").click
+            expect(page).to have_css ".favorited-#{store.id}"
+            expect(page).to have_selector '.favorite-count', text: '1'
+          }.to change(Favorite, :count).by(1)
+
+          expect {
+            find(".favorited-#{store.id}").click
+            expect(page).to have_css ".favorite-#{store.id}"
+            expect(page).to have_selector '.favorite-count', text: '0'
+          }.to change(Favorite, :count).by(-1)
+        end
+      end
+
+      context 'ログインしていないとき' do
+        it '.favorite-store.idをクリックするとログインページに遷移すること' do
+          visit store_path(store)
+          find(".favorite-#{store.id}").click
+          expect(page).to have_current_path(new_user_session_path)
+          expect(page).to have_selector '.alert-alert', text: 'ログインもしくはアカウント登録してください'
+        end
       end
     end
   end
@@ -114,6 +162,10 @@ RSpec.describe 'Stores', type: :system do
 
       before do
         visit stores_path
+      end
+
+      it 'タイトルが正しく表示されること' do
+        expect(page).to have_title '施設の一覧 - Baby_Go'
       end
 
       context 'エリア検索・キーワード検索をしていないとき' do
@@ -201,22 +253,57 @@ RSpec.describe 'Stores', type: :system do
 
       it '施設画像をクリックすると施設詳細画面にページ遷移すること' do
         click_link '施設画像-1'
-        expect(current_path).to eq store_path(store2)
-        expect(page).to have_selector 'h2', text: 'ベビーレストラン'
+        expect(page).to have_current_path(store_path(store2))
+        expect(page).to have_selector 'h1', text: 'ベビーレストラン'
       end
 
       it 'コメントアイコンをクリックすると施設詳細画面にページ遷移すること' do
         within '.store-1' do
           find('.comment-link').click
         end
-        expect(current_path).to eq store_path(store2)
-        expect(page).to have_selector 'h2', text: 'ベビーレストラン'
+        expect(page).to have_current_path(store_path(store2))
+        expect(page).to have_selector 'h1', text: 'ベビーレストラン'
       end
 
       it 'ユーザー名をクリックするとユーザーの詳細画面に遷移すること' do
         click_link 'ちはるちゃんママ'
-        expect(current_path).to eq user_path(user2)
+        expect(page).to have_current_path(user_path(user2))
         expect(page).to have_selector '.card-title', text: 'ちはるちゃんママ'
+      end
+
+      describe 'いいね機能のテスト', js: true do
+        context 'ログインしているとき' do
+          it '.favorite-store.idをクリックするといいねをつけたり削除したりできること' do
+            sign_in(user1)
+            visit stores_path
+            expect(page).to have_selector 'h1', text: 'みんなが投稿してくれた施設の一覧'
+            within '.store-2' do
+              expect(page).to have_selector '.favorite-count', text: '0'
+              expect {
+                find(".favorite-#{store1.id}").click
+                expect(page).to have_css ".favorited-#{store1.id}"
+                expect(page).to have_selector '.favorite-count', text: '1'
+              }.to change(Favorite, :count).by(1)
+
+              expect {
+                find(".favorited-#{store1.id}").click
+                expect(page).to have_css ".favorite-#{store1.id}"
+                expect(page).to have_selector '.favorite-count', text: '0'
+              }.to change(Favorite, :count).by(-1)
+            end
+          end
+        end
+
+        context 'ログインしていないとき' do
+          it '.favorite-store.idをクリックするとログインページに遷移すること' do
+            visit stores_path
+            within '.store-2' do
+              find(".favorite-#{store1.id}").click
+            end
+            expect(page).to have_current_path(new_user_session_path)
+            expect(page).to have_selector '.alert-alert', text: 'ログインもしくはアカウント登録してください'
+          end
+        end
       end
     end
 
@@ -277,14 +364,18 @@ RSpec.describe 'Stores', type: :system do
         before do
           sign_in(user)
           visit store_path(store)
-          expect(page).to have_selector 'h2', text: 'あかちゃん本舗'
+          expect(page).to have_selector 'h1', text: 'あかちゃん本舗'
           expect(page).to have_selector 'td', text: '綺麗な授乳室でした'
           expect(page).to have_selector 'td', text: '1111111'
           expect(page).to have_selector 'td', text: '北海道'
           expect(page).to have_selector 'td', text: '函館市1-1-1'
           expect(page).to have_selector 'td', text: 'https://stores.akachan.jp/224'
-          expect(page).to have_selector("img[src$='thumb_default_store.jpg']")
+          expect(page).to have_selector("img[src$='thumb_default_store.jpeg']")
           click_link '編集'
+        end
+
+        it 'タイトルが正しく表示されること' do
+          expect(page).to have_title '施設情報の編集 - Baby_Go'
         end
 
         it '郵便番号を編集すると都道府県と市区町村番地が自動で修正されること', js: true do
@@ -303,9 +394,9 @@ RSpec.describe 'Stores', type: :system do
             fill_in '施設参考URL',	with: 'http://localhost:3000/'
             attach_file 'store[image]', Rails.root.join('spec/factories/image/valid_image.jpg')
             click_button '更新する'
-            expect(current_path).to eq store_path(store)
+            expect(page).to have_current_path(store_path(store))
             expect(page).to have_content '施設の情報を更新しました'
-            expect(page).to have_selector 'h2', text: '東松屋'
+            expect(page).to have_selector 'h1', text: '東松屋'
             expect(page).to have_selector 'td', text: '素敵なおむつ交換スペースでした'
             expect(page).to have_selector 'td', text: '2222222'
             expect(page).to have_selector 'td', text: '沖縄県'
@@ -321,7 +412,7 @@ RSpec.describe 'Stores', type: :system do
             click_button '更新する'
             expect(page).to have_selector '#error_explanation', text: 'エラーが発生したため 施設 は保存されませんでした'
             visit store_path(store)
-            expect(page).to have_selector 'h2', text: 'あかちゃん本舗'
+            expect(page).to have_selector 'h1', text: 'あかちゃん本舗'
           end
         end
       end
@@ -332,7 +423,7 @@ RSpec.describe 'Stores', type: :system do
         it '編集ボタンが表示されないこと' do
           sign_in(other_user)
           visit store_path(store)
-          expect(current_path).to eq store_path(store)
+          expect(page).to have_current_path(store_path(store))
           expect(page).to_not have_link '編集'
         end
       end
@@ -341,7 +432,7 @@ RSpec.describe 'Stores', type: :system do
     context 'ログインしていないとき' do
       it '編集ボタンが表示されないこと' do
         visit store_path(store)
-        expect(current_path).to eq store_path(store)
+        expect(page).to have_current_path(store_path(store))
         expect(page).to_not have_link '編集'
       end
     end
@@ -361,10 +452,10 @@ RSpec.describe 'Stores', type: :system do
           visit store_path(store)
           expect {
             page.accept_confirm do
-              click_link '施設情報を削除する'
+              click_link '施設情報を削除'
             end
             expect(page).to have_selector '.alert-success', text: '施設を削除しました'
-            expect(current_path).to eq user_path(user)
+            expect(page).to have_current_path(user_path(user))
           }.to change(Store, :count).by(-1)
         end
       end
@@ -375,8 +466,8 @@ RSpec.describe 'Stores', type: :system do
         it '施設削除ボタンが表示されないこと' do
           sign_in(other_user)
           visit store_path(store)
-          expect(current_path).to eq store_path(store)
-          expect(page).to_not have_link '施設情報を削除する'
+          expect(page).to have_current_path(store_path(store))
+          expect(page).to_not have_link '施設情報を削除'
         end
       end
     end
@@ -384,8 +475,8 @@ RSpec.describe 'Stores', type: :system do
     context 'ログインしていないとき' do
       it '施設削除ボタンが表示されないこと' do
         visit store_path(store)
-        expect(current_path).to eq store_path(store)
-        expect(page).to_not have_link '施設情報を削除する'
+        expect(page).to have_current_path(store_path(store))
+        expect(page).to_not have_link '施設情報を削除'
       end
     end
   end
