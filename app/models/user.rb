@@ -21,6 +21,14 @@ class User < ApplicationRecord
     reviews.exists?(store_id: store.id)
   end
 
+  def self.guest
+    find_or_create_by!(email: 'guest@example.com') do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.name = 'ゲストユーザー'
+      user.introduction = 'ゲストユーザーです！'
+    end
+  end
+
   private
 
   def downcase_email
