@@ -63,4 +63,25 @@ RSpec.describe 'Sessions', type: :system do
       expect(page).to have_current_path(new_store_path)
     end
   end
+
+  describe 'ゲストユーザーのテスト', forcus: true do
+    it 'ゲストログインをクリックするとゲストユーザーでログインでき,アカウントの編集はできないこと' do
+      visit root_path
+      expect(page).to have_link 'ログイン'
+      expect(page).to have_link '新規登録'
+      click_link 'ゲストログイン'
+      expect(page).to_not have_link 'ログイン'
+      expect(page).to_not have_link '新規登録'
+      expect(page).to have_button 'ゲストユーザー'
+      expect(page).to have_selector '.alert-notice', text: 'ゲストユーザーとしてログインしました'
+
+      click_on 'ゲストユーザー'
+      click_link 'マイページ'
+      click_link '編集'
+      fill_in '名前', with: 'ホストユーザー'
+      click_on 'アカウントを変更する'
+      expect(page).to have_current_path(root_path)
+      expect(page).to have_selector '.alert-alert', text: 'ゲストユーザーのアカウント更新はできません'
+    end
+  end
 end
