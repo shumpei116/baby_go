@@ -16,7 +16,7 @@ test:
 
 production:
   <<: *default
-  database: baby_go_production
-  username: <%= Rails.application.credentials.mysql[:username] %>
-  password: <%= Rails.application.credentials.mysql[:password] %>
-  host: db
+  database: Baby_Go_production
+  username: root
+  password: <%= Rails.application.credentials.db[:password] %>
+  host: <%= Rails.application.credentials.db[:hostname] %>
