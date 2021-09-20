@@ -49,6 +49,20 @@ jobs:
           name: RSpec実行
           command: bundle exec rspec -b --format documentation
 
+  deploy:
+    docker:
+      - image: circleci/ruby:2.7.4-node-browsers
+    working_directory: ~/app
+    steps:
+      - checkout:
+          path: ~/app
+      - ruby/install-deps
+      - add_ssh_keys:
+          fingerprints: "cc:0f:97:f9:a8:12:52:63:b2:17:90:5a:39:5e:7f:1e"
+      - deploy:
+          name: Capistrano deploy
+          command: bundle exec cap production deploy
+
 workflows:
   version: 2
   build_and_test:
@@ -57,3 +71,9 @@ workflows:
       - test:
           requires:
             - build
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: main
