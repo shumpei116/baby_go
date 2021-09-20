@@ -7,6 +7,7 @@ CarrierWave.configure do |config|
     config.storage :fog
     config.fog_provider = 'fog/aws'
     config.fog_directory  = Rails.application.credentials.aws_s3[:bucket_name]
+    config.asset_host = "https://static.ドメイン名"
     config.fog_credentials = {
       provider: 'AWS',
       aws_access_key_id: Rails.application.credentials.aws_s3[:aws_access_key_id],
