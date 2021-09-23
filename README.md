@@ -1,5 +1,5 @@
 # Baby_Go
-<!-- ホーム画像を入れる -->
+<img width="1439" alt="スクリーンショット 2021-09-23 14 24 32" src="https://user-images.githubusercontent.com/67525034/134458633-653afead-e078-4420-9b33-0a8600ed98f6.png">
 ## アプリの概要
 授乳室やおむつ交換スペースが完備された施設、赤ちゃんと一緒に入れる飲食店などの情報を  
 共有・検索する為のアプリです。  
@@ -18,8 +18,9 @@
 - Ruby 2.7.4
 - Ruby on Rails 6.1.4
 - MySQL 8.0
-- Puma
 - Docker/Docker-compose
+- Puma
+- Nginx
 - AWS
     - VPC
     - EC2
@@ -27,6 +28,7 @@
     - ALB
     - Route53
     - CloudFront
+    - S3
 - CI/CD CircleCI
 - RSpec
 - Rubocop
