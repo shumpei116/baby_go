@@ -8,6 +8,7 @@
 <br> 
 <img width="1439" alt="スクリーンショット 2021-09-23 14 24 32" src="https://user-images.githubusercontent.com/67525034/134458633-653afead-e078-4420-9b33-0a8600ed98f6.png">
 <br>
+<br>
 登録された施設は【現在地から探す】機能で地図上から探したり、住所・キーワード検索でも探すことが可能です。  
 スマートフォンからの使用を想定してレスポンシブデザインにも対応しています。  
 <br>
@@ -36,7 +37,11 @@
 - Google Maps API
 
 ## AWS構成図
-<!-- AWS構成図をdrow.ioで作成 -->
+![Baby_Go (3)](https://user-images.githubusercontent.com/67525034/134470009-0c597799-c869-44d7-b4bc-84b500884c6b.jpg)
+
+### CircleCI CI/CD
+- Githubへのpush時に自動でRuboCopとRSpecを実行します。
+- mainブランチへのpushではRuboCopとRSpecが成功した場合にEC2へのデプロイが自動で行われます。
 
 ## 機能一覧
 - ユーザー登録・ログイン機能（devise）
