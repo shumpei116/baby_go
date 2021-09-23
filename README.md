@@ -37,7 +37,7 @@
 - Google Maps API
 
 ## AWS構成図
-![Baby_Go AWS](https://user-images.githubusercontent.com/67525034/134472763-d35f493c-e582-4ed0-9e14-c183952d8453.jpg)
+![Baby_Go AWS](https://user-images.githubusercontent.com/67525034/134476101-02908982-56bb-42dd-bfe3-9a97d10f94af.jpg)
 
 - 費用の関係上冗長化はしていませんが、冗長化を想定して２つのリージョンでの環境構築及びELBの設定をしております
 
