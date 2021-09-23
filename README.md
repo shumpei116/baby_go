@@ -1,24 +1,15 @@
-# README
+# Baby_Go
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+# アプリの概要
 
-Things you may want to cover:
+# 主な利用方法
 
-* Ruby version
+# 使用技術
 
-* System dependencies
+# AWS構成図
 
-* Configuration
+# 機能一覧
 
-* Database creation
+# テストフレームワーク
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+# ER図
