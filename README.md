@@ -42,7 +42,6 @@
 - 費用の関係上冗長化はしていませんが、冗長化を想定して２つのリージョンでの環境構築及びELBの設定をしております
 
 ### CircleCI CI/CD
----
 - Githubへのpush時に自動でRuboCopとRSpecを実行します。
 - mainブランチへのpushではRuboCopとRSpecが成功した場合にEC2へのデプロイが自動で行われます。
 
