@@ -74,6 +74,100 @@
       </div>
     </div>
 
+        <div class="row justify-content-center">
+      <div class="col-8 mt-3">
+        <div>
+          施設のオプション選択
+        </div>
+        <div class="d-flex align-content-start flex-wrap s-option-field">
+          <div class="form-check">
+            <%= f.label :授乳室 %>
+            <%= f.check_box :nursing_room, id:"flexCheckDefault", class:"form-check-input" %>
+          </div>
+
+          <div class="form-check">
+            <%= f.label :おむつ交換スペース %>
+            <%= f.check_box :diaper_changing_area, id:"flexCheckDefault", class:"form-check-input" %>
+          </div>
+
+          <div class="form-check">
+            <%= f.label :お湯 %>
+            <%= f.check_box :hot_water, id:"flexCheckDefault", class:"form-check-input" %>
+          </div>
+
+          <div class="form-check">
+            <%= f.label :ベビーカー貸出 %>
+            <%= f.check_box :stroller_rental, id:"flexCheckDefault", class:"form-check-input" %>
+          </div>
+
+          <div class="form-check">
+            <%= f.label :キッズスペース %>
+            <%= f.check_box :kids_space, id:"flexCheckDefault", class:"form-check-input" %>
+          </div>
+
+          <div class="form-check">
+            <%= f.label :スペース広々 %>
+            <%= f.check_box :large_space, id:"flexCheckDefault", class:"form-check-input" %>
+          </div>
+
+          <div class="form-check">
+            <%= f.label :身長体重計 %>
+            <%= f.check_box :height_and_weight_scales, id:"flexCheckDefault", class:"form-check-input" %>
+          </div>
+
+          <div class="form-check">
+            <%= f.label :電子レンジ %>
+            <%= f.check_box :microwave_oven, id:"flexCheckDefault", class:"form-check-input" %>
+          </div>
+
+          <div class="form-check">
+            <%= f.label :シンク・洗面台 %>
+            <%= f.check_box :basin, id:"flexCheckDefault", class:"form-check-input" %>
+          </div>
+
+          <div class="form-check">
+            <%= f.label :ベビーチェアー付きトイレ %>
+            <%= f.check_box :toilet_with_baby_chair, id:"flexCheckDefault", class:"form-check-input" %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row justify-content-center">
+      <div class="col-8 mt-3">
+        <div>
+          飲食店のオプション選択
+        </div>
+        <div class="d-flex align-content-start flex-wrap r-option-field">
+          <div class="form-check">
+            <%= f.label :たたみのお部屋 %>
+            <%= f.check_box :tatami_room, id:"flexCheckDefault", class:"form-check-input" %>
+          </div>
+
+          <div class="form-check">
+            <%= f.label :個室 %>
+            <%= f.check_box :private_room, id:"flexCheckDefault", class:"form-check-input" %>
+          </div>
+
+          <div class="form-check">
+            <%= f.label :離乳食持ち込み %>
+            <%= f.check_box :baby_food, id:"flexCheckDefault", class:"form-check-input" %>
+          </div>
+
+          <div class="form-check">
+            <%= f.label :ベビーカーで入店 %>
+            <%= f.check_box :stroller_access, id:"flexCheckDefault", class:"form-check-input" %>
+          </div>
+
+          <div class="form-check">
+            <%= f.label :ベビーチェアー %>
+            <%= f.check_box :baby_chair, id:"flexCheckDefault", class:"form-check-input" %>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="row justify-content-center">
       <div class="col-8 mt-3 mb-5">
         <%= f.submit "更新する", class: "btn btn-primary" %>

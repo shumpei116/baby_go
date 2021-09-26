@@ -67,4 +67,4 @@
     - system_spec
 
 ## ER図
-![Baby_Go   ER図](https://user-images.githubusercontent.com/67525034/134581500-da562273-0e8f-4128-a60e-506755db1531.png)
+![Baby_Go ER図](https://user-images.githubusercontent.com/67525034/134800774-6f3bb702-dd3b-486e-b2d5-90cce8ccc3f4.png)

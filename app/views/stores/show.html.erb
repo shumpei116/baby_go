@@ -8,6 +8,9 @@
         <%= render "shared/store_right_info", store: @store %>
       </section>
       <section>
+        <%= render "shared/store_options", store: @store %>
+      </section>
+      <section>
         <%= render "shared/show_store_gmap" %>
       </section>
       <% if user_signed_in? && !current_user.already_reviewed?(@store) %>

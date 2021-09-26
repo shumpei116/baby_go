@@ -109,3 +109,19 @@ background-color: #e6a40f;
     width: 100%;
   }
 }
+
+//　stores/new.html.erb stores/show.html.erb
+.s-option-field {
+  padding: 2rem;
+  background-color: antiquewhite;
+  border-radius: 10px;
+}
+.r-option-field {
+  padding: 2rem;
+  background-color: rgb(140, 213, 255);
+  border-radius: 10px;
+}
+
+.form-check {
+  margin: 0.5rem 1rem 0.5rem 0;
+}

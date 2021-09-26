@@ -50,7 +50,10 @@ class StoresController < ApplicationController
 
   def store_params
     params.require(:store).permit(:name, :introduction, :postcode, :prefecture_code, :city, :url, :image, :image_cache,
-                                  :remove_image)
+                                  :remove_image, :nursing_room, :diaper_changing_area, :hot_water, :stroller_rental,
+                                  :kids_space, :large_space, :height_and_weight_scales, :microwave_oven, :basin,
+                                  :toilet_with_baby_chair, :tatami_room, :private_room, :baby_food, :stroller_access,
+                                  :baby_chair)
   end
 
   def find_store
