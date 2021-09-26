@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_24_051003) do
+ActiveRecord::Schema.define(version: 2021_09_26_030837) do
 
   create_table "favorites", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -49,6 +49,21 @@ ActiveRecord::Schema.define(version: 2021_08_24_051003) do
     t.integer "reviews_count", default: 0, null: false
     t.float "latitude"
     t.float "longitude"
+    t.boolean "nursing_room", default: false
+    t.boolean "diaper_changing_area", default: false
+    t.boolean "hot_water", default: false
+    t.boolean "stroller_rental", default: false
+    t.boolean "kids_space", default: false
+    t.boolean "large_space", default: false
+    t.boolean "height_and_weight_scales", default: false
+    t.boolean "microwave_oven", default: false
+    t.boolean "basin", default: false
+    t.boolean "toilet_with_baby_chair", default: false
+    t.boolean "tatami_room", default: false
+    t.boolean "private_room", default: false
+    t.boolean "baby_food", default: false
+    t.boolean "stroller_access", default: false
+    t.boolean "baby_chair", default: false
     t.index ["city"], name: "index_stores_on_city", unique: true
     t.index ["user_id"], name: "index_stores_on_user_id"
   end
