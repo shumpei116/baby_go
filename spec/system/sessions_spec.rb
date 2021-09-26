@@ -64,7 +64,7 @@ RSpec.describe 'Sessions', type: :system do
     end
   end
 
-  describe 'ゲストユーザーのテスト', forcus: true do
+  describe 'ゲストユーザーのテスト' do
     it 'ゲストログインをクリックするとゲストユーザーでログインでき,アカウントの編集はできないこと' do
       visit root_path
       expect(page).to have_link 'ログイン'

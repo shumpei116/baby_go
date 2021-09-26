@@ -480,4 +480,66 @@ RSpec.describe 'Stores', type: :system do
       end
     end
   end
+
+  describe '施設オプション選択のテスト' do
+    let(:user) { create(:user, name: 'shumpei', email: 'shumpei@example.com') }
+    let(:store) {
+      create(:store, :add_option, name: '東松屋', introduction: '綺麗で広くて使いやすい授乳室がありました', postcode: '1000001',
+                                  prefecture_code: '東京都', city: '千代田区千代田１', user: user)
+    }
+
+    it '施設作成時にチェックしたオプションのみ詳細ページで◎が表示され、編集ページから編集ができること' do
+      sign_in(user)
+      visit new_store_path
+      expect {
+        fill_in '名前',	with: '東松屋'
+        fill_in '施設の紹介',	with: '綺麗で広くて使いやすい授乳室がありました'
+        fill_in '郵便番号',	with: '1000001'
+        select '東京都', from: '都道府県'
+        fill_in '市区町村番地',	with: '千代田区千代田１'
+        fill_in 'URL',	with: 'https://github.com/shumpei116'
+        attach_file 'store[image]', Rails.root.join('spec/factories/image/valid_image.jpg')
+        check 'store[nursing_room]'
+        check 'store[tatami_room]'
+        click_button '施設を登録する'
+        expect(page).to have_selector '.alert-success', text: '施設を登録したよ！ありがとう！'
+      }.to change(Store, :count).by(1)
+      expect have_content '授乳室: ◎'
+      expect have_content 'おむつ交換スペース: ×'
+      expect have_content 'お湯: ×'
+      expect have_content 'ベビーカー貸出: ×'
+      expect have_content 'キッズスペース: ×'
+      expect have_content 'スペース広々: ×'
+      expect have_content '身長体重計: ×'
+      expect have_content '電子レンジ: ×'
+      expect have_content 'シンク・洗面台: ×'
+      expect have_content 'ベビーチェアー付きトイレ: ×'
+      expect have_content 'たたみのお部屋: ◎'
+      expect have_content '個室: ×'
+      expect have_content '離乳食持ち込み: ×'
+      expect have_content 'ベビーカーで入店: ×'
+      expect have_content 'ベビーチェアー: ×'
+
+      click_link '編集'
+      check 'store[nursing_room]'
+      check 'store[hot_water]'
+      check 'store[baby_chair]'
+      click_button '更新する'
+      expect have_content '授乳室: ×'
+      expect have_content 'おむつ交換スペース: ×'
+      expect have_content 'お湯: ◎'
+      expect have_content 'ベビーカー貸出: ×'
+      expect have_content 'キッズスペース: ×'
+      expect have_content 'スペース広々: ×'
+      expect have_content '身長体重計: ×'
+      expect have_content '電子レンジ: ×'
+      expect have_content 'シンク・洗面台: ×'
+      expect have_content 'ベビーチェアー付きトイレ: ×'
+      expect have_content 'たたみのお部屋: ◎'
+      expect have_content '個室: ×'
+      expect have_content '離乳食持ち込み: ×'
+      expect have_content 'ベビーカーで入店: ×'
+      expect have_content 'ベビーチェアー: ◎'
+    end
+  end
 end
