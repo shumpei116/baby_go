@@ -11,24 +11,31 @@ module ApplicationHelper
   def default_meta_tags
     {
       site: 'Baby_Go',
-      title: 'Baby_Go',
-      reverse: true,
-      separator: '|',
-      description: 'Baby_Gpは授乳室やおむつ交換スペースが完備された施設、赤ちゃんと一緒に入れる飲食店などの情報を共有・検索するためのWEBサービスです',
+      description: 'Baby_Goは授乳室やおむつ交換スペースが完備された施設、赤ちゃんと一緒に入れる飲食店などの情報を共有・検索するためのWEBサービスです',
       keywords: 'Baby_Go,ベイビーゴー,赤ちゃんがいても,赤ちゃんと',
+      charset: 'UTF-8',
       canonical: request.original_url,
       noindex: !Rails.env.production?,
+      icon: [
+        { href: asset_pack_url('media/images/home_image.jpg') },
+        { href: asset_pack_url('media/images/home_image.jpg'), rel: 'apple-touch-icon', sizes: '180x180',
+          type: 'image/jpg' }
+      ],
       og: {
-        site_name: 'Baby_Go',
+        site_name: :site,
         title: 'Baby_Go',
-        description: 'Baby_Gpは授乳室やおむつ交換スペースが完備された施設、赤ちゃんと一緒に入れる飲食店などの情報を共有・検索するためのWEBサービスです',
+        description: :description,
         type: 'website',
         url: request.original_url,
-        image: image_pack_tag('media/images/logo.png'),
+        image: asset_pack_url('media/images/og_logo.png'),
         locale: 'ja_JP'
       },
       twitter: {
-        card: 'summary'
+        card: 'summary',
+        site: '@o_shumpei'
+      },
+      fb: {
+        app_id: '1219295798572399'
       }
     }
   end
