@@ -144,6 +144,28 @@ RSpec.describe 'Stores', type: :system do
         end
       end
     end
+
+    describe 'SNSシェアボタンのテスト', js: true do
+      it 'ツイートボタンが表示され、クリックすると別タブでTwitter画面に遷移すること' do
+        expect(page).to have_css '.twitter-share-button'
+        twitter_window = window_opened_by do
+          find('.twitter-share-button').click
+        end
+        within_window twitter_window do
+          expect(page).to have_content 'Twitter'
+        end
+      end
+
+      it 'シェアボタンが表示され、クリックすると別タブでFacebook画面に遷移すること' do
+        expect(page).to have_css '.fb-share-button'
+        facebook_window = window_opened_by do
+          find('.fb-share-button').click
+        end
+        within_window facebook_window do
+          expect(page).to have_content 'Facebook'
+        end
+      end
+    end
   end
 
   describe '一覧ページのテスト' do
