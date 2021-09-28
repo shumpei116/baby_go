@@ -42,6 +42,10 @@ Security/Open:
   Exclude:
     - 'db/seeds.rb'
 
+Metrics/MethodLength:
+  Exclude:
+    - 'app/helpers/application_helper.rb'
+
 Metrics/AbcSize:
   Max: 25
 

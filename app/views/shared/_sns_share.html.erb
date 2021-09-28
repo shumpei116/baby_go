@@ -1,0 +1,31 @@
+<div class="d-flex">
+  <div class="mt-3 mb-1 me-3">
+    <%= link_to "Tweet", "https://twitter.com/share", class:"twitter-share-button", "data-text": :"#{store.name}", "data-hashtags": :"Baby_Go", "data-size": :"large", "data-lang": :"ja" %>
+  </div>
+  <div class="mt-3 mb-1">
+    <div id="fb-root"></div>
+    <div class="fb-share-button" data-href="https://baby-go.jp/" data-layout="button" data-size="large">
+      <%= link_to "シェア", "https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fbaby-go.jp%2F&amp;src=sdkpreparse", class:"fb-xfbml-parse-ignore", target: :_blank %>
+    </div>
+  </div>
+</div>
+
+<script>
+  window.twttr = (function(d, s, id) {
+    let js, fjs = d.getElementsByTagName(s)[0],
+      t = window.twttr || {};
+    if (d.getElementById(id)) return t;
+    js = d.createElement(s);
+    js.id = id;
+    js.src = "https://platform.twitter.com/widgets.js";
+    fjs.parentNode.insertBefore(js, fjs);
+
+    t._e = [];
+    t.ready = function(f) {
+      t._e.push(f);
+    };
+
+    return t;
+  }(document, "script", "twitter-wjs"));
+</script>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v12.0" nonce="ekjPxjHz"></script>

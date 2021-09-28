@@ -56,6 +56,9 @@
 - 星レビュー機能（Ajax・raty.js）
     - ランキング機能
     - レビュー数カウント機能（counter_culture）
+- SNSシェア機能
+    - Twitter
+    - Facebook
 - ページネーション機能（kaminari）
 - 検索機能（ransack）
 
