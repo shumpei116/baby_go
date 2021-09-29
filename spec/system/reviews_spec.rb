@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Reviews', type: :system, js: true do
+RSpec.describe 'Reviews', type: :system, js: true, forcus: true do
   describe '施設詳細ページレビューのテスト' do
     let(:user1) { create(:user, name: 'ちはるママ') }
     let(:user2) { create(:user, name: 'ちあきパパ') }
@@ -95,7 +95,7 @@ RSpec.describe 'Reviews', type: :system, js: true do
 
       context 'フォームの入力が正しいとき' do
         it '投稿に成功すること' do
-          expect(page).to have_content 'ちはるママさんからのメッセージを書いてみてね！'
+          expect(page).to have_content 'ちはるママさんからのレビューを書いてみよう！'
           expect {
             find('#rating').find("img[alt='5']").click
             fill_in 'review_comment',	with: '最高でした'
@@ -124,7 +124,7 @@ RSpec.describe 'Reviews', type: :system, js: true do
         it '投稿フォームが表示されないこと' do
           visit store_path(store)
           expect(page).to have_current_path(store_path(store))
-          expect(page).to_not have_content 'ちはるママさんからのメッセージを書いてみてね！'
+          expect(page).to_not have_content 'ちはるママさんからのレビューを書いてみよう！'
           expect(page).to_not have_selector 'review_comment'
           expect(page).to_not have_button 'レビューを投稿する'
         end
@@ -135,7 +135,7 @@ RSpec.describe 'Reviews', type: :system, js: true do
       it '投稿フォームが表示されないこと' do
         visit store_path(store)
         expect(page).to have_current_path(store_path(store))
-        expect(page).to_not have_content 'ちはるママさんからのメッセージを書いてみてね！'
+        expect(page).to_not have_content 'ちはるママさんからのレビューを書いてみよう！'
         expect(page).to_not have_selector 'review_comment'
         expect(page).to_not have_button 'レビューを投稿する'
       end
@@ -156,7 +156,7 @@ RSpec.describe 'Reviews', type: :system, js: true do
 
         before do
           visit store_path(store)
-          click_link '修正する'
+          click_link '修正'
         end
 
         it 'タイトルが正しく表示されること' do
@@ -190,7 +190,7 @@ RSpec.describe 'Reviews', type: :system, js: true do
         it '編集ボタンが表示されないこと' do
           visit store_path(store)
           expect(page).to have_current_path(store_path(store))
-          expect(page).to_not have_link '修正する'
+          expect(page).to_not have_link '修正'
         end
       end
     end
@@ -199,7 +199,7 @@ RSpec.describe 'Reviews', type: :system, js: true do
       it '編集ボタンが表示されないこと' do
         visit store_path(store)
         expect(page).to have_current_path(store_path(store))
-        expect(page).to_not have_link '修正する'
+        expect(page).to_not have_link '修正'
       end
     end
   end
@@ -220,7 +220,7 @@ RSpec.describe 'Reviews', type: :system, js: true do
           visit store_path(store)
           expect {
             page.accept_confirm do
-              click_link '削除する'
+              click_link '削除'
             end
             expect(page).to have_selector '.alert-success', text: 'レビューを削除しました'
             expect(page).to have_current_path(store_path(store))
@@ -232,7 +232,7 @@ RSpec.describe 'Reviews', type: :system, js: true do
         it '削除ボタンが表示されないこと' do
           visit store_path(store)
           expect(page).to have_current_path(store_path(store))
-          expect(page).to_not have_link '削除する'
+          expect(page).to_not have_link '削除'
         end
       end
     end
@@ -241,7 +241,7 @@ RSpec.describe 'Reviews', type: :system, js: true do
       it '削除ボタンが表示されないこと' do
         visit store_path(store)
         expect(page).to have_current_path(store_path(store))
-        expect(page).to_not have_link '削除する'
+        expect(page).to_not have_link '削除'
       end
     end
   end
