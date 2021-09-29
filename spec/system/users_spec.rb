@@ -150,7 +150,7 @@ RSpec.describe 'Users', type: :system do
         before do
           visit user_path(user)
           click_link 'いいねした施設'
-          expect(page).to have_selector 'h4', text: 'shumpeiさんがいいねした施設の一覧'
+          expect(page).to have_selector 'h1', text: 'shumpeiさんがいいねした施設の一覧'
         end
 
         it 'ユーザーがいいねした施設が全て表示されていること' do

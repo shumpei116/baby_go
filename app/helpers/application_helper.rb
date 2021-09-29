@@ -17,9 +17,9 @@ module ApplicationHelper
       canonical: request.original_url,
       noindex: !Rails.env.production?,
       icon: [
-        { href: asset_pack_url('media/images/home_image.jpg') },
-        { href: asset_pack_url('media/images/home_image.jpg'), rel: 'apple-touch-icon', sizes: '180x180',
-          type: 'image/jpg' }
+        { href: asset_pack_url('media/images/og_logo.png') },
+        { href: asset_pack_url('media/images/og_logo.png'), rel: 'apple-touch-icon', sizes: '180x180',
+          type: 'image/png' }
       ],
       og: {
         site_name: :site,

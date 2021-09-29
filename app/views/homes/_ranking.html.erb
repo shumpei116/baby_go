@@ -2,8 +2,8 @@
   <% stores.each_with_index do |store,index| %>
     <div class="store-card col-12 col-md-4">
       <div class="card store-<%= index + 1 %> shadow bg-white rounded my-3 my-md-5">
-        <div class="card-rank text-center my-3 fw-bold">
-          <%= "第#{index+1}位"%>
+        <div class="text-center my-1">
+          <%= image_pack_tag("media/images/home_rank_#{index + 1}.png", size: "130x80", alt: "ランキング#{index + 1}位画像")%>
         </div>
         <%= link_to store_path(store) do %>
           <%= image_tag(store.image.url,class:"card-img-top img-thumbnail", alt: "施設画像-#{index + 1}") %>

@@ -1,22 +1,31 @@
 <% provide(:title, "#{@user.name}のページ") %>
 
 <div class="container my-5">
-  <section class="card border-warning mb-3">
-    <div class="row g-0">
+  <section class="card border-warning p-3 pb-0 mb-3">
+    <div class="row">
       <div class="col-md-4">
-        <%= image_tag(@user.avatar.medium_thumb.url, class:"m-3 img-fluid img-thumbnail", alt:"ユーザー画像") %>
+        <%= image_tag(@user.avatar.medium_thumb.url, class:"img-fluid img-thumbnail mx-auto d-block", alt:"ユーザー画像") %>
       </div>
       <div class="col-md-8">
         <div class="card-body d-grid gap-2">
-          <h1 class="card-title h5">名前：<%= @user.name %></h1>
-          <p class="card-text card-introduction mb-0">自己紹介：
-          <% if @user.introduction.present? %>
-            <%= @user.introduction %></p>
-          <% else %>
-            -
-          <% end %>
+          <h1 class="card-title h5">
+            <i class="fas fa-user-circle"></i>
+            名前：<%= @user.name %>
+          </h1>
+          <p class="card-text card-introduction mb-0">
+            <i class="fas fa-signature"></i>
+            自己紹介：
+            <% if @user.introduction.present? %>
+              <%= @user.introduction %>
+            <% else %>
+              -
+            <% end %>
+          </p>
           <% if @user == current_user%>
-            <p class="card-text card-email mb-0">メールアドレス：<%= @user.email%></p>
+            <p class="card-text card-email mb-0">
+              <i class="fas fa-envelope-open"></i>
+              メールアドレス：<%= @user.email%>
+              </p>
             <%= link_to "編集", edit_user_registration_path, class:"btn btn-warning mt-3" %>
           <% end %>
         </div>
@@ -26,10 +35,10 @@
 
   <section class="mt-5 row">
     <ul class="nav nav-tabs" id="myTab" role="tablist">
-      <li class="nav-item col-6 col-sm-3" role="presentation">
+      <li class="nav-item col-6 col-md-3" role="presentation">
         <%= link_to "投稿した施設", "#store_index", class:"nav-link active", "id": :"store_index_tab", "data-bs-toggle": :"tab", "role": :"tab",  "aria-controls": :"store_index", "aria-selected": :"true" %>
       </li>
-      <li class="nav-item col-6 col-sm-3" role="presentation">
+      <li class="nav-item col-6 col-md-3" role="presentation">
         <%= link_to "いいねした施設", "#store_favorite", class:"nav-link", "id": :"store_favorite_tab", "data-bs-toggle": :"tab", "role": :"tab",  "aria-controls": :"store_favorite", "aria-selected": :"false" %>
       </li>
     </ul>

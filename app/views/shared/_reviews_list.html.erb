@@ -1,7 +1,7 @@
 <section id="reviews_list">
   <% reviews.each_with_index do |review, index|%>
     <div class="row justify-content-center">
-      <div class="col-8 mt-3 review-<%= index + 1 %>">
+      <div class="col-12 col-md-8 mt-3 review-<%= index + 1 %>">
         <%= review.user.name %>さん
         <div class="card">
           <div class="card-header">
@@ -14,8 +14,8 @@
                 投稿日：<%= l review.created_at, format: :date %>
               </div>
               <% if current_user == review.user %>
-                <%= link_to "修正する", edit_store_review_path(review.store), class:"btn btn-outline-warning btn-sm" %>
-                <%= link_to "削除する", store_review_path(review.store), method: :delete, data: { confirm: "本当に削除しますか？" }, class:"btn btn-outline-danger btn-sm ms-2" %>
+                <%= link_to "修正", edit_store_review_path(review.store), class:"btn btn-outline-warning btn-sm" %>
+                <%= link_to "削除", store_review_path(review.store), method: :delete, data: { confirm: "本当に削除しますか？" }, class:"btn btn-outline-danger btn-sm ms-2" %>
               <% end %>
             </div>
           </div>

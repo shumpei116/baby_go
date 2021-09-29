@@ -9,6 +9,7 @@
       <%= render "select_prefecture_form", q: @q %>
     </div>
   </section>
+
   <% if @stores.present? %>
     <div id ="paginate1" class="paginate-1 mb-3">
       <%= render "shared/paginate", pages: @stores, page_name: "rank_page" %>

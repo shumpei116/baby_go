@@ -7,12 +7,15 @@
         <%= render "shared/store_left_info", store: @store %>
         <%= render "shared/store_right_info", store: @store %>
       </section>
+
       <section>
         <%= render "shared/store_options", store: @store %>
       </section>
+
       <section>
         <%= render "shared/show_store_gmap" %>
       </section>
+
       <% if user_signed_in? && !current_user.already_reviewed?(@store) %>
         <div class="row justify-content-center mt-5">
           <%= render "shared/review_form", review: @review, store: @store %>
@@ -21,7 +24,7 @@
       <hr>
       <div class="row justify-content-center">
         <div class="col-8 mt-5 text-center">
-          <h2><span class="h4 title-border px-4">☆利用したパパママからのメッセージ☆</span></h2>
+          <h2><span class="h4 title-border px-4 lh-base">☆利用したパパママからのメッセージ☆</span></h2>
         </div>
       </div>
       <% if @reviews.present? %>
