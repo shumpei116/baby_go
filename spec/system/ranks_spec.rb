@@ -25,7 +25,7 @@ RSpec.describe 'Ranks', type: :system do
       context '都道府県検索が選択されていないとき' do
         it '全ての施設情報がレビュー平均点順に表示されていること' do
           within '.store-1' do
-            expect(page).to have_selector '.card-rank', text: '第1位'
+            expect(page).to have_selector('img[alt=ランキング1位画像]')
             expect(page).to have_selector('img[alt=施設画像-1]')
             expect(page).to have_selector '.card-title', text: 'あかちゃん本舗'
             expect(page).to have_css ".favorite-#{first_store.id}"
@@ -39,7 +39,7 @@ RSpec.describe 'Ranks', type: :system do
           end
 
           within '.store-2' do
-            expect(page).to have_selector '.card-rank', text: '第2位'
+            expect(page).to have_selector('img[alt=ランキング2位画像]')
             expect(page).to have_selector('img[alt=施設画像-2]')
             expect(page).to have_selector '.card-title', text: 'ベビーレストラン'
             expect(page).to have_css ".favorite-#{second_store.id}"
@@ -53,7 +53,7 @@ RSpec.describe 'Ranks', type: :system do
           end
 
           within '.store-3' do
-            expect(page).to have_selector '.card-rank', text: '第3位'
+            expect(page).to have_selector('img[alt=ランキング3位画像]')
             expect(page).to have_selector('img[alt=施設画像-3]')
             expect(page).to have_selector '.card-title', text: '東松屋'
             expect(page).to have_css ".favorite-#{third_store.id}"
@@ -75,7 +75,7 @@ RSpec.describe 'Ranks', type: :system do
             select '北海道', from: 'q[prefecture_code_cont]'
             click_button '検索'
             within '.store-1' do
-              expect(page).to have_selector '.card-rank', text: '第1位'
+              expect(page).to have_selector('img[alt=ランキング1位画像]')
               expect(page).to have_selector('img[alt=施設画像-1]')
               expect(page).to have_selector '.card-title', text: 'あかちゃん本舗'
               expect(page).to have_css ".favorite-#{first_store.id}"
@@ -89,7 +89,7 @@ RSpec.describe 'Ranks', type: :system do
             end
 
             within '.store-2' do
-              expect(page).to have_selector '.card-rank', text: '第2位'
+              expect(page).to have_selector('img[alt=ランキング2位画像]')
               expect(page).to have_selector('img[alt=施設画像-2]')
               expect(page).to have_selector '.card-title', text: '東松屋'
               expect(page).to have_css ".favorite-#{third_store.id}"
