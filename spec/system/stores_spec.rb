@@ -372,6 +372,69 @@ RSpec.describe 'Stores', type: :system do
         end
       end
     end
+
+    describe 'スクロールボタンのテスト', js: true do
+      let!(:stores) {
+        create_list(:store, 10, :rated1, name: 'あかちゃん本舗', introduction: '綺麗な授乳室でした', postcode: '1111111',
+                                         prefecture_code: '北海道', user: user1)
+      }
+
+      context '画面横幅が767px以下のとき' do
+        before do
+          visit stores_path
+          Capybara.current_session.driver.browser.manage.window.resize_to(767, 1200)
+        end
+
+        context '画面スクロールが500px以下のとき' do
+          it 'scrollボタンが表示されないこと' do
+            expect(find('#back', visible: false)).to_not be_visible
+            page.execute_script('window.scroll(0, 500)')
+            sleep 1
+            expect(find('#back', visible: false)).to_not be_visible
+            scrolly = page.evaluate_script('window.pageYOffset')
+            expect(scrolly).to eq(500)
+          end
+        end
+
+        context '画面スクロールが501px以上のとき' do
+          it 'scrollボタンが表示されてクリックするとページ最上部に遷移すること' do
+            expect(find('#back', visible: false)).to_not be_visible
+            page.execute_script('window.scroll(0, 501)')
+            sleep 1
+            scrolly1 = page.evaluate_script('window.pageYOffset')
+            expect(scrolly1).to eq(501)
+            expect(find('#back', visible: false)).to be_visible
+            click_link 'スクロール画像'
+            sleep 1
+            scrolly2 = page.evaluate_script('window.pageYOffset')
+            expect(scrolly2).to eq(0)
+          end
+        end
+      end
+
+      context '画面横幅が768px以上のとき' do
+        before do
+          visit stores_path
+          Capybara.current_session.driver.browser.manage.window.resize_to(768, 1200)
+        end
+
+        it '画面スクロールが500px以下でも501px以上でもscrollボタンが表示されないこと' do
+          expect(find('#back', visible: false)).to_not be_visible
+          page.execute_script('window.scroll(0, 500)')
+          sleep 1
+          expect(find('#back', visible: false)).to_not be_visible
+          scrolly = page.evaluate_script('window.pageYOffset')
+          expect(scrolly).to eq(500)
+
+          expect(find('#back', visible: false)).to_not be_visible
+          page.execute_script('window.scroll(0, 501)')
+          sleep 1
+          expect(find('#back', visible: false)).to_not be_visible
+          scrolly = page.evaluate_script('window.pageYOffset')
+          expect(scrolly).to eq(501)
+        end
+      end
+    end
   end
 
   describe '施設編集のテスト' do
