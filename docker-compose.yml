@@ -44,6 +44,8 @@ services:
       - .:/myapp:cached
     ports:
       - '3035:3035'
+    depends_on:
+      - db
 
 volumes:
   mysql_data: #名前付きボリュームの登録
