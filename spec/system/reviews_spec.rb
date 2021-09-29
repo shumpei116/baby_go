@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Reviews', type: :system, js: true, forcus: true do
+RSpec.describe 'Reviews', type: :system, js: true do
   describe '施設詳細ページレビューのテスト' do
     let(:user1) { create(:user, name: 'ちはるママ') }
     let(:user2) { create(:user, name: 'ちあきパパ') }
