@@ -40,8 +40,11 @@ background-color: #e6a40f;
 }
 
 // フッター
-.footer-color {
+.footer {
 background-color: #e6a40f;
+  span {
+    color: #ffffff;
+  }
 }
 
 // top.html.erb
