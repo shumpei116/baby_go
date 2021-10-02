@@ -20,6 +20,14 @@ RSpec.describe 'Stores', type: :system do
         expect(page).to have_field '市区町村番地', with: '千代田区千代田'
       end
 
+      it '施設紹介フォームの残り文字数が入力文字数に連動して変化すること' do
+        expect(page).to have_selector '.js-text-count', text: '残り140文字'
+        fill_in '施設の紹介', with: 'a' * 140
+        expect(page).to have_selector '.js-text-count', text: '残り0文字'
+        fill_in '施設の紹介', with: 'a' * 150
+        expect(page).to have_selector '.js-text-count', text: '残り-10文字'
+      end
+
       context 'フォームの入力値が正しいとき' do
         it '施設の登録に成功すること' do
           expect {
@@ -467,6 +475,14 @@ RSpec.describe 'Stores', type: :system do
           fill_in '郵便番号', with: '1000001'
           expect(page).to have_select('都道府県', selected: '東京都')
           expect(page).to have_field '市区町村番地', with: '千代田区千代田'
+        end
+
+        it '施設紹介フォームの残り文字数が入力文字数に連動して変化すること', js: true do
+          expect(page).to have_selector '.js-text-count', text: '残り140文字'
+          fill_in '施設の紹介', with: 'a' * 140
+          expect(page).to have_selector '.js-text-count', text: '残り0文字'
+          fill_in '施設の紹介', with: 'a' * 150
+          expect(page).to have_selector '.js-text-count', text: '残り-10文字'
         end
 
         context 'フォームの入力値が正しいとき' do
