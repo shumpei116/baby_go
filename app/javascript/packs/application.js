@@ -15,6 +15,7 @@ import 'src/raty'
 import 'src/jquery.jpostal'
 require.context("../images", true)
 import 'src/scroll'
+import 'src/countLength'
 
 Rails.start()
 ActiveStorage.start()

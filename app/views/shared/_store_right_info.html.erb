@@ -8,7 +8,7 @@
   </div>
   <%= render "shared/sns_share", store: @store %>
   <div class= "table-responsive">
-    <table class="table table-borderless">
+    <table class="table">
       <tbody>
         <tr>
           <th scope="row">施設名:</th>
@@ -19,16 +19,12 @@
           <td><%= @store.introduction %></td>
         </tr>
         <tr>
-          <th scope="row">施設URL:</th>
+          <th scope="row"><i class="fas fa-map-marker-alt"></i>住所:</th>
+          <td colspan="2">〒<%= @store.postcode %> <%= @store.address%></td>
+        </tr>
+        <tr>
+          <th scope="row">URL:</th>
           <td><%= link_to @store.url, @store.url, target: :_blank %></td>
-        </tr>
-        <tr>
-          <th scope="row">住所:</th>
-          <td colspan="2">〒<%= @store.postcode %></td>
-        </tr>
-        <tr>
-          <th scope="row"></th>
-          <td colspan="2"><%= @store.address%></td>
         </tr>
       </tbody>
     </table>

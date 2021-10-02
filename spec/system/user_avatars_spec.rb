@@ -17,7 +17,7 @@ RSpec.describe 'UserAvatars', type: :system do
           click_button 'アカウントを変更する'
           expect(page).to have_current_path(user_path(user))
           expect(page).to have_content 'アカウント情報を変更しました'
-          expect(page).to have_selector("img[src$='medium_thumb_valid_image.jpg']")
+          expect(page).to have_selector("img[src$='thumb_valid_image.jpg']")
         end
       end
 
@@ -38,7 +38,7 @@ RSpec.describe 'UserAvatars', type: :system do
           click_button 'アカウントを変更する'
           expect(page).to have_current_path(user_path(user))
           expect(page).to have_content 'アカウント情報を変更しました'
-          expect(page).to have_selector("img[src$='medium_thumb_5MB_image.jpg']")
+          expect(page).to have_selector("img[src$='thumb_5MB_image.jpg']")
         end
       end
 
@@ -56,7 +56,7 @@ RSpec.describe 'UserAvatars', type: :system do
     describe '画像表示と削除のテスト' do
       context 'ユーザー画像が設定されていないとき' do
         it 'デフォルト画像が表示されること' do
-          expect(page).to have_selector("img[src$='medium_thumb_default.jpg']")
+          expect(page).to have_selector("img[src$='thumb_default.jpg']")
         end
 
         it '画像削除のチェックボックスが表示されないこと' do
@@ -70,7 +70,7 @@ RSpec.describe 'UserAvatars', type: :system do
         let(:user) { create(:user, :with_avatar) }
 
         it '設定した画像が表示されること' do
-          expect(page).to have_selector("img[src$='medium_thumb_valid_image.jpg']")
+          expect(page).to have_selector("img[src$='thumb_valid_image.jpg']")
         end
 
         it 'ユーザー画像を削除できること' do
@@ -79,7 +79,7 @@ RSpec.describe 'UserAvatars', type: :system do
           click_button 'アカウントを変更する'
           expect(page).to have_current_path(user_path(user))
           expect(page).to have_content 'アカウント情報を変更しました'
-          expect(page).to have_selector("img[src$='medium_thumb_default.jpg']")
+          expect(page).to have_selector("img[src$='thumb_default.jpg']")
         end
       end
     end

@@ -87,6 +87,23 @@ RSpec.describe User, type: :model do
     end
   end
 
+  describe '自己紹介のテスト' do
+    context '140文字以下の時' do
+      it '有効であること' do
+        user = build(:user, introduction: 'a' * 140)
+        expect(user).to be_valid
+      end
+    end
+
+    context '141文字以上の時' do
+      it '無効であること' do
+        user = build(:user, introduction: 'a' * 141)
+        user.valid?
+        expect(user.errors[:introduction]).to include('は140文字以内で入力してね')
+      end
+    end
+  end
+
   describe 'パスワードのテスト' do
     it 'パスワードがないときは無効であること' do
       user = build(:user, password: nil)
