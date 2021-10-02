@@ -10,10 +10,13 @@ RSpec.describe 'Reviews', type: :system, js: true do
     let!(:review2) { create(:review, store: store, user: user2, rating: 4.5, comment: 'とってもよかったです') }
     let!(:other_review) { create(:review, store: other_store, comment: '最高でした') }
 
-    describe '表示のテスト' do
-      context 'レビューが投稿されているとき' do
-        it '施設詳細ページにその施設のレビューのみ全て表示されること' do
+    describe '表示とリンクのテスト' do
+      context 'レビューが投稿されているとき', forcus: true do
+        before do
           visit store_path(store)
+        end
+
+        it '施設詳細ページにその施設のレビューのみ全て表示されること' do
           expect(page).to have_current_path(store_path(store))
           expect(page).to have_selector 'h2', text: '利用したパパママからのメッセージ'
           expect(page).to_not have_content '最高でした'
@@ -31,6 +34,12 @@ RSpec.describe 'Reviews', type: :system, js: true do
             expect(page).to have_content 'まあまあでした'
             expect(find("#store_rate#{review1.id}").find('input', visible: false).value).to eq '2'
           end
+        end
+
+        it '投稿者名をクリックするとユーザー詳細ページへ遷移すること' do
+          click_link 'ちあきパパ'
+          expect(page).to have_current_path(user_path(user2))
+          expect(page).to have_selector 'h1', text: 'ちあきパパ'
         end
       end
 
