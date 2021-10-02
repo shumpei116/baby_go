@@ -54,6 +54,14 @@ RSpec.describe 'Registrations', type: :system do
       expect(page).to have_title 'アカウントの編集 - Baby_Go'
     end
 
+    it '自己紹介フォームの残り文字数が入力文字数に連動して変化すること', js: true do
+      expect(page).to have_selector '.js-text-count', text: '残り140文字'
+      fill_in '自己紹介', with: 'a' * 140
+      expect(page).to have_selector '.js-text-count', text: '残り0文字'
+      fill_in '自己紹介', with: 'a' * 150
+      expect(page).to have_selector '.js-text-count', text: '残り-10文字'
+    end
+
     context 'フォームの入力値が正しいとき' do
       it 'ユーザーの編集に成功すること' do
         fill_in '名前', with: 'chiharu'

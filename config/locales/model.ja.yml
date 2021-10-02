@@ -29,6 +29,8 @@ ja:
               too_short: "は%{count}文字以上に設定して下さい"
               too_long: "は%{count}文字以内で入力してね"
               invalid: "は有効でありません"
+            introduction:
+              too_long: "は%{count}文字以内で入力してね"
             password:
               taken: "は既に使用されています"
               blank: "を入力してね"
