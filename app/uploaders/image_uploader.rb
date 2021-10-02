@@ -17,10 +17,10 @@ class ImageUploader < CarrierWave::Uploader::Base
     '/images/fallback/' + [version_name, 'default_store.jpeg'].compact.join('_')
   end
 
-  process resize_to_fit: [800, 800]
+  process resize_and_pad: [800, 540, "#ffffff"]
 
   version :thumb do
-    process resize_to_fill: [640, 420, 'Center']
+    process resize_and_pad: [640, 420, "#ffffff"]
   end
 
   def size_range
