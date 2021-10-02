@@ -478,7 +478,7 @@ RSpec.describe 'Stores', type: :system do
         end
 
         it '施設紹介フォームの残り文字数が入力文字数に連動して変化すること', js: true do
-          expect(page).to have_selector '.js-text-count', text: '残り140文字'
+          expect(page).to have_selector '.js-text-count', text: '残り131文字'
           fill_in '施設の紹介', with: 'a' * 140
           expect(page).to have_selector '.js-text-count', text: '残り0文字'
           fill_in '施設の紹介', with: 'a' * 150
