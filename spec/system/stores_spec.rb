@@ -11,7 +11,7 @@ RSpec.describe 'Stores', type: :system do
       end
 
       it 'タイトルが正しく表示されること' do
-        expect(page).to have_title '施設の登録 - Baby_Go'
+        expect(page).to have_title '施設の投稿 - Baby_Go'
       end
 
       it '郵便番号を入力すると都道府県と市区町村番地が自動で入力されること' do
@@ -468,7 +468,7 @@ RSpec.describe 'Stores', type: :system do
         end
 
         it 'タイトルが正しく表示されること' do
-          expect(page).to have_title '施設情報の編集 - Baby_Go'
+          expect(page).to have_title '施設の編集 - Baby_Go'
         end
 
         it '郵便番号を編集すると都道府県と市区町村番地が自動で修正されること', js: true do
