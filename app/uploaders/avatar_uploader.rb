@@ -17,14 +17,10 @@ class AvatarUploader < CarrierWave::Uploader::Base
     "/images/fallback/" + [version_name, "default.jpg"].compact.join('_')
   end
 
-  process resize_to_fit: [800, 800]
+  process resize_and_pad: [800, 540, "#ffffff"]
 
   version :thumb do
-    process resize_and_pad: [300, 200]
-  end
-
-  version :medium_thumb do
-    process resize_and_pad: [250, 167]
+    process resize_and_pad: [400, 270, "#ffffff"]
   end
 
   def size_range
