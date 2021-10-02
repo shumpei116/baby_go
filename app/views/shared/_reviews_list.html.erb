@@ -2,7 +2,7 @@
   <% reviews.each_with_index do |review, index|%>
     <div class="row justify-content-center">
       <div class="col-12 col-md-8 mt-3 review-<%= index + 1 %>">
-        <%= review.user.name %>さん
+        <%= link_to "#{ review.user.name }さん", user_path(review.user), class:"text-decoration-none text-dark" %>
         <div class="card">
           <div class="card-header d-flex">
             <div id="store_rate<%= review.id %>"></div>
