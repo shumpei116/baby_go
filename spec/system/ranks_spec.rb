@@ -23,7 +23,7 @@ RSpec.describe 'Ranks', type: :system do
       end
 
       context '都道府県検索が選択されていないとき' do
-        it '全ての施設情報がレビュー平均点順に表示されていること' do
+        it '全ての施設情報がレビュー平均点順に表示されていること', forcus: true do
           within '.store-1' do
             expect(page).to have_selector('img[alt=ランキング1位画像]')
             expect(page).to have_selector('img[alt=施設画像-1]')
