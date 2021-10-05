@@ -23,7 +23,7 @@ RSpec.describe 'Ranks', type: :system do
       end
 
       context '都道府県検索が選択されていないとき' do
-        it '全ての施設情報がレビュー平均点順に表示されていること' do
+        it '全ての施設情報がレビュー平均点順に表示されていること', forcus: true do
           within '.store-1' do
             expect(page).to have_selector('img[alt=ランキング1位画像]')
             expect(page).to have_selector('img[alt=施設画像-1]')
@@ -213,14 +213,20 @@ RSpec.describe 'Ranks', type: :system do
           visit ranks_path
         end
 
-        it 'ページネーションが2つ表示され2ページ目をクリックすると次ページに遷移すること', js: true do
+        it 'ページネーションが2つ表示され2ページ目をクリックすると次ページに遷移して順位は11位から始まること', js: true do
           expect(page).to have_css '.pagination', count: 2
+          within '.store-1' do
+            expect(page).to have_selector('img[alt=ランキング1位画像]')
+          end
           expect(page).to have_selector '.pagination-count', text: "1-10\n/11件中"
           expect(page).to have_css '.store-card', count: 10
           within '.paginate-1' do
             click_link '2'
           end
           expect(page).to have_css '.pagination', count: 2
+          within '.store-1' do
+            expect(page).to have_content '第11位'
+          end
           expect(page).to have_selector '.pagination-count', text: "11-11\n/11件中"
           expect(page).to have_css '.store-card', count: 1
         end

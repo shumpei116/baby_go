@@ -1,13 +1,9 @@
 <section class="row justify-content-center">
-  <% stores.each_with_index do |store,index| %>
+  <% stores.each_with_index do |store, index| %>
     <div class="store-card col-12 col-md-8">
       <div class="card store-<%= index + 1 %> shadow bg-white rounded my-5">
         <div class="text-center my-3">
-          <% if 0 <= index && index <= 2%>
-            <%= image_pack_tag("media/images/home_rank_#{index + 1}.png", size: "130x80", alt: "ランキング#{index + 1}位画像")%>
-          <% else %>
-            <%= "第#{index+1}位"%>
-          <% end %>
+          <%= check_and_show_rank(@rank_stores, store) %>
         </div>
         <%= link_to store_path(store) do %>
           <%= image_tag(store.image.url,class:"card-img-top img-thumbnail", alt: "施設画像-#{index + 1}") %>

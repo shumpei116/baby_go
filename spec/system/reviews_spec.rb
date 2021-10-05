@@ -11,7 +11,7 @@ RSpec.describe 'Reviews', type: :system, js: true do
     let!(:other_review) { create(:review, store: other_store, comment: '最高でした') }
 
     describe '表示とリンクのテスト' do
-      context 'レビューが投稿されているとき', forcus: true do
+      context 'レビューが投稿されているとき' do
         before do
           visit store_path(store)
         end
