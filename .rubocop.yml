@@ -46,6 +46,10 @@ Metrics/MethodLength:
   Exclude:
     - 'app/helpers/application_helper.rb'
 
+Layout/LineLength:
+  Exclude:
+    - 'spec/helpers/ranks_helper_spec.rb'
+
 Metrics/AbcSize:
   Max: 25
 
