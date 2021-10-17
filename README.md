@@ -37,9 +37,9 @@
 - Google Maps API
 
 ## AWS構成図
-![Baby_Go AWS](https://user-images.githubusercontent.com/67525034/134476101-02908982-56bb-42dd-bfe3-9a97d10f94af.jpg)
+![Baby_Go AWS](https://user-images.githubusercontent.com/67525034/136121954-af981e6d-d8dc-4d6c-9e75-dedb4a372ae4.jpg)
 
-- 費用の関係上冗長化はしていませんが、冗長化を想定して２つのリージョンでの環境構築及びALBの設定をしております
+- まだEC2とRDSの冗長化はしていませんが、今後の冗長化を想定して２つのリージョンを跨いでサブネット・セキュリーグループの作成をしております
 
 ### CircleCI CI/CD
 - Githubへのpush時に自動でRuboCopとRSpecを実行します。
